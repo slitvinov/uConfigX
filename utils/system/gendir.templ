@@ -1,0 +1,42 @@
+# A template for utils/system/gendir.awk
+
+local/panda/pre.sh :
+>#!/bin/bash
+>
+>. local/panda/vars.sh
+
+local/panda/compile.sh :
+>#!/bin/bash
+>
+>. local/panda/vars.sh
+!chmod +x
+
+local/panda/run.sh :
+>#!/bin/bash
+>
+>. local/panda/vars.sh
+!chmod +x
+
+local/panda/setup.sh :
+>#!/bin/bash
+>
+>. local/panda/vars.sh
+!chmod +x
+
+local/panda/patch.sh :
+>#!/bin/bash
+>
+>. local/panda/vars.sh
+!chmod +x
+
+local/panda/vars.sh    :          # Varibales definition for panda.ethz.ch setupt
+local/panda/README.org :          Setup for panda.ethz.ch
+local/README.org :                Setup for different hosts
+post/README.org :                 Postprocessing
+deploy/README.org :               Deliver package to a remote host
+DOE/README.org :                  Design of experiments (DOE)
+archive/README.org :              Archiving the simulation results
+analysis/README.org :             Analysis involving several runs
+utils/ucx/README.org  :           uConfigX backbond scripts
+utils/atest/README.org  :         Testing framework
+utils/system/README.org :         Various utilities
