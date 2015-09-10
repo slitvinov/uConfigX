@@ -1,1 +1,1 @@
-uConfigX backbond scripts
+uConfigX (ucx) backbone scripts
