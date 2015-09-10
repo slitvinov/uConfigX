@@ -1,0 +1,22 @@
+#!/bin/bash
+# ur - (uConfigX run) run command after substitution
+
+set -eu
+
+if test -z ${UCX_PREFIX+x}
+then
+   printf "(utils/ucx/ur)(ERROR) environment variable \`UCX_PREFIX\' is unset. Source utils/ucx/env.sh\n" > "/dev/stderr"
+   exit
+fi
+
+oc=$1
+shift
+
+fst=`us $oc`
+if test $? -eq 0; then
+    echo "(utils/ucx/ur)(executing) $fst" "$@" > "/dev/stderr"
+    "$fst" "$@"
+fi
+
+exit $?
+

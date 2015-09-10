@@ -1,0 +1,8 @@
+atest.awk                   utils/atest/atest.awk
+processor.tmp.cpp           pre/tsdf/processor.tmp.cpp
+sdf2vtk.cpp                 pre/tsdf/sdf2vtk.cpp
+tsdf.awk                    pre/tsdf/tsdf.awk
+alpachio.sh                 DOE/alpatchio/alpachio.sh
+alpachio.awk                DOE/alpatchio/alpachio.awk
+altransformio.generator.awk DOE/alpatchio/altransformio.generator.awk
+altransformio.sh	    DOE/alpatchio/altransformio.sh

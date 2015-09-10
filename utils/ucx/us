@@ -1,0 +1,27 @@
+#!/bin/bash
+# us - (uConfigX substitute) substitute an absolute path based on the
+# definitions in the list
+#
+# To register a new comamnd add a pair after EOF
+
+set -eu
+
+if test -z ${UCX_PREFIX+x}
+then
+    printf "(utils/ucx/us)(ERROR) environment variable \`UCX_PREFIX\' is unset. Source utils/ucx/env.sh\n" > "/dev/stderr"
+    exit -1
+fi
+
+awk '$1=="'$1'"{
+       print "'$UCX_PREFIX/'" $2
+       f=1
+       exit
+     }
+     END {
+       if (!f) {
+           print "(utils/ucx/us)(ERROR) substitution for " "'$1'" " is not found" > "/dev/stderr"
+           exit(3)
+       }
+     }' ${UCX_PREFIX}/utils/ucx/subst.txt
+
+exit $?
