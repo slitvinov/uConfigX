@@ -1,0 +1,4 @@
+A generator for SDF (signed distance function) files
+
+Usage:
+./tsdf.awk examples/sphere2.tsdf  sdf.dat sdf.vti
