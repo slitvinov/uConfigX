@@ -1,5 +1,26 @@
 #!/usr/bin/awk -f
 
+# force numeric
+function fn(x) {
+    return x+0
+}
+
+function decode(key,   sep, aux, ans, nn, i, k) {
+    LINE = ""
+    nn = split(key, aux, SUBSEP)
+    while (1) {
+	if (i>=nn) break
+	k = aux[++i] SUBSEP aux[++i] SUBSEP aux[++i]
+	if (!(k in keys))
+	    return 0
+	else {
+	    sep = LINE ? " " : ""
+	    LINE = LINE sep key2id[k]
+	}
+    }
+    return 1
+}
+
 function s(key,   nn, aux) {
     nn = split(key, aux, SUBSEP)
     return nn
@@ -27,13 +48,45 @@ function nvert(      n) {
 }
 
 END {
-    nv = nvert()
+    printf "# vtk DataFile Version 2.0\n"
+    printf "Generated with unref2vtk.awk\n"
+    printf "ASCII\n"
     printf "DATASET UNSTRUCTURED_GRID\n"
-    printf "POINTS %d float\n", nv
 
+    nv = nvert()
+    printf "POINTS %d float\n", nv
+    # asign ids to points
+    for (key in keys)
+	if (s(key)==3) {
+	    key2xyz(key)
+	    key2id[key] = fn(id++)
+	}
+
+    # print points
     for (key in keys)
 	if (s(key)==3) {
 	    key2xyz(key)
 	    print x, y, z
 	}
+
+    # print triangles
+    cell_block = ""
+    for (key in keys) {
+	if (s(key)==9) {
+	    rc = decode(key)
+	    if (rc) {
+		ntri ++
+		sep = cell_block ? "\n" : ""
+		cell_block = cell_block sep "3 " LINE
+	    }
+	}
+    }
+    printf "\n"
+    printf "CELLS %d %d\n", ntri, 4*ntri
+    print cell_block
+
+    printf "\n"
+    printf "CELL_TYPES %d\n", ntri
+    for (i=1; i<=ntri; i++)
+	printf "5\n"
 }
