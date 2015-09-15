@@ -8,31 +8,44 @@ function tri(id1, id2, id3) {
     printf "ref [id %d]\n", id3
 }
 
-function point(x, y, z, id,    d) {
-    d = sqrt(x^2 + y^2 + z^2)
-    x /= d; y /= d; z /= d
-    printf "def [id %d] [pos %g %g %g]\n", id, x, y, z
+function rotX(phi,    y0, z0) {
+    y0 = y; z0 = z
+
+    y = cos(phi)*y0 - sin(phi)*z0
+    z = sin(phi)*y0 + cos(phi)*z0
+}
+
+function point(xs, ys, zs, id,    d) {
+    d = sqrt(xs^2 + ys^2 + zs^2)
+    x = xs/d; y = ys/d; z = zs/d
+
+    rotX(-3.1415926/4.0 * 0.70)
+    
+    printf "def [id %d] [pos %.12g %.12g %.12g]\n", id, x, y, z
 }
 
 BEGIN {
+    OFMT="%.12g"
 
-    t = (1.0 + sqrt(5.0)) / 2.0
+    # golden ration
+    phi = (1.0 + sqrt(5.0))/2.0
+    print t
     
-    point(-1,  t,  0, id++)
+    point(-1,  phi,  0, id++)
 
-    point( 1,  t,  0, id++)
-    point(-1, -t,  0, id++)
-    point( 1, -t,  0, id++)
+    point( 1,  phi,  0, id++)
+    point(-1, -phi,  0, id++)
+    point( 1, -phi,  0, id++)
 
-    point(0, -1,  t, id++)
-    point(0,  1,  t, id++)
-    point(0, -1, -t, id++)
-    point(0,  1, -t, id++)
+    point(0, -1,  phi, id++)
+    point(0,  1,  phi, id++)
+    point(0, -1, -phi, id++)
+    point(0,  1, -phi, id++)
 
-    point(t,  0, -1, id++)
-    point(t,  0,  1, id++)
-    point(-t,  0, -1, id++)
-    point(-t,  0,  1, id++)
+    point( phi,  0, -1, id++)
+    point( phi,  0,  1, id++)
+    point(-phi,  0, -1, id++)
+    point(-phi,  0,  1, id++)
 
     tri(0, 11, 5)
     tri(0, 5, 1)

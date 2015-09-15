@@ -1,0 +1,28 @@
+def [id A] [pos 0 0 0]
+def [id B] [pos 1 0 1]
+def [id C] [pos 1 1 0]
+def [id D] [pos 0 1 0]
+
+plg [id AB] [n 2]
+ref [id A]
+ref [id B]
+
+plg [id BC] [n 2]
+ref [id B]
+ref [id C]
+
+plg [id CD] [n 2]
+ref [id C]
+ref [id D]
+
+plg [id DA] [n 2]
+ref [id D]
+ref [id A]
+
+plg [id Q] [n 4]
+ref [id AB]
+ref [id BC]
+ref [id CD]
+ref [id DA]
+
+del [id Q]

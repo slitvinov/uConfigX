@@ -1,4 +1,18 @@
 #!/usr/bin/awk -f
+# Usage:
+# ./clean.awk examples/onesurface.trbc | ./unref.awk
+#
+# TEST: unref1
+# ./clean.awk examples/onesurface.trbc | ./unref.awk > unref.out.trbc
+#
+# TEST: unref2
+# ./clean.awk test_data/del.trbc | ./unref.awk > unref.out.trbc
+#
+# TEST: unref3
+# ./clean.awk test_data/quadr.trbc | ./unref.awk > unref.out.trbc
+#
+# TEST: unref4
+# ./clean.awk test_data/quadr_del.trbc | ./unref.awk > unref.out.trbc
 
 function parse_def_id() {
     id = $3
@@ -17,11 +31,17 @@ function parse_ref() {
     key = id2key[id]
 }
 
+function parse_del_id() {
+    id = $3
+    key = id2key[id]
+}
+
 function parse_plg_id(   n, i) {
+    id_plg = $3
     n = $5
     parse_components(n)
     keys[key_plg]++
-    id2key[id] = key_plg
+    id2key[id_plg] = key_plg
 }
 
 function parse_plg_n(   n) {
@@ -29,7 +49,7 @@ function parse_plg_n(   n) {
     parse_components(n)
 }
 
-function parse_components(n,    i) {
+function parse_components(n,    i, sep) {
     key_plg = ""
     for (i=1; i<=n; i++) {
 	getline
@@ -37,11 +57,11 @@ function parse_components(n,    i) {
 	    parse_def_id()
 	else if ($1 == "def" && $2 == "pos")
 	    parse_def_pos()
-	else if ($1 == "ref") {
+	else if ($1 == "ref")
 	    parse_ref()
-	}
-
-	key_plg = key_plg ? (key_plg SUBSEP key) : key
+	sep     = key_plg ? SUBSEP : ""
+	key_plg = key_plg sep key
+	
 	print "def key", key
     }
 }
@@ -81,4 +101,8 @@ $1 == "del" && $2 == "id" {
     parse_del_id()
     print "del key", key
     next
+}
+
+{
+    print
 }

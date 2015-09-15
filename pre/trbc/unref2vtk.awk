@@ -51,7 +51,7 @@ END {
     printf "# vtk DataFile Version 2.0\n"
     printf "Generated with unref2vtk.awk\n"
     printf "ASCII\n"
-    printf "DATASET UNSTRUCTURED_GRID\n"
+    printf "DATASET POLYDATA\n"
 
     nv = nvert()
     printf "POINTS %d float\n", nv
@@ -70,23 +70,18 @@ END {
 	}
 
     # print triangles
-    cell_block = ""
+    polygon_block = ""
     for (key in keys) {
 	if (s(key)==9) {
 	    rc = decode(key)
 	    if (rc) {
 		ntri ++
-		sep = cell_block ? "\n" : ""
-		cell_block = cell_block sep "3 " LINE
+		sep = polygon_block ? "\n" : ""
+		polygon_block = polygon_block sep "3 " LINE
 	    }
 	}
     }
     printf "\n"
-    printf "CELLS %d %d\n", ntri, 4*ntri
-    print cell_block
-
-    printf "\n"
-    printf "CELL_TYPES %d\n", ntri
-    for (i=1; i<=ntri; i++)
-	printf "5\n"
+    printf "POLYGONS %d %d\n", ntri, 4*ntri
+    print polygon_block
 }

@@ -22,6 +22,10 @@ function norm(v,    i, d2, d) {
 	v[i] /= d
 }
 
+BEGIN {
+    OFMT="%.12g"
+}
+
 $1 == "def" && $2 == "key" && s($3)==9 {
     split($3, d, SUBSEP)
     i = 0
@@ -46,7 +50,7 @@ $1 == "def" && $2 == "key" && s($3)==9 {
     print "def key " k(v1)  SUBSEP k(v12) SUBSEP k(v13)
     print "def key " k(v12) SUBSEP k(v2)  SUBSEP k(v23)
     print "def key " k(v13) SUBSEP k(v23)  SUBSEP k(v3)
-    print "def key " k(v12) SUBSEP k(v13)  SUBSEP k(v23)
+    print "def key " k(v12) SUBSEP k(v23) SUBSEP k(v13)  
     next
 }
 
