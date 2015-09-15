@@ -18,6 +18,8 @@ END {
     E2 = sum2/n
     var = E2 - E^2
 
-    printf "#n sum min E max var (max-min)/E\n"
-    print n, sum, min, E, max, var, (max-min)/E
+    printf "#%12s %12s %12s %12s %12s %12s %12s\n",
+	"n", "sum", "min", "E", "max", "sqrt(var)/E", "(max-min)/E"
+    printf " %12g %12g %12g %12g %12g %12g %12g\n",
+	n, sum, min, E, max, sqrt(var)/E, (max-min)/E
 }

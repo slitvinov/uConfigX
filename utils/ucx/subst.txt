@@ -6,3 +6,4 @@ alpachio.sh                 DOE/alpatchio/alpachio.sh
 alpachio.awk                DOE/alpatchio/alpachio.awk
 altransformio.generator.awk DOE/alpatchio/altransformio.generator.awk
 altransformio.sh	    DOE/alpatchio/altransformio.sh
+gcp                         deploy/gcp/gcp

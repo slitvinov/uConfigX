@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# If 
+# If
 # gcp <remote git root> <remote path>
 
 # is being ran from the directory which belongs to a git repository
@@ -15,7 +15,7 @@ function msg() {
 
 if test $# -ne 2
 then
-   msg "(ERRR) require two arguments\n"
+   msg "(ERRR) requires two arguments\n"
    exit
 fi
 

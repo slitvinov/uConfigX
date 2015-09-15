@@ -9,4 +9,4 @@ mkdir -p vtk
 eval "./icosahedron.awk | ./clean.awk | ./unref.awk  | ${refine_cmd}  | ./rbc.awk | ./unref2vtk.awk > vtk/rbc${level}.vtk"
 eval "./icosahedron.awk | ./clean.awk | ./unref.awk  | ${refine_cmd}  | ./rbc.awk | ./unref2normals.awk > vtk/normals${level}.vtk"
 
-eval "./icosahedron.awk | ./clean.awk | ./unref.awk  |                 ./unref2vtk.awk > vtk/sphere${level}.vtk"
+eval "./icosahedron.awk | ./clean.awk | ./unref.awk  | ${refine_cmd}  | ./unref2vtk.awk > vtk/sphere${level}.vtk"

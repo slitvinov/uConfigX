@@ -18,6 +18,7 @@ function norm(v,    i, d2, d) {
 	d2 += v[i]^2
     if (d2==0) return
     d = sqrt(d2)
+    if (d==0) return
     for (i=1; i<=length(v); i++)
 	v[i] /= d
 }
@@ -56,6 +57,7 @@ $1 == "def" && $2 == "key" && s($3)==9 {
 
     # norm
     norm(AB1); norm(AB2); norm(BC1); norm(BC2); norm(CA1); norm(CA2); norm(M)
+
     # def key
     def(AB1); def(AB2); def(BC1); def(BC2); def(CA1); def(CA2); def(M)
 

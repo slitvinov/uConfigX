@@ -1,2 +1,8 @@
-/* subdivide triangle into N^2 equal parts */
+eq1: R = sin(2*%pi/5)*a;
+eq2: A = 5*sqrt(3)*a^2;
+eq3: R = 1;
 
+rfloat(e):=scanmap('float, e);
+solve([eq1, eq2, eq3], [R, a, A]);
+
+rfloat(%);
