@@ -8,8 +8,4 @@ tmp_d_file=`mktemp /tmp/batch0.XXXX`
 
 ur alcartesio.awk "$CART" > "$tmp_d_file"
 
-cat "$tmp_d_file" | while read pline
-do
-    echo "PLINE: " $pline
-    ur aldriver2.sh $GITROOT $pline
-done
+cat "$tmp_d_file"  | xargs -n1 `us aldriver2.sh` $GITROOT

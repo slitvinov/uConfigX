@@ -6,7 +6,7 @@ default_dir=uConfigX
 rname=test #=rname=%my_dir_name%
 
 # remote host name
-uname=eceva
+uname=lisergey
 rhost="${uname}"@daint
 
 # remote path name
