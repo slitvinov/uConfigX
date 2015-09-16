@@ -4,7 +4,6 @@
 
 # Usage:
 #  ./aldriver2.sh <source directory> <parameter_line>
-set -eu
 . utils/ucx/env.sh
 
 source_directory=$1
