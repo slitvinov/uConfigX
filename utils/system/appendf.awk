@@ -3,11 +3,10 @@
 # Add $1 to the content of the input file
 
 BEGIN {
-    prefix = ARGV[1]
-    ARGV[1] = ""
+    # pass prefix as a variable
 }
 
-{
+NF {
     printf "%s", sep prefix $0
     sep = " "
 }
