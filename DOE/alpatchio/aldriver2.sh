@@ -39,8 +39,8 @@ function create_case() {
     msg "config file: $alpachio_config"
     ur allineario.awk "$1" > "$alpachio_config"
 
-#    ur alpachio.sh "$alpachio_config" \
-#		  `ur appendf.awk "" "$SUBST_FILE"`
+    ur alpachio.sh "$alpachio_config" \
+		  `ur appendf.awk "" "$SUBST_FILE"`
     run_case
 }
 
