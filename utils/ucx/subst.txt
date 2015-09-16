@@ -2,8 +2,13 @@ atest.awk                   utils/atest/atest.awk
 processor.tmp.cpp           pre/tsdf/processor.tmp.cpp
 sdf2vtk.cpp                 pre/tsdf/sdf2vtk.cpp
 tsdf.awk                    pre/tsdf/tsdf.awk
+allineario.awk 		    DOE/alpatchio/allineario.awk
 alpachio.sh                 DOE/alpatchio/alpachio.sh
 alpachio.awk                DOE/alpatchio/alpachio.awk
+alcartesio.awk              DOE/alpatchio/alcartesio.awk
 altransformio.generator.awk DOE/alpatchio/altransformio.generator.awk
 altransformio.sh	    DOE/alpatchio/altransformio.sh
+aldriver2.sh      	    DOE/alpatchio/aldriver2.sh
 gcp                         deploy/gcp/gcp
+append.awk 		    utils/system/append.awk
+appendf.awk 		    utils/system/appendf.awk

@@ -4,8 +4,8 @@
 
 # Usage:
 #  ./aldriver2.sh <source directory> <parameter_line>
-
 set -eu
+. utils/ucx/env.sh
 
 source_directory=$1
 parameter_line=$2
@@ -28,7 +28,7 @@ test -d "$source_directory" || \
 
 function run_case() {
     (cd "$tmp_source_directory"
-     bash configs/setup_daint.sh)
+     sh -x $DEPLOY_CMD)
 }
 
 function create_case() {
@@ -37,12 +37,12 @@ function create_case() {
     cp -r "$source_directory" "$tmp_source_directory"
 
     msg "config file: $alpachio_config"
-    ./allineario.awk "$1" > "$alpachio_config"
+    ur allineario.awk "$1" > "$alpachio_config"
 
-    ./alpachio.sh "$alpachio_config" \
-		  "$tmp_source_directory"/configs/setup_daint.sh \
-		  "$tmp_source_directory"/mpi-dpd/common.h
+#    ur alpachio.sh "$alpachio_config" \
+#		  `ur appendf.awk "" "$SUBST_FILE"`
     run_case
 }
 
 create_case "$parameter_line"
+
