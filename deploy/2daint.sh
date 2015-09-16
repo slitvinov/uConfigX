@@ -19,4 +19,4 @@ rt () {
     ssh "${rhost}" "cd ${rpath}/${default_dir} ; $@"
 }
 
-rt local/daint/setup.sh
+#rt local/daint/setup.sh
