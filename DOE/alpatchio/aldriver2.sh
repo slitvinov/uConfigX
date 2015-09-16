@@ -36,13 +36,14 @@ function create_case() {
     test -d "$tmp_source_directory" && rm -rf "$tmp_source_directory"
     cp -r "$source_directory" "$tmp_source_directory"
 
-    msg "config file: $alpachio_config"
-    ur allineario.awk "$1" > "$alpachio_config"
-
-    ur alpachio.sh "$alpachio_config" \
-		  `ur appendf.awk "" "$SUBST_FILE"`
-    run_case
+    (cd "$tmp_source_directory"
+     msg "config file: $alpachio_config"
+     ur allineario.awk "$1" > "$alpachio_config"
+     
+     ur alpachio.sh "$alpachio_config" \
+	`ur appendf.awk "" "$SUBST_FILE"`
+     run_case
+    )
 }
 
 create_case "$parameter_line"
-

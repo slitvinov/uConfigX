@@ -63,8 +63,10 @@ function create_file_list_submodule() {
     submod_list=`find . -name .gitmodules | xargs awk '/path = / {gsub("^[^=]*=[ ]*", ""); print}'`
     for sm in ${submod_list}; do
 	msg "Appending a list of all staged files in submodule %s\n" "$sm"
-	cd "$sm"
-	"${GIT}" ls-files --cached --full-name | awk '{print "'"$sm/"'"$0}' >> "${file_list}"
+	(
+	    cd "$sm"
+	    "${GIT}" ls-files --cached --full-name | awk '{print "'"$sm/"'"$0}' >> "${file_list}"
+	 )
     done
 }
 
@@ -80,8 +82,12 @@ function copy_directory_structure() {
 
 function copy_staged_files() {
     msg "Copy staged files to %s\n" "${local_target}"
-    while read fname; do
-	test -f "${fname}" && cp -- "${fname}" "${local_target}/${fname}"
+    while read fname
+    do
+	if test -f "${fname}"
+	then
+	    cp -- "${fname}" "${local_target}/${fname}"
+	fi
     done < "${file_list}"
 }
 

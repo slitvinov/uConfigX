@@ -3,7 +3,7 @@
 . utils/ucx/env.sh
 
 default_dir=uConfigX
-rname=#=rname=%my_dir_name%
+rname=test #=rname=%my_dir_name%
 
 # remote host name
 uname=eceva
