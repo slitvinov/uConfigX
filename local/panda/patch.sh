@@ -10,5 +10,6 @@
 (
     cd uDeviceX/mpi-dpd
     patch < ../../local/panda/mpi-dpd-main.cu.patch
+#    patch < ../../local/panda/mpi-dpd-common.h.patch
 )
 

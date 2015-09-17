@@ -14,7 +14,7 @@ ZSIZE_SUBDOMAIN=48
 xranks=1
 yranks=1
 zranks=1
-tend=50
+tend=500
 
-args="$xranks $yranks $zranks -tend=$tend -pushtheflow -walls -wall_creation_stepid=1 \
+args="$xranks $yranks $zranks -tend=$tend -pushtheflow -walls -wall_creation_stepid=1000 \
        -steps_per_dump=1000 dump_scalarfield -hdf5field_dumps"
