@@ -1,0 +1,5 @@
+extent     48 48 48
+N          96
+obj_margin 3.0
+
+cylinder axis 0 0 1 point xc yc zc radius Lx/4

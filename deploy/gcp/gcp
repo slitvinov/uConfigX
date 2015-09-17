@@ -25,7 +25,7 @@ cpy_args="-q -r -avz"
 
 # git command
 GIT=${GIT:-git}
-GITFLAGS="--depth 1 --recursive"
+GITFLAGS="--depth 1"
 
 # default git root directory name on a remote host
 default_dir=$1
@@ -51,7 +51,12 @@ revid=`"${GIT}" rev-parse HEAD`
 
 msg "Current branch: %s\n" "${branch}"
 "${GIT}" clone ${GITFLAGS} -b "${branch}" -- file://"${top}" "${local_target}"
-msg "Current id    : %s\n" "${revid}"
+(
+    cd "${local_target}"
+    # --depth 1
+    git submodule update
+)
+
 
 msg "Create a list of all staged files: %s\n" "${file_list}"
 

@@ -14,7 +14,7 @@ alpachio_config=`mktemp /tmp/alpachio.XXXX`
 cart_list=`mktemp /tmp/cartlist.XXXX`
 
 function msg() {
-    printf "(aldriver.sh) %s\n" "$@"
+    printf "(aldriver2.sh) %s\n" "$@"
 }
 
 function err() {
