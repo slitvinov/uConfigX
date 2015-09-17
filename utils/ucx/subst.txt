@@ -12,3 +12,11 @@ aldriver2.sh      	    DOE/alpatchio/aldriver2.sh
 gcp                         deploy/gcp/gcp
 append.awk 		    utils/system/append.awk
 appendf.awk 		    utils/system/appendf.awk
+
+av_and_reduce.awk           post/hdf5/av_and_reduce.awk
+av_and_reduce.sh            post/hdf5/av_and_reduce.sh
+av_and_reduce.py            post/hdf5/av_and_reduce.py
+
+av.awk           	    post/hdf5/av.awk
+av.sh            	    post/hdf5/av.sh
+av.py            	    post/hdf5/av.py
