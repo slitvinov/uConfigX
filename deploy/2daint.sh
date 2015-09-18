@@ -6,11 +6,11 @@ default_dir=uConfigX
 rname=test #=rname=%my_dir_name%
 
 # remote host name
-uname=lisergey
+uname=eceva
 rhost="${uname}"@daint
 
 # remote path name
-rpath=/scratch/daint/"${uname}"/RBCstretcing/"${rname}"
+rpath=/scratch/daint/"${uname}"/cylinder/"${rname}"
 
 ur gcp "${default_dir}" "${rhost}":"${rpath}"
 
@@ -19,4 +19,11 @@ rt () {
     ssh "${rhost}" "cd ${rpath}/${default_dir} ; $@"
 }
 
+post() {
+    echo "mkdir -p ${rname} ; rsync -r -avz ${rhost}:${rpath}/${default_dir}/uDevice/mpi-dpd/h5/* ${rname}" >> ~/cylinder_rsync.sh
+    echo "${rname}"                                                                                         >> ~/cylinder_local.list
+    echo "${rhost}:${rpath}/${default_dir}"                                                                 >> ~/cylinder_remote.list
+}
+
 rt local/daint/setup.sh
+post

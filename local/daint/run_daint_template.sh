@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name="rbc_stretching"
+#SBATCH --job-name="cylinder"
 #SBATCH --time=00:10:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
