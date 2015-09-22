@@ -20,3 +20,6 @@ av_and_reduce.py            post/hdf5/av_and_reduce.py
 av.awk           	    post/hdf5/av.awk
 av.sh            	    post/hdf5/av.sh
 av.py            	    post/hdf5/av.py
+
+cell-placement0.awk	    pre/cell-distribution/cell-placement0.awk
+cell-placement1.awk	    pre/cell-distribution/cell-placement1.awk

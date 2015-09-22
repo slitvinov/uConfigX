@@ -14,7 +14,11 @@ ZSIZE_SUBDOMAIN=48
 xranks=1
 yranks=1
 zranks=1
-tend=500
+tend=5000
+wall_creation_stepid=1000
 
-args="$xranks $yranks $zranks -tend=$tend -pushtheflow -walls -wall_creation_stepid=1000 \
-       -steps_per_dump=1000 dump_scalarfield -hdf5field_dumps"
+# rotate initial RBC configuration around OX
+phix=1.570796326794897
+
+args="$xranks $yranks $zranks -tend=$tend -pushtheflow -walls -wall_creation_stepid=$wall_creation_stepid \
+       -rbcs -steps_per_dump=1000 dump_scalarfield -hdf5field_dumps"

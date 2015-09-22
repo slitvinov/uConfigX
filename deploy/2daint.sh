@@ -10,7 +10,7 @@ uname=eceva
 rhost="${uname}"@daint
 
 # remote path name
-rpath=/scratch/daint/"${uname}"/cylinder/"${rname}"
+rpath=/scratch/daint/"${uname}"/bigcyl_MORErbcs/"${rname}"
 
 ur gcp "${default_dir}" "${rhost}":"${rpath}"
 
@@ -20,9 +20,9 @@ rt () {
 }
 
 post() {
-    echo "mkdir -p ${rname} ; rsync -r -avz ${rhost}:${rpath}/${default_dir}/uDevice/mpi-dpd/h5/* ${rname}" >> ~/cylinder_rsync.sh
-    echo "${rname}"                                                                                         >> ~/cylinder_local.list
-    echo "${rhost}:${rpath}/${default_dir}"                                                                 >> ~/cylinder_remote.list
+    echo "mkdir -p ${rname} ; rsync -r -avz ${rhost}:${rpath}/${default_dir}/uDeviceX/mpi-dpd/* ${rname}"    >> ~/bigcyl_MORErbcs_rsync.sh
+    echo "${rname}"                                                                                         >> ~/bigcyl_MORErbcs_local.list
+    echo "${rhost}:${rpath}/${default_dir}"                                                                 >> ~/bigcyl_MORErbcs_remote.list
 }
 
 rt local/daint/setup.sh
