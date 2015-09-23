@@ -1,4 +1,4 @@
 [submodule "uDeviceX"]
 	path = uDeviceX
-	url = https://github.com/lina-kulakova/uDeviceX.git
-	branch = kulina/stretching
+	url = https://github.com/aecon/uDeviceX.git
+	branch = 5rbcs
