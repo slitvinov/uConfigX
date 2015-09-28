@@ -2,8 +2,30 @@ atest.awk                   utils/atest/atest.awk
 processor.tmp.cpp           pre/tsdf/processor.tmp.cpp
 sdf2vtk.cpp                 pre/tsdf/sdf2vtk.cpp
 tsdf.awk                    pre/tsdf/tsdf.awk
+allineario.awk 		    DOE/alpatchio/allineario.awk
 alpachio.sh                 DOE/alpatchio/alpachio.sh
 alpachio.awk                DOE/alpatchio/alpachio.awk
+alcartesio.awk              DOE/alpatchio/alcartesio.awk
 altransformio.generator.awk DOE/alpatchio/altransformio.generator.awk
 altransformio.sh	    DOE/alpatchio/altransformio.sh
+aldriver2.sh      	    DOE/alpatchio/aldriver2.sh
 gcp                         deploy/gcp/gcp
+append.awk 		    utils/system/append.awk
+appendf.awk 		    utils/system/appendf.awk
+
+refine.awk		    pre/trbc/refine.awk
+refine2.awk		    pre/trbc/refine2.awk
+refine3.awk		    pre/trbc/refine3.awk
+icosahedron.awk		    pre/trbc/icosahedron.awk
+clean.awk		    pre/trbc/clean.awk
+unref.awk		    pre/trbc/unref.awk
+unref2vba.awk		    pre/trbc/unref2vba.awk
+
+unref2bstats.awk	    pre/trbc/unref2bstats.awk
+unref2vstats.awk	    pre/trbc/unref2vstats.awk
+unref2stats.awk		    pre/trbc/unref2stats.awk
+
+rbc2trbc.awk		    pre/trbc/rbc2trbc.awk
+sum.awk			    pre/trbc/sum.awk
+mean.awk		    pre/trbc/mean.awk
+var.awk			    pre/trbc/var.awk

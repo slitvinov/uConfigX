@@ -13,6 +13,8 @@
 # ./alpachio.sh test_data/alpatchi1.config common.tmp.cpp
 # cp common.tmp.cpp       common.out.cpp
 
+set -x
+
 config=$1
 shift
 

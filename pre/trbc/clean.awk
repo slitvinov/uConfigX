@@ -1,5 +1,7 @@
 #!/usr/bin/awk -f
 
+# Remove comments and empyt lines from "trbc" file
+
 {
     sub(/#.*/, "")         # strip comments
 }

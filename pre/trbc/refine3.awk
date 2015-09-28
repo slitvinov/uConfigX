@@ -1,4 +1,5 @@
 #!/usr/bin/awk -f
+# refine by splitting every edge into tree
 
 function s(key,   nn, aux) {
     nn = split(key, aux, SUBSEP)
@@ -39,13 +40,27 @@ function def3(k1, k2, k3) {
 function abs(x)  { return x<0?x*-1:x;}
 function acos(x) { return atan2(sqrt(abs(1-x*x)), x) }
 
-function dot(A, B,   ans) {
+function vabs(A) { return sqrt(dot(A, A)) }
+function vsq(A)  { return dot(A, A) }
+
+function dot(A, B,   j, ans) {
     for (j=1; j<=3; j++)
 	ans += A[j]*B[j]
     return ans
 }
 
-function trisectEdge(A, B, AB1, AB2,   dp, alp, denom, c1, c2) {
+function cp(A, B, C) { # cross product in 3D
+    C[1] =   A[2]*B[3] - A[3]*B[2]
+    C[2] = -(A[1]*B[3] - A[3]*B[1])
+    C[3] =   A[1]*B[2] - A[2]*B[1]
+}
+
+function vminus(A, B, C,    j) { # C = A-B
+    for (j=1; j<=3; j++)
+	C[j] = A[j] - B[j]
+}
+
+function trisectEdge(A, B, AB1, AB2,   dp, alp, denom, c1, c2, j) {
     # Trisects the great circle arc joining A and B
     # See rbfsphere matlab package
     # http://math.boisestate.edu/~wright/montestigliano/NodesGridsMeshesOnSphere.pdf
@@ -61,8 +76,40 @@ function trisectEdge(A, B, AB1, AB2,   dp, alp, denom, c1, c2) {
     }
 }
 
+function circumcenterTri2(P1, P2, P3, M,
+			 P12, P23, P13,
+			 P21, P32, P31,			 
+			 ksi,
+			 denom, al, be, ga, j) {
+    vminus(P1, P2, P12)
+    vminus(P2, P3, P23)
+    vminus(P1, P3, P13)
+
+    vminus(P2, P1, P21)
+    vminus(P3, P2, P32)
+    vminus(P3, P1, P31)
+
+    cp(P12, P23, ksi)
+    denom = 2*vsq(ksi)
+
+    al = vsq(P23) * dot(P12, P13) / denom
+    be = vsq(P13) * dot(P21, P23) / denom
+    ga = vsq(P12) * dot(P31, P32) / denom
+
+    for (j=1; j<=3; j++)
+	M[j] = al*P1[j] + be*P2[j] + ga*P3[j]
+}
+
+function circumcenterTri(P1, P2, P3, M,    j) {
+    for (j=1; j<=3; j++)
+	M[j] = (P1[j] + P2[j] + P3[j])/3.0
+}
+
+
 $1 == "def" && $2 == "key" && s($3)==9 {
     split($3, d, SUBSEP)
+    print "del key", $3
+    
     i = 0
     A[1] = d[++i]; A[2] = d[++i]; A[3] = d[++i]
     B[1] = d[++i]; B[2] = d[++i]; B[3] = d[++i]
@@ -71,15 +118,11 @@ $1 == "def" && $2 == "key" && s($3)==9 {
     trisectEdge(A, B, AB1, AB2)
     trisectEdge(B, C, BC1, BC2)
     trisectEdge(C, A, CA1, CA2)
-
-    for (j=1; j<=3; j++)
-	M[j]   = 1.0/3.0 * (A[j] + B[j] + C[j])
-
-    print "del key", $3
-#    print "M: ", M[1], M[2], M[3] > "/dev/stderr"
+    circumcenterTri(A, B, C, M)
 
     # norm
-    norm(AB1); norm(AB2); norm(BC1); norm(BC2); norm(CA1); norm(CA2); norm(M)
+    norm(AB1); norm(AB2); norm(BC1); norm(BC2); norm(CA1); norm(CA2);
+    norm(M)
 
     # def key
     def(AB1); def(AB2); def(BC1); def(BC2); def(CA1); def(CA2); def(M)

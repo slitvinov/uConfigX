@@ -27,7 +27,7 @@ $1 == "del" && $2 == "key" {
     delete keys[key]
 }
 
-function nvert(      n) {
+function nvert(      n, key) {
     for (key in keys)
 	if (s(key)==3) n++
     return n

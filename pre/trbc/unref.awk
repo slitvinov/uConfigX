@@ -1,4 +1,7 @@
 #!/usr/bin/awk -f
+#
+# Removes references from tsdf file (see examples/)
+
 # Usage:
 # ./clean.awk examples/onesurface.trbc | ./unref.awk
 #

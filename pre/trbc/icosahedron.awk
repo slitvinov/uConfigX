@@ -1,4 +1,11 @@
 #!/usr/bin/awk -f
+# Create icosahedron
+# https://en.wikipedia.org/wiki/Regular_icosahedron
+# Usage:
+# awk -f icosahedron.awk
+#
+# TEST: ico1
+# awk -f icosahedron.awk  > ico.out.trdf
 
 function tri(id1, id2, id3) {
     printf "\n"
@@ -35,6 +42,7 @@ BEGIN {
     # golden ration
     p = (1.0 + sqrt(5.0))/2.0
 
+    # vertices
     point(0, p, 1, ++id)
     point(0, -p, 1, ++id)
     point(0, p, -1, ++id)
@@ -47,7 +55,8 @@ BEGIN {
     point(-p, 1, 0, ++id)
     point(p, -1, 0, ++id)
     point(-p, -1, 0, ++id)
-    
+
+    # triangles
     tri(     10,     6,     1)
     tri(     3,    10,     1)
     tri(    11,     5,     2)
