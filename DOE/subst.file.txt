@@ -1,3 +1,4 @@
 deploy/2daint.sh
 deploy/2panda.sh
 uDeviceX/mpi-dpd/common.h
+uDeviceX/cuda-rbc/rbc-cuda.cu

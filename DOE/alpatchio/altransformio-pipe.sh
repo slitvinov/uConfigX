@@ -18,4 +18,4 @@ fi
 test -r "$transform_file" || err "\"$transform_file\" is not a file"
 test -r "$infile"         || err "\"$infile\" is not a file"
 
-xargs < "$infile" -n 1 `us ./altransformio.sh` "$transform_file" 
+xargs < "$infile" -n 1 `us altransformio.sh` "$transform_file" 

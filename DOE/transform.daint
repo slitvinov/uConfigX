@@ -1,62 +1,66 @@
+### http://greenback.gremlin.net/trigfuncs.awk
+%%% function abs(x)  { return x<0?x*-1:x}
+%%% function asin(x) { return atan2(x, sqrt(abs(1-x*x))) }
+%%% function acos(x) { return atan2(sqrt(abs(1-x*x)), x)}
+%%% function pi() { return 2*asin(1)}
+%%% function todeg(rad) { return rad*360/(2*pi())}
+%%% function init() {
+%%%    lunit = 1e-6          # definitions from the code
+%%%    tunit = 2.4295e-6
+%%%    lrbc  = 1.000000e-06
+%%%    trbc  = 3.009441e-03
+%%%    Nt    = 2*Nv - 4                         # number of triangles
+%%%    l0 = sqrt(totArea0 / Nt * 4.0/sqrt(3.0)) # (3.30) in Fedosov2010
+%%%    lmax = 2.2*l0                            # page 94 in Fedosov2010
+%%%    cq = (3^(3/2)*l0^4*lunit^4* \
+%%%	       (4*l0^2*lunit^2-9*l0*lmax*lrbc*lunit+6*lmax^2*lrbc^2)) \
+%%%           /(32*lmax*lrbc^4*(l0*lunit-lmax*lrbc)^2*p)   # from parameters.CTC/RBC/3d/rbc-udevice.mac, similar to (3.4) in Fedosov2010
+%%% }
+
 ########## DPD parameters ##########
 =numberdensity
 
 =kBT
 
 =gammadpd
-45
 
 =aij
-20
 
 ####################
-
 =dt
-0.001
 
 =hydrostatica
-0.05
 
 =phi
--1.5708
 
 =Nrbcs
-5
 
 =rotateRBC
-90
 
 ########## RBC parameters ##########
 =lmax
-1.64
+init()
+lmax
 
 =p
-0.001412
 
 =cq
-19.0476
+init()
+cq
 
 =kb
-35
 
 =ka
-2500
 
 =kv
-3500
 
 =gammaC
-50
 
 =totArea0
-98.16 # sphere
 
 =totVolume0
-47.957
 
 =Nv
-362
 
-=phi
-8.21
-
+=phirbc # spontaneous angle; (3.21) in Fedosov2010
+todeg(acos((sqrt(3)*(Nv-2)-5*pi()) / (sqrt(3)*(Nv-2)-3*pi())))

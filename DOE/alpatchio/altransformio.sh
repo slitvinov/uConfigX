@@ -20,4 +20,6 @@ parameters_line=$2
 
 slave=`mktemp /tmp/altransf.XXXXXX`
 awk -f `us altransformio.generator.awk` "$config_file" "$parameters_line" > "$slave"
+
+printf "(altransformio.sh) slave: $slave" > /dev/stderr
 awk -f "$slave"

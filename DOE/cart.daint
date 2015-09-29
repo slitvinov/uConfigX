@@ -1,17 +1,20 @@
+########## DPD parameters ##########
 =numberdensity
-10
+4
+
+=kBT
+0.0945
+
+=gammadpd
+45
+
+=aij
+20
+
+####################
 
 =dt
 0.001
-
-=kBT
-0.404840
-
-=gammadpd
-35
-
-=aij
-10
 
 =hydrostatica
 0.05
@@ -24,3 +27,29 @@
 
 =rotateRBC
 90
+
+########## RBC parameters ##########
+=p
+0.001412
+
+=kb
+35
+
+=ka
+2500
+
+=kv
+3500
+
+=gammaC
+50
+
+=totArea0
+98.16 # sphere
+
+=totVolume0
+47.957
+
+=Nv
+362
+
