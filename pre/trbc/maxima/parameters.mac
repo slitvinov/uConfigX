@@ -1,0 +1,8 @@
+load("dimension");
+
+d(a, d)::= buildq([a, d],
+  dimension(a, d, 'dimension));
+
+/* lmax, p, cq, kb, ka, kv, gammaC, totArea0, totArea0, lunit, tunit, ndens */
+
+d(lmax, length);

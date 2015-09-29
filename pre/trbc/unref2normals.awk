@@ -35,7 +35,7 @@ function nvert(      n, key) {
 
 END {
     printf "# vtk DataFile Version 2.0\n"
-    printf "Generated with unref2vtk.awk\n"
+    printf "Generated with unref2norm.awk\n"
     printf "ASCII\n"
     printf "DATASET POLYDATA\n"
     

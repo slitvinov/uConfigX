@@ -76,34 +76,26 @@ function vert2id(    key, id) {
 
 END {
     nv = nvert()
-    print nv
-    print nbonds()
-    print nang()
-
-    # the number of dihedrals
-    ndih =  nbonds()
-    print ndih
-
     vert2id()
-    printf "\n"
+    
     printf "Atoms\n"
     printf "\n"    
-    for (i = 1; i<=nv; i++) {
-	key = id2key[i]
+    for (id = 1; id<=nv; id++) {
+	key = id2key[id]
 	decode1(key)
-	print i, 1, 1, sc*x, sc*y, sc*z
+	print id-1, 1, 1, sc*x, sc*y, sc*z
     }
     
-    printf "\n"
-    printf "Bonds\n"
-    printf "\n"
-    for (key in keys)
-	if (s(key)==6) {
-	    decode2(key)
-	    id1 = key2id[k1]
-	    id2 = key2id[k2]
-	    print ++ib, 1, id1, id2
-	}
+    # printf "\n"
+    # printf "Bonds\n"
+    # printf "\n"
+    # for (key in keys)
+    # 	if (s(key)==6) {
+    # 	    decode2(key)
+    # 	    id1 = key2id[k1]
+    # 	    id2 = key2id[k2]
+    # 	    print ++ib, 1, id1, id2
+    # 	}
 
     printf "\n"
     printf "Angles\n"
