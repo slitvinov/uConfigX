@@ -1,6 +1,8 @@
 #!/usr/bin/awk -f
+# Convert "unref" file to uDevice input format
 
 BEGIN {
+    # scale the geometry by this factor
     sc = length(sc) ? sc : 1.0
 }
 
@@ -76,26 +78,34 @@ function vert2id(    key, id) {
 
 END {
     nv = nvert()
+    print nv
+    print nbonds()
+    print nang()
+
+    # the number of dihedrals
+    ndih =  nbonds()
+    print ndih
+
     vert2id()
-    
+    printf "\n"
     printf "Atoms\n"
     printf "\n"    
-    for (id = 1; id<=nv; id++) {
-	key = id2key[id]
+    for (i = 1; i<=nv; i++) {
+	key = id2key[i]
 	decode1(key)
-	print id-1, 1, 1, sc*x, sc*y, sc*z
+	print i, 1, 1, sc*x, sc*y, sc*z
     }
     
-    # printf "\n"
-    # printf "Bonds\n"
-    # printf "\n"
-    # for (key in keys)
-    # 	if (s(key)==6) {
-    # 	    decode2(key)
-    # 	    id1 = key2id[k1]
-    # 	    id2 = key2id[k2]
-    # 	    print ++ib, 1, id1, id2
-    # 	}
+    printf "\n"
+    printf "Bonds\n"
+    printf "\n"
+    for (key in keys)
+	if (s(key)==6) {
+	    decode2(key)
+	    id1 = key2id[k1]
+	    id2 = key2id[k2]
+	    print ++ib, 1, id1, id2
+	}
 
     printf "\n"
     printf "Angles\n"

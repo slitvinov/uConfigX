@@ -1,4 +1,5 @@
 #!/usr/bin/awk -f
+# refine by splitting every edge into tree
 
 function s(key,   nn, aux) {
     nn = split(key, aux, SUBSEP)

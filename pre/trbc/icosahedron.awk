@@ -1,4 +1,11 @@
 #!/usr/bin/awk -f
+# Create icosahedron
+# https://en.wikipedia.org/wiki/Regular_icosahedron
+# Usage:
+# awk -f icosahedron.awk
+#
+# TEST: ico1
+# awk -f icosahedron.awk  > ico.out.trdf
 
 function tri(id1, id2, id3) {
     printf "\n"

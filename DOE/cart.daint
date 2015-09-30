@@ -29,8 +29,8 @@
 90
 
 ########## RBC parameters ##########
-=p
-0.001412
+=mu0 # RBC shear modulus
+100.0
 
 =kb
 35
@@ -45,11 +45,12 @@
 50
 
 =totArea0
-98.16 # sphere
+# 98.16
+135
 
 =totVolume0
-47.957
+# 47.957
+91
 
 =Nv
-362
-
+498

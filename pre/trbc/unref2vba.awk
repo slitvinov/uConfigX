@@ -1,6 +1,6 @@
 #!/usr/bin/awk -f
 
-# "unref" to vertices, bonds and angles
+# "unref" to vertices, bonds and angles (vba)
 
 # force numeric
 function fn(x) {
