@@ -5,6 +5,15 @@
 # r=<how to refine>
 # ./refine.awk -v r="2 2 3" <intput file> > <output file>
 
+# TEST: refine1
+# ur icosahedron.awk | `us clean.awk` | `us unref.awk` | `us refine.awk` -v r="2" | `us unref2vtk.awk` > refine.out.vtk
+#
+# TEST: refine2
+# ur icosahedron.awk | `us clean.awk` | `us unref.awk` | `us refine.awk` -v r="3" | `us unref2vtk.awk` > refine.out.vtk
+#
+# TEST: refine3
+# ur icosahedron.awk | `us clean.awk` | `us unref.awk` | `us refine.awk` -v r="2 3" | `us unref2vtk.awk` > refine.out.vtk
+
 function us(e, us_cmd, ans) {
     us_cmd = "us " e
     us_cmd | getline ans

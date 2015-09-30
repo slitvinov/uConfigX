@@ -23,6 +23,7 @@ icosahedron.awk		    pre/trbc/icosahedron.awk
 clean.awk		    pre/trbc/clean.awk
 unref.awk		    pre/trbc/unref.awk
 unref2vba.awk		    pre/trbc/unref2vba.awk
+unref2vtk.awk		    pre/trbc/unref2vtk.awk
 
 unref2bstats.awk	    pre/trbc/unref2bstats.awk
 unref2vstats.awk	    pre/trbc/unref2vstats.awk
