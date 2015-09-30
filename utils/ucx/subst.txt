@@ -20,6 +20,7 @@ refine.awk		    pre/trbc/refine.awk
 refine2.awk		    pre/trbc/refine2.awk
 refine3.awk		    pre/trbc/refine3.awk
 icosahedron.awk		    pre/trbc/icosahedron.awk
+tetrahedron.awk		    pre/trbc/tetrahedron.awk
 clean.awk		    pre/trbc/clean.awk
 unref.awk		    pre/trbc/unref.awk
 unref2vba.awk		    pre/trbc/unref2vba.awk
