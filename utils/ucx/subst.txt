@@ -29,3 +29,11 @@ rbc2trbc.awk		    pre/trbc/rbc2trbc.awk
 sum.awk			    pre/trbc/sum.awk
 mean.awk		    pre/trbc/mean.awk
 var.awk			    pre/trbc/var.awk
+
+av_and_reduce.awk           post/hdf5/av_and_reduce.awk
+av_and_reduce.sh            post/hdf5/av_and_reduce.sh
+av_and_reduce.py            post/hdf5/av_and_reduce.py
+
+av.awk           	    post/hdf5/av.awk
+av.sh            	    post/hdf5/av.sh
+av.py            	    post/hdf5/av.py
