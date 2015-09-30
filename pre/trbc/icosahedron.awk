@@ -15,20 +15,6 @@ function tri(id1, id2, id3) {
     printf "ref [id %d]\n", id3
 }
 
-function rotX(phi,    y0, z0) {
-    y0 = y; z0 = z
-
-    y = cos(phi)*y0 - sin(phi)*z0
-    z = sin(phi)*y0 + cos(phi)*z0
-}
-
-function rotY(phi,    x0, z0) {
-    x0 = x; z0 = z
-
-    x = cos(phi)*x0 - sin(phi)*z0
-    z = sin(phi)*x0 + cos(phi)*z0
-}
-
 function point(xs, ys, zs, id,    d) {
     d = sqrt(xs^2 + ys^2 + zs^2)
     x = xs/d; y = ys/d; z = zs/d
