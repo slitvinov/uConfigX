@@ -1,0 +1,2 @@
+A library to work with ply files
+https://en.wikipedia.org/wiki/PLY_%28file_format%29
