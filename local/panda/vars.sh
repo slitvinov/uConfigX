@@ -17,6 +17,8 @@ zranks=1
 tend=5000
 wall_creation_stepid=1
 
+totArea0=10.0 #= totArea0=%totArea0%
+
 # rotate initial RBC configuration around OX
 phix=1.570796326794897
 

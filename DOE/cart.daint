@@ -44,13 +44,8 @@
 =gammaC
 50
 
-=totArea0
-# 98.16
-135
-
-=totVolume0
-# 47.957
-91
+=cshape # cell shapes: (0: sphere, 1: rbc)
+0
 
 =Nv
-498
+362

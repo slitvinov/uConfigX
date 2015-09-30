@@ -2,8 +2,9 @@
 # Convert "unref" file to uDevice input format
 
 BEGIN {
+    pi = 3.141592653589793
     # scale the geometry by this factor
-    sc = length(sc) ? sc : 1.0
+    sc = sqrt(totArea0/4*pi)
 }
 
 # force numeric
