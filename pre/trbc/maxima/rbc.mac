@@ -1,0 +1,13 @@
+A_rbc: 135;
+V_rbc:  91;
+
+R_rbc: sqrt(A_rbc/(4*%pi));
+k_rbc: V_rbc / R_rbc^3, numer;
+
+/*na_o: 992;
+na_n: 720; */
+
+R   : 2.795 ;
+A_s : float(4*%pi*R^2);
+V_s : float(4/3*%pi*R^3);
+V_s2: k_rbc*R^3;

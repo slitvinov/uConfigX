@@ -38,6 +38,8 @@
 function randint(n) { return int(rand()*n)+1 }
 
 function init() {
+    srand()
+
     "us processor.tmp.cpp" | getline processor_file
     "us sdf2vtk.cpp"       | getline SDF2VTK
 

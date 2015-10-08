@@ -1,0 +1,74 @@
+########## DPD parameters ##########
+=nd
+4
+
+=kBT
+0.0945
+
+=gammadpd
+45
+
+=aij
+20
+
+####################
+=dt
+0.001
+
+=ha
+#0.01
+0.02
+#0.1
+#0.5
+#1.0
+
+=pf # force angle with OX
+0.07
+
+########## RBC parameters ##########
+=mu0 # RBC shear modulus
+1
+10
+100
+
+
+=kb
+0
+
+=ka
+2500
+
+=kv
+3500
+
+=gammaC
+50
+
+=cshape # cell shapes: (0: sphere, 1: rbc)
+0
+
+=Nv
+12
+1442
+812
+42
+92
+162
+362
+
+# periodic element
+=lx
+24
+
+=Nx
+1
+
+=Ny
+5
+
+=Nz
+1
+
+# radius of cylinder (fraction of lx)
+=Rfr
+0.25

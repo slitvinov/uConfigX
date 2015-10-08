@@ -15,8 +15,8 @@ const real orgy = 0.0;
 const real orgz = 0.0;
 
 void usage() {
-  printf("OVERVIEW: convert sdf file format to xml vtk\n");
-  printf("USAGE: sdf2vtk <input sdf file> <output vtk file>\n");
+  printf("OVERVIEW: convert sdf file format to xml vtk (vti)\n");
+  printf("USAGE: sdf2vtk <input sdf file> <output vti file>\n");
 }
 
 int main(int argc, char ** argv) {

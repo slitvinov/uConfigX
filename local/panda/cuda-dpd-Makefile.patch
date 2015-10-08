@@ -1,0 +1,11 @@
+--- Makefile	2015-09-16 22:02:56.127288682 +0200
++++ Makefile.new	2015-09-16 22:02:50.279508802 +0200
+@@ -31,7 +31,7 @@
+ 	$(NVCC) $(NVCCFLAGS) $^ -o test-cell-lists
+ 
+ profiler-dpd.o:	profiler-dpd.cpp profiler-dpd.h
+-	$(CXX) $(CXXFLAGS) -c profiler-dpd.cpp
++	$(NVCC) $(CXXFLAGS) -c profiler-dpd.cpp
+ 
+ cell-lists.o: cell-lists.cu cell-lists.h
+ 	$(NVCC) $(NVCCFLAGS) -c $< -o $@
