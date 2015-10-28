@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export GITROOT=$HOME/uConfigX/5rbcs
+export GITROOT=$HOME/uConfigX/gerris
 export SUBST_FILE=DOE/subst.file.txt
 export CART=DOE/cart.daint
 export TRANSFORM=DOE/transform.daint

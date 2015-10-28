@@ -3,14 +3,17 @@
 . utils/ucx/env.sh
 
 default_dir=uConfigX
-rname=test #=rname=%my_dir_name%
+iname=test #=iname=%my_dir_name%
+Nkeep=10 # number of parameter in dir name
+rname=`ur cutter.awk $iname $Nkeep`
 
 # remote host name
 uname=lisergey
-rhost="${uname}"@panda
+rhost="${uname}"@localhost
 
 # remote path name
-rpath=$HOME/SCRATCH/array1x5/"${rname}"
+n=gerris
+rpath=$HOME/SYNC/$n/$rname
 
 ur gcp "${default_dir}" "${rhost}":"${rpath}"
 
@@ -20,9 +23,9 @@ rt () {
 }
 
 post() {
-    echo "mkdir -p ${rname} ; rsync -r -avz ${rhost}:${rpath}/${default_dir}/uDeviceX/mpi-dpd/* ${rname}"    >> ~/bigcyl_MORErbcs_rsync.sh
-    echo "${rname}"                                                                                         >> ~/bigcyl_MORErbcs_local.list
-    echo "${rhost}:${rpath}/${default_dir}"                                                                 >> ~/bigcyl_MORErbcs_remote.list
+    echo "mkdir -p ${rname} ; rsync -r -avz ${rhost}:${rpath}/${default_dir}/uDeviceX/mpi-dpd/* ${rname}"    >> ~/${n}_rsync.sh
+    echo "${rname}"                                                                                         >> ~/${n}_local.list
+    echo "${rhost}:${rpath}/${default_dir}"                                                                 >> ~/${n}_remote.list
 }
 
 rt local/panda/setup.sh

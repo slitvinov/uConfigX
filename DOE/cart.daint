@@ -9,28 +9,18 @@
 45
 
 =aij
-20
+10
 
 ####################
 =dt
 0.001
 
 =ha
-#0.01
-0.02
-#0.1
-#0.5
-#1.0
-
-=pf # force angle with OX
-0.07
+0.0025
 
 ########## RBC parameters ##########
 =mu0 # RBC shear modulus
-1
 10
-100
-
 
 =kb
 0
@@ -42,33 +32,38 @@
 3500
 
 =gammaC
-50
+0
 
 =cshape # cell shapes: (0: sphere, 1: rbc)
 0
 
-=Nv
-12
-1442
+=seed
+111
+
+=Nv # number of vertices in RBC
+#42
+#92
+#162
+#362
 812
-42
-92
-162
-362
+#1442
+#5762
 
-# periodic element
-=lx
-24
+# size of the simulation domain
+=XS
+60
 
-=Nx
+=YS
+60
+
+=ZS
+60
+
+=rx
 1
 
-=Ny
-5
-
-=Nz
+=ry
 1
 
-# radius of cylinder (fraction of lx)
-=Rfr
-0.25
+=rz
+1

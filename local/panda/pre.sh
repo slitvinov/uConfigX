@@ -5,8 +5,8 @@
 set -x
 set -u
 
-ur array.awk -v lx=$lx -v nx=$Nx -v ny=$Ny -v R=$R > pre/tsdf-configs/cylinder_top.tsdf
-ur tsdf.awk pre/tsdf-configs/cylinder_top.tsdf uDeviceX/mpi-dpd/sdf.dat  uDeviceX/mpi-dpd/sdf.vti
+pre/tsdf-configs/cylinder.awk -v Lx=$Lx  > pre/tsdf-configs/cylinder.gen.tsdf
+ur tsdf.awk pre/tsdf-configs/cylinder.gen.tsdf uDeviceX/mpi-dpd/sdf.dat  uDeviceX/mpi-dpd/sdf.vti
 
 # create a sphere template
 # 12
@@ -15,11 +15,11 @@ ur tsdf.awk pre/tsdf-configs/cylinder_top.tsdf uDeviceX/mpi-dpd/sdf.dat  uDevice
 # 162
 # 362
 # 812
-# 1442
+1442
 
+# generate cell template
 local/panda/gen$Nv.sh  > uDeviceX/cuda-rbc/rbc.dat
-#cp pre/cell-template/rbc.org.dat     uDeviceX/cuda-rbc/rbc.dat
+#cp pre/cell-template/rbc$Nv.dat uDeviceX/cuda-rbc/rbc.dat
 
-# generate several RBCs
-ur cell-placement1.awk -v ly=$lx -v Lx=$XSIZE_SUBDOMAIN | \
-    sort -g | ur cell-placement0.awk -v phix=$phix > uDeviceX/mpi-dpd/rbcs-ic.txt
+# place one RBC
+pre/cell-distribution/rbc1-ic.awk -v Lx=$Lx  > uDeviceX/mpi-dpd/rbcs-ic.txt

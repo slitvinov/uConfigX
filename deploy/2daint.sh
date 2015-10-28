@@ -2,15 +2,20 @@
 
 . utils/ucx/env.sh
 
+set -x
+
 default_dir=uConfigX
-rname=test #=rname=%my_dir_name%
+iname=test #=iname=%my_dir_name%
+Nkeep=10 # number of parameter in dir name
+rname=`ur cutter.awk $iname $Nkeep`
 
 # remote host name
 uname=lisergey
 rhost="${uname}"@daint
 
+name=big_average
 # remote path name
-rpath=/scratch/daint/"${uname}"/array1x5/"${rname}"
+rpath=/scratch/daint/"${uname}"/$name/"${rname}"
 
 ur gcp "${default_dir}" "${rhost}":"${rpath}"
 
@@ -19,7 +24,6 @@ rt () {
     ssh "${rhost}" "cd ${rpath}/${default_dir} ; $@"
 }
 
-name=array1x5
 post() {
     echo "mkdir -p ${rname} ; rsync -r -avz ${rhost}:${rpath}/${default_dir}/uDeviceX/mpi-dpd/* ${rname}"    >> ~/${name}_rsync.sh
     echo "${rname}"                                                                                         >> ~/${name}_local.list
