@@ -44,15 +44,15 @@ const float MINF = - std::numeric_limits<float>::max();
 using namespace std;
 
 float i2x(int i) {
-  return xextent/NX*i;
+  return xextent/NX*(i + 0.5);
 }
 
 float i2y(int i) {
-  return yextent/NY*i;
+  return yextent/NY*(i + 0.5);
 }
 
 float i2z(int i) {
-  return zextent/NZ*i;
+  return zextent/NZ*(i + 0.5);
 }
 
 float di(float d, float dlo, float dhi)  {
