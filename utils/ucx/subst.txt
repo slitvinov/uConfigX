@@ -16,6 +16,7 @@ aldriver2.sh      	    DOE/alpatchio/aldriver2.sh
 gcp                         deploy/gcp/gcp
 append.awk 		    utils/system/append.awk
 appendf.awk 		    utils/system/appendf.awk
+cutter.awk 		    utils/system/cutter.awk
 
 refine.awk		    pre/trbc/refine.awk
 refine2.awk		    pre/trbc/refine2.awk
