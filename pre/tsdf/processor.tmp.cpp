@@ -36,6 +36,8 @@ const float Lx      = xextent;
 const float Ly      = yextent;
 const float Lz      = zextent;
 
+const float pi      = 3.141592653589793;
+
 const float OBJ_MARGIN = %OBJ_MARGIN%;
 
 /* minus infinity */
@@ -162,7 +164,7 @@ int main(int /*argc */, char **argv) {
 	float nx, ny, nz, n_abs;
 	float ax, ay, az, a2;
 	float dX2, dY2, dZ2, dR2, dR;
-	float D;
+	float D, rx, ry, ang;
 	float s = MINF; // assume we are very far from the walls (sdf = -inf)
 	//%update_sdf%
 
