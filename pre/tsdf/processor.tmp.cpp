@@ -45,16 +45,16 @@ const float MINF = - std::numeric_limits<float>::max();
 
 using namespace std;
 
-float i2x(int i) {
-  return xextent/NX*(i + 0.5);
-}
+float i2x(int i)  {return xextent/NX*(i + 0.5);}
+float i2y(int i)  {return yextent/NY*(i + 0.5);}
+float i2z(int i)  {return zextent/NZ*(i + 0.5);}
 
-float i2y(int i) {
-  return yextent/NY*(i + 0.5);
-}
-
-float i2z(int i) {
-  return zextent/NZ*(i + 0.5);
+float in_interval(float d, float dlo, float dhi) {
+  return
+	d < dlo ? 0 :
+	d > dhi ? 0 :
+	          1
+      ;
 }
 
 float di(float d, float dlo, float dhi)  {
@@ -77,18 +77,13 @@ float sq(float x) {
   return x*x;
 }
 
-float in_interval(float d, float dlo, float dhi) {
-      return
-	d < dlo ? 0 :
-	d > dhi ? 0 :
-	1;
-}
 
 float in_range(float s) {
-  return \
+  return
     s >  OBJ_MARGIN ?  OBJ_MARGIN :
     s < -OBJ_MARGIN ? -OBJ_MARGIN :
-    s;
+                                s
+  ;
 }
 
 float in_box(float x, float y, float z,

@@ -16,7 +16,7 @@
 0.001
 
 =ha
-0.0025
+0.025
 
 ########## RBC parameters ##########
 =mu0 # RBC shear modulus
@@ -31,13 +31,13 @@
 =kv
 3500
 
-=gammaC
+=gammaC # RBC dissipation
 0
 
 =cshape # cell shapes: (0: sphere, 1: rbc)
 0
 
-=seed
+=seed # random seed
 111
 
 =Nv # number of vertices in RBC
@@ -49,21 +49,26 @@
 #1442
 #5762
 
-# size of the simulation domain
-=XS
-60
+=lx # periodic ellement
+24
 
-=YS
-60
+=ar # aspect ration of an ellipse
+0.75
 
-=ZS
-60
-
-=rx
+=Nx
 1
 
-=ry
+=Ny
+5
+
+=Nz
 1
 
-=rz
+=rx # rank in X
+1
+
+=ry # rank in Y
+1
+
+=rz # rank in Z
 1

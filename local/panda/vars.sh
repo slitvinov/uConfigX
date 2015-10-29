@@ -15,11 +15,18 @@ Lx=48 #= Lx=%Lx%
 Ly=48 #= Ly=%Ly%
 Lz=48 #= Lz=%Lz%
 
+Nx=1 #= Nx=%Nx%
+Ny=5 #= Ny=%Ny%
+Nz=1 #= Nz=%Nz%
+
+Rx=6 #= Rx=%Rx%
+Ry=6 #= Ry=%Ry%
+
 xranks=1 #=xranks=%rx%
 yranks=1 #=yranks=%ry%
 zranks=1 #=zranks=%rz%
 tend=1000
-wall_creation_stepid=100
+wall_creation_stepid=1
 
 totArea0=10.0 #= totArea0=%totArea0%
 

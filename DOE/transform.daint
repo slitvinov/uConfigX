@@ -57,25 +57,60 @@
 %%%
 %%% }
 
+%%% function box() {
+%%%    XS = Nx*lx
+%%%    YS = Ny*lx
+%%%    ZS = Nz*lx
+%%%
+%%%    Lx = XS*rx
+%%%    Ly = YS*ry
+%%%    Lz = ZS*rz
+%%%    Ry = lx/3  # radius of an obstacle
+%%%    Rx = ar*Ry # radius of an obstacle
+%%% }
+
 =seed
 
 ####################
 =ha
 
 =Lx
-XS*rx
+box()
+Lx
 
 =Ly
-YS*ry
+box()
+Ly
 
 =Lz
-ZS*rz
+box()
+Lz
+
+=Rx
+box()
+Rx
+
+=Ry
+box()
+Ry
 
 =Nv
 
 =XS
+box()
+XS
+
 =YS
+box()
+YS
+
 =ZS
+box()
+ZS
+
+=Nx
+=Ny
+=Nz
 
 =rx
 =ry

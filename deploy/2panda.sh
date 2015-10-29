@@ -28,5 +28,6 @@ post() {
     echo "${rhost}:${rpath}/${default_dir}"                                                                 >> ~/${n}_remote.list
 }
 
+#rt local/panda/setup_dbg.sh
 rt local/panda/setup.sh
 post

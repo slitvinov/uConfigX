@@ -32,6 +32,11 @@ function pre() {
     printf "obj_margin %g\n",      sc(obj_margin)
 }
 
+function gen_ellipse(x0, y0) {
+    x0 = sc(x0); y0 = sc(y0); z0 = sc(z0); obj_rx = sc(obj_rx); obj_ry = sc(obj_ry)
+    printf "ellipse axis XY point %g %g %g radius %g %g angle 0\n", x0, y0, z0, obj_rx, obj_ry
+}
+
 function gen_cylinder(x0, y0) {
     printf "cylinder axis 0 0 1 point %g %g %g radius %g\n", sc(x0), sc(y0), sc(z0), sc(obj_rx)
 }
@@ -44,7 +49,8 @@ BEGIN {
 
     l_element_x = l_element_y = l_element_z = l_element
 
-    obj_rx  = obj_ry = R
+    obj_rx  = Rx
+    obj_ry  = Ry
 
     shift_x = l_element_x/N_obst_y
 
@@ -70,8 +76,7 @@ BEGIN {
 	    x0 = ij2x(i, j)
 	    y0 = ij2y(i, j)
 	    if (inside_domain(x0, y0))
-		gen_cylinder(x0, y0)
+		gen_ellipse(x0, y0)
 	}
     }
-
 }

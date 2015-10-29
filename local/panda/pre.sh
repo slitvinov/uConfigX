@@ -5,17 +5,10 @@
 set -x
 set -u
 
-pre/tsdf-configs/cylinder.awk -v Lx=$Lx  > pre/tsdf-configs/cylinder.gen.tsdf
-ur tsdf.awk pre/tsdf-configs/cylinder.gen.tsdf uDeviceX/mpi-dpd/sdf.dat  uDeviceX/mpi-dpd/sdf.vti
-
-# create a sphere template
-# 12
-# 42
-# 92
-# 162
-# 362
-# 812
-1442
+#pre/tsdf-configs/ellipse.awk -v Lx=$Lx  > pre/tsdf-configs/ellipse.gen.tsdf
+#ur tsdf.awk pre/tsdf-configs/ellipse.gen.tsdf uDeviceX/mpi-dpd/sdf.dat  uDeviceX/mpi-dpd/sdf.vti
+ur array.awk -v lx=$Lx -v nx=$Nx -v ny=$Ny -v Rx=$Rx -v Ry=$Ry > pre/tsdf-configs/cylinder_top.tsdf
+ur tsdf.awk pre/tsdf-configs/cylinder_top.tsdf uDeviceX/mpi-dpd/sdf.dat  uDeviceX/mpi-dpd/sdf.vti
 
 # generate cell template
 local/panda/gen$Nv.sh  > uDeviceX/cuda-rbc/rbc.dat
