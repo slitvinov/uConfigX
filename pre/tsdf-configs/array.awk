@@ -37,6 +37,11 @@ function gen_ellipse(x0, y0) {
     printf "ellipse axis XY point %g %g %g radius %g %g angle 0\n", x0, y0, z0, obj_rx, obj_ry
 }
 
+function gen_egg(x0, y0) {
+    x0 = sc(x0); y0 = sc(y0); z0 = sc(z0); obj_rx = sc(obj_rx); obj_ry = sc(obj_ry)
+    printf "egg axis XY point %g %g %g radius %g %g angle 0 eggness 0.5\n", x0, y0, z0, obj_rx, obj_ry
+}
+
 function gen_cylinder(x0, y0) {
     printf "cylinder axis 0 0 1 point %g %g %g radius %g\n", sc(x0), sc(y0), sc(z0), sc(obj_rx)
 }
@@ -76,7 +81,7 @@ BEGIN {
 	    x0 = ij2x(i, j)
 	    y0 = ij2y(i, j)
 	    if (inside_domain(x0, y0))
-		gen_ellipse(x0, y0)
+		gen_egg(x0, y0)
 	}
     }
 }

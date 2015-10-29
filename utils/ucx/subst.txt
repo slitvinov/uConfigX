@@ -3,6 +3,7 @@ processor.tmp.cpp           pre/tsdf/processor.tmp.cpp
 sdf2vtk.cpp                 pre/tsdf/sdf2vtk.cpp
 tsdf.awk                    pre/tsdf/tsdf.awk
 array.awk		    pre/tsdf-configs/array.awk
+cylinder.awk		    pre/tsdf-configs/cylinder.awk
 
 allineario.awk 		    DOE/alpatchio/allineario.awk
 alpachio.sh                 DOE/alpatchio/alpachio.sh
