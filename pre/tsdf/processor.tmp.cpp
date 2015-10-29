@@ -45,9 +45,10 @@ const float MINF = - std::numeric_limits<float>::max();
 
 using namespace std;
 
-float i2x(int i)  {return xextent/NX*(i + 0.5);}
-float i2y(int i)  {return yextent/NY*(i + 0.5);}
-float i2z(int i)  {return zextent/NZ*(i + 0.5);}
+//int   wrap(int i, int n) {return i == n - 1 ? 0 : i;}
+float i2x (int i)  {return xextent/(float)(NX-1)*i;}
+float i2y (int i)  {return yextent/(float)(NY-1)*i;}
+float i2z (int i)  {return zextent/(float)(NZ-1)*i;}
 
 float in_interval(float d, float dlo, float dhi) {
   return
@@ -160,6 +161,7 @@ int main(int /*argc */, char **argv) {
 	float ax, ay, az, a2;
 	float dX2, dY2, dZ2, dR2, dR;
 	float D, rx, ry, ang;
+	float eg;
 	float s = MINF; // assume we are very far from the walls (sdf = -inf)
 	//%update_sdf%
 
