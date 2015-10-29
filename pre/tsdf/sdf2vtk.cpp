@@ -53,9 +53,9 @@ int main(int argc, char ** argv) {
   }
 
   // spacing
-  const real spx = NX>1 ? xextent/(NX-1) : 0;
-  const real spy = NY>1 ? yextent/(NY-1) : 0;
-  const real spz = NZ>1 ? zextent/(NZ-1) : 0;
+  const real spx = NX>1 ? xextent/NX : 0;
+  const real spy = NY>1 ? yextent/NY : 0;
+  const real spz = NZ>1 ? zextent/NZ : 0;
 
   fprintf(v, "<?xml version=\"1.0\"?>\n");
   fprintf(v, "<VTKFile byte_order=\"LittleEndian\" version=\"1.0\" type=\"ImageData\">\n");

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <VTKFile byte_order="LittleEndian" version="1.0" type="ImageData">
-<ImageData Origin="0.0000000000000000e+00 0.0000000000000000e+00 0.0000000000000000e+00" WholeExtent="0 29 0 29 0 29" Spacing="6.8965518474578857e-01 6.8965518474578857e-01 6.8965518474578857e-01">
+<ImageData Origin="0.0000000000000000e+00 0.0000000000000000e+00 0.0000000000000000e+00" WholeExtent="0 29 0 29 0 29" Spacing="6.6666668653488159e-01 6.6666668653488159e-01 6.6666668653488159e-01">
 <Piece Extent="0 29 0 29 0 29">
 <PointData Scalars="wall">
 <DataArray type="Float64" Name="wall" NumberOfComponents="1" format="ascii"/>-3.000000e+00
