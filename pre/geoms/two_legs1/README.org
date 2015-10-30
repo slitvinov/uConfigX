@@ -1,0 +1,81 @@
+Generatete with:
+
+lammps-work/lib/sdf-small/sdf_two_legs.mac
+commit: 008cc91
+repositary: scratch-petros:/export/home/gitroot/lammps-work.git
+
+#+BEGIN_SRC emacs-lisp
+load("basic") $
+push("utils/###.mac", file_search_maxima) $
+load("utils-aux.mac") $
+
+/* output file */
+define_variable(fout, "two", any);
+
+/* scale factor between grid and physical coordinates
+[1 physical units] -> [`grid_factor' grid points] */
+grid_factor : 5/4 $
+
+/* size of a box */
+L: [9*48, 3*48, 40]$
+
+/* maximum value for SDF */
+obj_margin: 3;
+
+/* angle between long legs in degrees */
+phi: 30;
+phi_rad : phi/180*%pi;
+
+/* domain box */
+[xl, yl, zl]: [0, 0, 0] $
+[xh, yh, zh]: [xl, yl, zl]  + L $
+
+/* center of the domain */
+[xc ,  yc,  zc]   : [xl+xh, yl+yh, zl+zh]/2 $
+
+Rb : 1/12*L[2]$
+Rs : Rb*0.2/0.5;
+
+D  : 2*Rb;
+
+fr_long: 1/5;
+
+x_bif1 :     xl + 5*D;
+y_bif1 :     yc;
+
+x_bif2 : x_bif1 + 2*5*D*cos(phi_rad);
+y_bif2 : yc;
+
+x_up  : x_bif1 + 5*D*cos(phi_rad);
+y_up  : y_bif1 + 5*D*sin(phi_rad);
+
+x_bt  : x_bif1 + 5*D*cos(phi_rad);
+y_bt  : y_bif1 - 5*D*sin(phi_rad);
+
+
+P0     : [xl    , yc, zc];
+P1     : [x_bif1, yc, zc];
+
+P2     : [x_up, y_up, zc];
+P3     : [x_bt, y_bt, zc];
+
+P4     : [x_bif2, y_bif2, zc];
+
+P5     : [x_bif2 + 5*D,   yc, zc];
+
+
+/* a parameter of level function */
+%level%:  Rb $
+expr   :  0 $
+expr: expr +
+      points2expr(P0, P1, Rb,       -1,    1+fr_long) +
+      points2expr(P1, P2, Rs,        0,    1        ) +
+      points2expr(P1, P3, Rs,        0,    1        ) +
+      points2expr(P2, P4, Rs,        0,    1        ) +
+      points2expr(P3, P4, Rs,        0,    1        ) +
+      points2expr(P4, P5, Rb, -fr_long,    2        ) $
+
+
+expr2file(expr, L, grid_factor, obj_margin);
+system_cmd("./sdf_compile.sh ~a",  fout);
+#+END_SRC
