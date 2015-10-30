@@ -4,6 +4,9 @@ lammps-work/lib/sdf-small/sdf_two_legs.mac
 commit: 008cc91
 repositary: scratch-petros:/export/home/gitroot/lammps-work.git
 
+xs, ys, zs: 48, 48, 40
+ranks     : 9, 3, 1
+
 #+BEGIN_SRC emacs-lisp
 load("basic") $
 push("utils/###.mac", file_search_maxima) $
