@@ -1,0 +1,13 @@
+Scripts to work with ply file
+
+# TEST: ply1
+# make
+# ur platoply -c  | ur ply2binary | ur ply2ascii > cube.out.ply
+#
+# TEST: ply2
+# make
+# ur platoply -c  > cube.out.ply
+#
+# TEST: ply3
+# ur ply2ascii < examples/rbcs-0000.ply > rbcs.out.ply
+

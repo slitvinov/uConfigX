@@ -14,7 +14,7 @@ shift
 
 fst=`us $oc`
 if test $? -eq 0; then
-    echo "(utils/ucx/ur)(executing) $fst" "$@" > "/dev/stderr"
+#    echo "(utils/ucx/ur)(executing) $fst" "$@" > "/dev/stderr"
     "$fst" "$@"
 fi
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env gawk -f
+#!/usr/bin/awk -f
 
 # Split ply file into parts by the number of vertices `Nv'
 # vertices from 1      to   `Nv' go to file1,

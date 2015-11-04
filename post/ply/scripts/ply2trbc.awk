@@ -2,7 +2,10 @@
 
 # Convert ply to trbc format
 # Usage:
-# awk -f scripts/ply2trbc.awk test_data/icosahedron.ply 
+# awk -f scripts/ply2trbc.awk test_data/icosahedron.ply
+#
+# TEST: ply2trbc1
+# ur ply2trbc.awk test_data/cube.ply > cube.out.trbc
 
 function read_header() {
     while (getline < infile > 0 && $0 != "end_header" )

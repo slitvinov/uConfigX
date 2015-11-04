@@ -33,6 +33,7 @@ unref2udevice.awk	    pre/trbc/unref2udevice.awk
 unref2bstats.awk	    pre/trbc/unref2bstats.awk
 unref2vstats.awk	    pre/trbc/unref2vstats.awk
 unref2stats.awk		    pre/trbc/unref2stats.awk
+unref2stats.awk		    pre/trbc/unref2stats.awk
 
 rbc2trbc.awk		    pre/trbc/rbc2trbc.awk
 sum.awk			    pre/trbc/sum.awk
@@ -42,6 +43,18 @@ var.awk			    pre/trbc/var.awk
 av_and_reduce.awk           post/hdf5/av_and_reduce.awk
 av_and_reduce.sh            post/hdf5/av_and_reduce.sh
 av_and_reduce.py            post/hdf5/av_and_reduce.py
+av_and_reduce.py            post/hdf5/av_and_reduce.py
+
+# Run
+# make -C post/ply
+# to compile ply utils
+ply2ascii		    post/ply/ply2ascii
+ply2binary		    post/ply/ply2binary
+platoply		    post/ply/platoply
+
+ply2trbc.awk		    post/ply/scripts/ply2trbc.awk
+ply2volume.sh		    post/ply/scripts/ply2volume.sh
+ply2area.sh		    post/ply/scripts/ply2area.sh
 
 av.awk           	    post/hdf5/av.awk
 av.sh            	    post/hdf5/av.sh

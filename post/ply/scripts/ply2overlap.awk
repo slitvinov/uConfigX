@@ -1,4 +1,4 @@
-#!/usr/bin/env gawk -f
+#!/usr/bin/awk -f
 
 # Approximately find overlap between several ply files
 # Usage:
