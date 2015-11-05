@@ -1,12 +1,19 @@
 #!/bin/bash
 
+set -e
+set -u
+
 box='-v xl=0 -v xh=24 -v yl=0 -v yh=120 -v zl=0 -v zh=24'
-cutoff='-v c=1.50'
-#Nv='-v Nv=362'
+cutoff='-v c=3.0'
 Nv='-v Nv=162'
+#Nv='-v Nv=362'
+#Nv='-v Nv=162'
+
+#p=seed_111_dangle_-90_ha_1_Nv_362_cshape_0_phi_-1.5708_Lx_24_Ly_120_Lz_24_Rx_6
+p=seed_111_dangle_0_ha_0.1_Nv_162_cshape_0_phi_-1.5708_Lx_24_Ly_120_Lz_24_Rx_6
 
 flist () { # returns input file list
-    find $HOME/seed.ply2/ply -name rbcs-*.ply | grep -v wm | sort -g | awk 'NR>1 && NR<=40'
+    find $HOME/$p/ply -name rbcs-*.ply | grep -v wm | sort -g | awk 'NR>1'
 }
 
 repsufix () { # replace suffix `repsufix <filename> <old suffix> <new suffix>`
@@ -85,13 +92,13 @@ remap_ply() {
     done
 }
 
-#gencm
+gencm
 genmap
-#create_remap
-#remap_cm /tmp/rlist.$$
-#image_cm
-#wrap_cm
-#remap_ply
+create_remap
+remap_cm /tmp/rlist.$$
+image_cm
+wrap_cm
+remap_ply
 
 # for f in `flist`
 # do

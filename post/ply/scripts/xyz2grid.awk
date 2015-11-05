@@ -6,19 +6,6 @@ function init() {
     OBC = 1 # open boundary conditions
 
     bcx = bcy = bcz = PBC
-
-    # In maxima:
-    # (%i1) L: listify(cartesian_product ({-1, 0, 1}, {-1, 0, 1}, {-1, 0, 1}))$
-    # (%i2) printf(true, "\"~{~d ~}\"~%", map('first, L))$
-    # (%i3) printf(true, "\"~{~d ~}\"~%", map('second, L))$
-    # (%i4) printf(true, "\"~{~d ~}\"~%", map('third, L))$
-    xs_string = "-1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1"
-    ys_string = "-1 -1 -1 0 0 0 1 1 1 -1 -1 -1 0 0 0 1 1 1 -1 -1 -1 0 0 0 1 1 1"
-    zs_string = "-1 0 1 -1 0 1 -1 0 1 -1 0 1 -1 0 1 -1 0 1 -1 0 1 -1 0 1 -1 0 1"
-
-    ns=split(xs_string, xs)
-    ns=split(ys_string, ys)
-    ns=split(zs_string, zs)
     
     x_idx = 1; y_idx = 2; z_idx = 3    
 }
@@ -87,8 +74,8 @@ function dwrap(r) {
 }
 function dwrap_open(r) {return r}
 function dwrap_pbc(r) { # enforce periodic boundary
-    if       (r<-Lr/2) return dwrap(r+Lr)
-    else if  (r>=Lr/2) return dwrap(r-Lr)
+    if       (r<-Lr) return dwrap(r+Lr)
+    else if  (r>=Lr) return dwrap(r-Lr)
     else             return r
 }
 
@@ -108,77 +95,15 @@ BEGIN {
     init()
 }
 
-function gset(wx, wy, wz, np,    nc) { # add a point to a cell link list
-    nc=++n[wx,wy,wz]
-    g[wx,wy,wz,nc]=np
-}
-
-function gget(wx, wy, wz, x, y, z, np,    d, md, mi, x0, y0, z0, nc, ic, ans) {
-    nc=n[wx,wy,wz]
-    md=1e30; mi=-1;
-    for (ic=1; ic<=nc; ic++) {
-	n0 = g[wx,wy,wz,ic]
-	
-	if (!n0) continue
-	if (n0 in taken) continue
-	x0=xx[n0]; y0=yy[n0]; z0=zz[n0]
-	d = wdist(x-x0, y-y0, z-z0)
-	
-	if (d<md) {md = d; mi = ic}
-    }
-
-    if (mi==-1) {
-	printf "(cm2sort.awk) cannot find a pair for [np=%s, xyz=[%s, %s, %s], file: %s\n",
-	    np, x, y, z, FILENAME  > "/dev/stderr"
-	printf "(cm2sort.awk) wxwywz=[%s, %s, %s], n[..]=%s, g[..,1]=%s, taken=%s\n",
-	    wx, wy, wz, n[wx,wy,wz], g[wx,wy,wz,1] , taken[g[wx,wy,wz,1]] > "/dev/stderr"
-	exit(2)
-    }
-
-    ans = g[wx,wy,wz,mi]
-    g[wx,wy,wz,mi] = 0
-    taken[ans]++
-
-    return ans
-}
-
-function mark_around(ix, iy, iz,     i,  wx, wy, wz) {
-    for (i=1; i<=ns; i++) {
-	wx = iwrapx(ix+xs[i]); wy = iwrapy(iy+ys[i]); wz = iwrapz(iz+zs[i])
-	gset(wx, wy, wz, np)
-    }
-}
-
 function reg_line(    x, y, z, ix, iy, iz) {
     np++
     x=$(x_idx); y=$(y_idx); z=$(z_idx)
     x=wrapx(x); y=wrapy(y); z=wrapz(z)
-    xx[np]=x; yy[np]=y; zz[np]=z
     
     ix=x2i(x); iy=y2i(y); iz=z2i(z)
-    mark_around(ix, iy, iz)
-}
-
-function pair_line(   x, y, z, ix, iy, iz) {
-    np++
-    
-    x=$(x_idx); y=$(y_idx); z=$(z_idx)
-    x=wrapx(x); y=wrapy(y); z=wrapz(z)
-
-    
-    ix=x2i(x); iy=y2i(y); iz=z2i(z)
-    print gget(ix, iy, iz, x, y, z, np)
-}
-
-FNR == 1 && NR != 1 {
-    ifile++
-    np=0
+    print np, x, y, z, ix, iy, iz
 }
 
 ifile == 0 { # first file
     reg_line()
-}
-
-ifile == 1 { # second file
-    pair_line()
 }

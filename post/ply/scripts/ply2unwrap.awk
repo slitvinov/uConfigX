@@ -5,7 +5,10 @@
 
 # Usage:
 # awk -v Nv=1442 -f scripts/ply2unwrap.awk  rbcs.txt.ply
-#
+# 42     : small
+# 92, 162: intermediate
+# 362    : big
+# 812    : too big
 
 function init(    opat_default) {
     if (!length(Nv)) {
@@ -45,13 +48,14 @@ function iv2ipart(iv) {  # file number from vertex number
     return int(iv / Nv)
 }
 
-function read_write_vertices(    iv, i, ix, iy, iz, iprev, x, y, z) {
+function read_write_vertices(    iv, i, index_img, ix, iy, iz, iprev, x, y, z) {
     iprev = 0
     for (iv=0; iv<Nv_total; iv++) {
 	i = iv2ipart(iv)
+	index_img = i + 1
 	getline < infile
 	x  = $1;  y = $2;  z = $3
-	ix = imgx[i]; iy = imgy[i]; iz = imgz[i];
+	ix = imgx[index_img]; iy = imgy[index_img]; iz = imgz[index_img];
 	$1 = x + ix*Lx; $2 = y + iy*Ly; $3 = z + iz*Lz
 	print
     }

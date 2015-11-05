@@ -20,6 +20,5 @@ BEGIN {
     ix=force_num($(imgx_idx)); iy =force_num($(imgy_idx)); iz=force_num($(imgz_idx))
 
     $(x_idx) = x + Lx*ix; $(y_idx) = y + Ly*iy; $(z_idx) = z + Lz*iz
-
     print
 }
