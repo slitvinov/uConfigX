@@ -2,9 +2,16 @@
 
 # Calculate the center of mass (CM) and the velocity of CM of each
 # object in itrangulated ply file
-
+#
 # Usage:
 # awk -v Nv=1442 -f scripts/ply2cm.awk  rbcs.txt.ply
+#
+# TEST: cm1
+# ur ply2cm.awk -v Nv=8 test_data/cube.ply  > cm.out.txt
+# 
+# TEST: cm2
+# make
+# ur ply2ascii < test_data/rbcs-0001.ply | ur ply2cm.awk -v Nv=162 > cm.out.txt
 #
 
 function init(    opat_default) {
@@ -35,17 +42,13 @@ function read_header(    sep, Nf_total, Npart) { # sets global variables
 		    Nv, Nv_total, Npart > "/dev/stderr"
 		exit
 	    }
-	    printf "(ply2cm.awk) found %d parts\n", Npart > "/dev/stderr"
+	    printf "(ply2cm.awk) %d parts, %d total\n", Npart, Nv_total > "/dev/stderr"
 	}
     }
 }
 
 function iv2ipart(iv) {  # file number from vertex number
     return int(iv / Nv)
-}
-
-function giv2liv(iv) { # global vertex number to local vertex number
-    return     iv % Nv
 }
 
 function cm_flush(cm) {

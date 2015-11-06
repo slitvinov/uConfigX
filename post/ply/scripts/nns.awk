@@ -1,9 +1,51 @@
 #!/usr/bin/awk -f
 
-function init() {
+# approximatly does solve Nearest neighbor search (NNS)
+# 
+# Usage:
+# `xl', `xh', `yl', `yh', `zl', `zh': bounding box (assumed periodic
+# in all directions)
+# `c': cutoff for the grid used by the algorithm
+# scripts/nns.awk -v xl=0 -v xh=24 -v yl=0 -v yh=120 -v zl=0 -v zh=24 -v c=3.0 <file1> <file2>
+# Ouptut file:
+# id1
+# id2
+# ..
+# idn
+# where `idn' is id of the point in file <file1> corresponding to
+# point `n' in <file2>
+#
+# TEST: nns1
+# box='-v xl=0 -v xh=10 -v yl=0 -v yh=10 -v zl=0 -v zh=10'
+# cutoff='-v c=1'
+# ur nns.awk $cutoff $box  test_data/nns.in1 test_data/nns.in2 > nns.out.txt
+#
+# TEST: nns2
+# box='-v xl=0 -v xh=10 -v yl=0 -v yh=10 -v zl=0 -v zh=10'
+# cutoff='-v c=1'
+# ur nns.awk $cutoff $box  test_data/nns.in1 test_data/nns.in3 > nns.out.txt
+#
+# TEST: nns3
+# box='-v xl=0 -v xh=10 -v yl=0 -v yh=10 -v zl=0 -v zh=10'
+# cutoff='-v c=1'
+# ur nns.awk $cutoff $box  test_data/nns.per.in1 test_data/nns.per.in2 > nns.out.txt
+#
+# TEST: nns4
+# box='-v xl=0 -v xh=24 -v yl=0 -v yh=120 -v zl=0 -v zh=24'
+# cutoff='-v c=3.0'
+# ur nns.awk $cutoff $box test_data/rbcs.nns1 test_data/rbcs.nns2 > nns.out.txt
+
+function init(    xs_string, ys_string, zs_string) {
+    req_var(c, "c")
+    req_var(xl, "xl"); req_var(xh, "xh")
+    req_var(yl, "yl"); req_var(yh, "yh")
+    req_var(zl, "zl"); req_var(zh, "zh")
+    
     set_box()
     PBC = 0  # periodic boundary conditions
     OBC = 1 # open boundary conditions
+
+    BIG=1e30 # big positive number
 
     bcx = bcy = bcz = PBC
 
@@ -31,18 +73,12 @@ function set_box_y() {Ly = yh - yl; ny = int(Ly/c); dy = Ly/ny}
 function set_box_z() {Lz = zh - zl; nz = int(Lz/c); dz = Lz/nz}
 function set_box()   {set_box_x(); set_box_y(); set_box_z()}
 
-function print_box() {
-    printf "xl xh yl yh zl zh\n"
-    printf "%g %g %g %g %g %g\n", xl, xh, yl, yh, zl, zh
-
-    printf "dx dy dz\n"
-    printf "%g %g %g\n", dx, dy, dz
-
-    printf "Lx Ly Lz\n"
-    printf "%g %g %g\n", Lx, Ly, Lz
-
-    printf "nx ny nz\n"
-    printf "%g %g %g\n", nx, ny, nz
+function req_var(v, n) {
+    if (length(v)==0) {
+	printf "(nns.awk) `%s' should be given as a parameter (-v %s=<value>)\n",
+	    n, n
+	exit 2
+    }
 }
 
 # coordinate to grid point
@@ -115,7 +151,7 @@ function gset(wx, wy, wz, np,    nc) { # add a point to a cell link list
 
 function gget(wx, wy, wz, x, y, z, np,    d, md, mi, x0, y0, z0, nc, ic, ans) {
     nc=n[wx,wy,wz]
-    md=1e30; mi=-1;
+    md=BIG; mi=-1;
     for (ic=1; ic<=nc; ic++) {
 	n0 = g[wx,wy,wz,ic]
 	
@@ -128,9 +164,9 @@ function gget(wx, wy, wz, x, y, z, np,    d, md, mi, x0, y0, z0, nc, ic, ans) {
     }
 
     if (mi==-1) {
-	printf "(cm2sort.awk) cannot find a pair for [np=%s, xyz=[%s, %s, %s], file: %s\n",
+	printf "(nns.awk) cannot find a pair for [np=%s, xyz=[%s, %s, %s], file: %s\n",
 	    np, x, y, z, FILENAME  > "/dev/stderr"
-	printf "(cm2sort.awk) wxwywz=[%s, %s, %s], n[..]=%s, g[..,1]=%s, taken=%s\n",
+	printf "(nns.awk) wxwywz=[%s, %s, %s], n[..]=%s, g[..,1]=%s, taken=%s\n",
 	    wx, wy, wz, n[wx,wy,wz], g[wx,wy,wz,1] , taken[g[wx,wy,wz,1]] > "/dev/stderr"
 	exit(2)
     }
@@ -138,7 +174,6 @@ function gget(wx, wy, wz, x, y, z, np,    d, md, mi, x0, y0, z0, nc, ic, ans) {
     ans = g[wx,wy,wz,mi]
     g[wx,wy,wz,mi] = 0
     taken[ans]++
-
     return ans
 }
 
@@ -164,7 +199,6 @@ function pair_line(   x, y, z, ix, iy, iz) {
     
     x=$(x_idx); y=$(y_idx); z=$(z_idx)
     x=wrapx(x); y=wrapy(y); z=wrapz(z)
-
     
     ix=x2i(x); iy=y2i(y); iz=z2i(z)
     print gget(ix, iy, iz, x, y, z, np)

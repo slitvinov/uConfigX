@@ -3,6 +3,8 @@
 set -e
 set -u
 
+make
+
 box='-v xl=0 -v xh=24 -v yl=0 -v yh=120 -v zl=0 -v zh=24'
 cutoff='-v c=3.0'
 Nv='-v Nv=162'
@@ -37,7 +39,9 @@ genmap () {
     do
 	c=`repsufix $f ply cm`
 	m=`repsufix $f ply map`
-	scripts/cm2sort.awk $box $cutoff $prev $c > $m
+	set -x
+	scripts/nns.awk $box $cutoff $prev $c > $m
+	set +x
 	prev=$c
     done
 }
