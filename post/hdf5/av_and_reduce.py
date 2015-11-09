@@ -24,6 +24,7 @@ fst.close()
 
 n = len(sys.argv[2:])
 for fn in sys.argv[2:]:
+    print "(av_and_reduce.py) processing: %s" % fn
     f = h5py.File(fn, 'r')
     for k in keys:
         av[k][:] += np.mean(f[k], axis=d)[:]

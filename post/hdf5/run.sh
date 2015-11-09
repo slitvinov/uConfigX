@@ -2,5 +2,13 @@
 
 set -e
 
-~/prefix-pkgsrc-master64/bin/python2.7 flowp.py av.h5 ~/tmp/h5/flowfields-[0-9]*.h5
-awk -f flowp.awk av.xmf ~/tmp/h5/flowfields-[0-9]*.xmf
+wrk=~/tmp/stochastic_seed_many
+mkdir -p $wrk
+
+d=$1
+
+mkdir -p $wrk/$d
+(
+    cd $d/uConfigX/uDeviceX/mpi-dpd/h5/
+    ur av_and_reduce.sh $wrk/$d/av.h5 `ls -1 flowfields-*.h5 | awk 'NR>10'`
+)

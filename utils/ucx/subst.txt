@@ -18,6 +18,7 @@ gcp                         deploy/gcp/gcp
 append.awk 		    utils/system/append.awk
 appendf.awk 		    utils/system/appendf.awk
 cutter.awk 		    utils/system/cutter.awk
+keyval.awk		    utils/system/keyval.awk
 
 refine.awk		    pre/trbc/refine.awk
 refine2.awk		    pre/trbc/refine2.awk
@@ -57,6 +58,11 @@ ply2volume.sh		    post/ply/scripts/ply2volume.sh
 ply2area.sh		    post/ply/scripts/ply2area.sh
 ply2cm.awk		    post/ply/scripts/ply2cm.awk
 nns.awk			    post/ply/scripts/nns.awk
+remap.awk		    post/ply/scripts/remap.awk
+cm2image.awk		    post/ply/scripts/cm2image.awk
+image2unwrap.awk	    post/ply/scripts/image2unwrap.awk
+ply2unwrap.awk		    post/ply/scripts/ply2unwrap.awk
+ply2sort.sh		    post/ply/scripts/ply2sort.sh
 
 av.awk           	    post/hdf5/av.awk
 av.sh            	    post/hdf5/av.sh

@@ -3,32 +3,50 @@
 set -e
 set -u
 
-make
+make -C $UCX_PREFIX/post/ply
 
 box='-v xl=0 -v xh=24 -v yl=0 -v yh=120 -v zl=0 -v zh=24'
 cutoff='-v c=3.0'
-Nv='-v Nv=162'
-#Nv='-v Nv=362'
-#Nv='-v Nv=162'
 
-#p=seed_111_dangle_-90_ha_1_Nv_362_cshape_0_phi_-1.5708_Lx_24_Ly_120_Lz_24_Rx_6
-p=seed_111_dangle_0_ha_0.1_Nv_162_cshape_0_phi_-1.5708_Lx_24_Ly_120_Lz_24_Rx_6
+if test $# -ne 2
+then
+    printf "(ply2sort.sh)(ERROR) requres 2 argument (%d given)\n" $#
+    exit 2
+fi
+
+o=$1 # ouptut directory
+p=$2 # input directory
+
+b=`basename $p`
+mkdir -p $o/$b/cm     # output directory
+mkdir -p $o/$b/cm/ply # output directory for ply files
+printf "(ply2sort.sh) processing: %s\n" $b
+cp    $p/uConfigX/uDeviceX/mpi-dpd/sdf.vti  $o/$b/cm/ply/
+
+Nv_in=`ur keyval.awk $b Nv`
+Nv="-v Nv=$Nv_in"
 
 flist () { # returns input file list
-    find $HOME/$p/ply -name rbcs-*.ply | grep -v wm | sort -g | awk 'NR>1'
+    find $p/uConfigX/uDeviceX/mpi-dpd/ply -name rbcs-*.ply | grep -v wm | sort -g | awk 'NR>1'
 }
 
 repsufix () { # replace suffix `repsufix <filename> <old suffix> <new suffix>`
-    d=`dirname $1`
-    b=`basename $1`
-    echo $d/${b/$2/$3}
+    local d=`dirname $1`
+    local b=`basename $1`
+    echo `repdir $d/${b/$2/$3}`
+}
+
+repdir () {
+    local ob=`basename $p`
+    local b=`basename $1`
+    echo $o/$ob/cm/$b
 }
 
 gencm () {
     for f in `flist`
     do
-	c=`repsufix $f ply cm`
-	./ply2ascii < $f | scripts/ply2cm.awk $Nv > $c
+	local c=`repsufix $f ply cm`
+	ur ply2ascii < $f | ur ply2cm.awk $Nv > $c
     done
 }
 
@@ -39,9 +57,7 @@ genmap () {
     do
 	c=`repsufix $f ply cm`
 	m=`repsufix $f ply map`
-	set -x
-	scripts/nns.awk $box $cutoff $prev $c > $m
-	set +x
+	ur nns.awk $box $cutoff $prev $c > $m
 	prev=$c
     done
 }
@@ -50,13 +66,13 @@ create_remap () {
     rm -rf /tmp/d.$$
     for f in `flist`
     do
-	m=`repsufix $f ply map`
+	local m=`repsufix $f ply map`
 	echo $m
-    done | scripts/remap.awk -v d=/tmp/d.$$ > /tmp/rlist.$$
+    done | ur remap.awk -v d=/tmp/d.$$ > /tmp/rlist.$$
 }
 
 remap_cm () {
-    rf=$1
+    local rf=$1
     for f in `flist`
     do
 	c=`repsufix $f ply cm`
@@ -74,7 +90,7 @@ image_cm () {
     do
 	r=`repsufix $f ply rm`
 	i=`repsufix $f ply im`
-	scripts/cm2image.awk $box $prev $r > $i
+	ur cm2image.awk $box $prev $r > $i
 	prev=$i
     done
 }
@@ -82,17 +98,23 @@ image_cm () {
 wrap_cm () {
     for f in `flist`
     do
-	i=`repsufix $f ply im`
-	w=`repsufix $f ply wm`
-	scripts/image2unwrap.awk $box $i > $w
+	local i=`repsufix $f ply im`
+	local w=`repsufix $f ply wm`
+	ur image2unwrap.awk $box $i > $w
     done
+}
+
+addlevel () {
+    local b=`basename $1`
+    local d=`dirname  $1`
+    echo $d/ply/$b
 }
 
 remap_ply() {
     for f in `flist`
     do
 	w=`repsufix $f ply wm`
-	./ply2ascii < $f | scripts/ply2unwrap.awk $box $Nv $w "-" | ./ply2binary > $w.ply
+	ur ply2ascii < $f | ur ply2unwrap.awk $box $Nv $w "-" | ur ply2binary > `addlevel $w.ply`
     done
 }
 

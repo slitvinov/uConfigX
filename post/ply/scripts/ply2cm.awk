@@ -42,7 +42,6 @@ function read_header(    sep, Nf_total, Npart) { # sets global variables
 		    Nv, Nv_total, Npart > "/dev/stderr"
 		exit
 	    }
-	    printf "(ply2cm.awk) %d parts, %d total\n", Npart, Nv_total > "/dev/stderr"
 	}
     }
 }
