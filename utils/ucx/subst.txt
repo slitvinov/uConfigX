@@ -44,7 +44,6 @@ var.awk			    pre/trbc/var.awk
 av_and_reduce.awk           post/hdf5/av_and_reduce.awk
 av_and_reduce.sh            post/hdf5/av_and_reduce.sh
 av_and_reduce.py            post/hdf5/av_and_reduce.py
-av_and_reduce.py            post/hdf5/av_and_reduce.py
 
 # Run
 # make -C post/ply

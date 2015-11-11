@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PYTHON=python
+PYTHON=~/gerris-deploy/prefix/bin/python
 out_h5=$1
 out_xmf=${out_h5/\.h5/.xmf}
 shift

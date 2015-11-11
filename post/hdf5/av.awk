@@ -2,7 +2,7 @@
 
 BEGIN {
     n = ARGV[1]
-    gsub("\.[^\.]+$", "", n)
+    gsub(".[^.]+$", "", n)
     path_xmf = n ".xmf"
     gsub(/.*\//, "" ,     n)
     
@@ -12,7 +12,7 @@ BEGIN {
     ARGV[1] = ""
     
     o = ARGV[2]
-    gsub("\.[^\.]+$", "", o)
+    gsub(".[^.]+$", "", o)
     gsub(/.*\//, "" ,     o)
     old_h5  = o ".h5"
 }

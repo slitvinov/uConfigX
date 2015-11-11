@@ -18,6 +18,7 @@ fst = h5py.File(sys.argv[2], 'r')
 for k in keys:
     t = fst[k].dtype
     s = fst[k].shape
+    print "(av_and_reduce.py) shape: ", s
     s = reduce_shape(s, d)
     av.create_dataset(k, s, dtype=t, fillvalue=0.0)
 fst.close()    
