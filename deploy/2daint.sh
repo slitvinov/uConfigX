@@ -6,14 +6,14 @@ set -x
 
 default_dir=uConfigX
 iname=test #=iname=%my_dir_name%
-Nkeep=10 # number of parameter in dir name
+Nkeep=14 # number of parameter in dir name
 rname=`ur cutter.awk $iname $Nkeep`
 
 # remote host name
 uname=lisergey
 rhost="${uname}"@daint
 
-name=big_average
+name=kb
 # remote path name
 rpath=/scratch/daint/"${uname}"/$name/"${rname}"
 

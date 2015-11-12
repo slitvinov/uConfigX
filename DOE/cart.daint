@@ -16,14 +16,27 @@
 0.001
 
 =ha
-0.025
+0.0
 
 ########## RBC parameters ##########
 =mu0 # RBC shear modulus
-10
+20
+30
+40
+50
+60
+200
+300
+400
+500
 
 =kb
-0
+300
+400
+500
+600
+700
+800
 
 =ka
 2500
@@ -32,10 +45,10 @@
 3500
 
 =gammaC # RBC dissipation
-0
+50
 
 =cshape # cell shapes: (0: sphere, 1: rbc)
-0
+1
 
 =seed # random seed
 111
@@ -44,22 +57,23 @@
 #42
 #92
 #162
-#362
-812
-#1442
+362
+#812
+1442
 #5762
+#498
 
 =lx # periodic ellement
-24
+48
 
 =ar # aspect ration of an ellipse
-0.75
+0.7
 
 =Nx
 1
 
 =Ny
-5
+1
 
 =Nz
 1
