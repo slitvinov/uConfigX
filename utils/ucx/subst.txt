@@ -2,6 +2,8 @@ atest.awk                   utils/atest/atest.awk
 processor.tmp.cpp           pre/tsdf/processor.tmp.cpp
 sdf2vtk.cpp                 pre/tsdf/sdf2vtk.cpp
 tsdf.awk                    pre/tsdf/tsdf.awk
+sdf2volume		    pre/tsdf/sdf2volume
+
 array.awk		    pre/tsdf-configs/array.awk
 cylinder.awk		    pre/tsdf-configs/cylinder.awk
 
@@ -25,6 +27,7 @@ refine2.awk		    pre/trbc/refine2.awk
 refine3.awk		    pre/trbc/refine3.awk
 icosahedron.awk		    pre/trbc/icosahedron.awk
 tetrahedron.awk		    pre/trbc/tetrahedron.awk
+nv2stat.awk		    pre/trbc/nv2stat.awk
 clean.awk		    pre/trbc/clean.awk
 unref.awk		    pre/trbc/unref.awk
 unref2vba.awk		    pre/trbc/unref2vba.awk
@@ -52,6 +55,7 @@ ply2ascii		    post/ply/ply2ascii
 ply2binary		    post/ply/ply2binary
 platoply		    post/ply/platoply
 
+ply2ncell.awk		    post/ply/scripts/ply2ncell.awk
 ply2trbc.awk		    post/ply/scripts/ply2trbc.awk
 ply2volume.sh		    post/ply/scripts/ply2volume.sh
 ply2area.sh		    post/ply/scripts/ply2area.sh
