@@ -41,8 +41,9 @@ function a2r_sphere(A,  R0, A0) { # area to radius for spehre
       return (A^(1/2)*R0)/A0^(1/2)
 }
 
-function a2r_rbc(A,  R0, A0) { # area to radius for RBC
-      R0 = 7.82
+function a2r_rbc(A,  D0, R0, A0) { # area to radius for RBC
+      D0 = 7.82
+      R0 = D0/2
       A0 = 135
       return (A^(1/2)*R0)/A0^(1/2)
 }
