@@ -5,6 +5,8 @@ set -u
 
 make -C $UCX_PREFIX/post/ply
 
+o=$1 # ouptut directory
+p=$2 # input directory
 box='-v xl=0 -v xh=24 -v yl=0 -v yh=120 -v zl=0 -v zh=24'
 cutoff='-v c=3.0'
 
@@ -14,14 +16,11 @@ then
     exit 2
 fi
 
-o=$1 # ouptut directory
-p=$2 # input directory
-
 b=`basename $p`
 mkdir -p $o/$b/cm     # output directory
 mkdir -p $o/$b/cm/ply # output directory for ply files
 printf "(ply2sort.sh) processing: %s\n" $b
-cp    $p/uConfigX/uDeviceX/mpi-dpd/sdf.vti  $o/$b/cm/ply/
+#cp    $p/uConfigX/uDeviceX/mpi-dpd/sdf.vti  $o/$b/cm/ply/
 
 Nv_in=`ur keyval.awk $b Nv`
 Nv="-v Nv=$Nv_in"

@@ -16,16 +16,16 @@ const real orgz = 0.0;
 
 void usage() {
   printf("OVERVIEW: report information about the volume occupaied by wall and void in sdf file\n");
-  printf("USAGE: sdf2vtk <input sdf file>\n");
+  printf("USAGE: sdf2volume <input sdf file>\n");
+  printf("Output: <volume of void>\n<volume of wall>\n");
 }
 
 int main(int argc, char ** argv) {
-  if (argc != 3) {
+  if (argc != 2) {
     usage();
     return EXIT_FAILURE;
   }
   
-  fprintf(stderr, "(sdf2vtk) Reading file %s\n", argv[1]);
   FILE * f = fopen(argv[1], "r");
   if (f == NULL ) {
     perror("Error");
@@ -38,44 +38,26 @@ int main(int argc, char ** argv) {
   real xextent, yextent, zextent;
   fscanf(f, "%f %f %f\n", &xextent, &yextent, &zextent);
   fscanf(f, "%d %d %d\n", &NX, &NY, &NZ);
-  fprintf(stderr, "(sdf2vtk) Extent: [%g, %g, %g]. Grid size: [%d, %d, %d]\n",
-	 xextent, yextent, zextent, NX, NY, NZ);
-
-  std::vector<real> sdf_data(NX*NY*NZ);
-  fread(&sdf_data[0], sizeof(real), NX*NY*NZ, f);
-  fclose(f);
+  int n_total = NX*NY*NZ;
   
-  fprintf(stderr, "(sdf2vtk) Writing file %s \n", argv[2]);
-  FILE * v = fopen(argv[2], "w");
-  if (v == NULL ) {
-    perror("Error");
-    return EXIT_FAILURE;
-  }
+  std::vector<real> sdf_data(NX*NY*NZ);
+  fread(&sdf_data[0], sizeof(real), n_total, f);
+  fclose(f);
 
-  // spacing
-  const real spx = NX>1 ? xextent/(NX-1) : 0;
-  const real spy = NY>1 ? yextent/(NY-1) : 0;
-  const real spz = NZ>1 ? zextent/(NZ-1) : 0;
-
-  fprintf(v, "<?xml version=\"1.0\"?>\n");
-  fprintf(v, "<VTKFile byte_order=\"LittleEndian\" version=\"1.0\" type=\"ImageData\">\n");
-  fprintf(v, "<ImageData Origin=\"%-1.16e %-1.16e %-1.16e\" WholeExtent=\"0 %d 0 %d 0 %d\" Spacing=\"%-1.16e %-1.16e %-1.16e\">\n",
-	  orgx, orgy, orgz, NX-1, NY-1, NZ-1, spx, spy, spz);
-  fprintf(v, "<Piece Extent=\"0 %d 0 %d 0 %d\">\n", NX-1, NY-1, NZ-1);
-  fprintf(v, "<PointData Scalars=\"%s\">\n", VTK_SC_NAME);
-  fprintf(v, "<DataArray type=\"%s\" Name=\"%s\" NumberOfComponents=\"1\" format=\"ascii\"/>", VTK_TYPE, VTK_SC_NAME);
-  for (int i=0; i<NX*NY*NZ; i++) {
+  int n_wall = 0;
+  int n_void = 0;
+  for (int i=0; i<n_total; i++) {
     if (sdf_data[i] != sdf_data[i]) {
-      fprintf(stderr, "(sdf2vtk) see nan in position %d\n", i);
+      fprintf(stderr, "(sdf2volume) see nan in position %d\n", i);
       exit(EXIT_FAILURE);
     }
-    fprintf(v, "%-1.6e\n", sdf_data[i]);
+    if (sdf_data[i]<=0)
+      n_void++;
+    else
+      n_wall++;
   }
 
-  fprintf(v, "</PointData>\n");
-  fprintf(v, "</Piece>\n");
-  fprintf(v, "</ImageData>\n");
-  fprintf(v, "</VTKFile>\n");
-  fclose(v);
+  real Vtotal = xextent*yextent*zextent;
+  fprintf(stdout, "%g\n%g\n", (Vtotal*n_void)/n_total, (Vtotal*n_wall)/n_total);
 }
 

@@ -37,7 +37,6 @@ function read_write_header(    sep, Nf_total, Npart) { # sets global variables
 		    Nv, Nv_total, Npart > "/dev/stderr"
 		exit
 	    }
-	    printf "(ply2unwrap.awk) found %d parts\n", Npart > "/dev/stderr"
 	}
 	print
     }
