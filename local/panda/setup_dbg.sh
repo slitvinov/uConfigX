@@ -5,13 +5,12 @@
 flist="uDeviceX/mpi-dpd/Makefile uDeviceX/cuda-rbc/Makefile"
 cu="uDeviceX/cuda-rbc/rbc-cuda.cu"
 
-function ctrl_c() {
-    local/panda_dbg/restore.sh $flist
-    local/panda_dbg/restore.sh $cu    
+ctrl_c() {
+    local/panda_dbg/restore.sh $flist $cu
 }
 
-function compile() {
-    local/panda_dbg/backup.sh  $flist
+compile() {
+    local/panda_dbg/backup.sh  $flist $cu
     local/panda_dbg/replace.sh '-O[234]'         '-O0'                    $flist
     local/panda_dbg/replace.sh '-DNDEBUG'        ''                       $flist
     local/panda_dbg/replace.sh ' __forceinline__ ' '  '                   $cu
@@ -21,8 +20,7 @@ function compile() {
     local/panda/compile.sh
     trap -      INT
 
-    local/panda_dbg/restore.sh $flist
-    local/panda_dbg/restore.sh $cu
+    local/panda_dbg/restore.sh $flist $cu
     
     mv uDeviceX/mpi-dpd/test uDeviceX/mpi-dpd/test_dbg
 }

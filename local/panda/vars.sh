@@ -11,9 +11,9 @@ XSIZE_SUBDOMAIN=48 #=XSIZE_SUBDOMAIN=%XS%
 YSIZE_SUBDOMAIN=48 #=YSIZE_SUBDOMAIN=%YS%
 ZSIZE_SUBDOMAIN=48 #=ZSIZE_SUBDOMAIN=%ZS%
 
-Lx=48 #= Lx=%Lx%
-Ly=48 #= Ly=%Ly%
-Lz=48 #= Lz=%Lz%
+Lx=24 #= Lx=%Lx%
+Ly=24 #= Ly=%Ly%
+Lz=24 #= Lz=%Lz%
 
 Nx=1 #= Nx=%Nx%
 Ny=5 #= Ny=%Ny%
