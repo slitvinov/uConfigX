@@ -394,10 +394,10 @@ function psystem(s) {
     system(s)
 }
 
-# uses variables CXX, CXXFLAGS, TMPDIR
+# uses variables CXX, CPPFLAGS, TMPDIR
 function compile_and_run(f, args,      exec_name, c, r) {
     exec_name = TMPDIR "/" basename(f)
-    c = sprintf("%s %s -o %s %s", CXX, CXXFLAGS, exec_name, f)
+    c = sprintf("%s %s -o %s %s", CXX, CPPFLAGS, exec_name, f)
     psystem(c)
     r = sprintf("%s %s", exec_name, args)
     psystem(r)
