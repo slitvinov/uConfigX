@@ -1,0 +1,19 @@
+Scripts to work with ply file
+
+# TEST: ply1
+# make
+# ur platoply -c  | ur ply2binary | ur ply2ascii > cube.out.ply
+#
+# TEST: ply2
+# make
+# ur platoply -c  > cube.out.ply
+#
+# TEST: ply3
+# ur ply2ascii < examples/rbcs-0000.ply > rbcs.out.ply
+
+have: o[oid] -> pid
+need: o[oid] -> cid
+
+p[cid] -> pid
+
+echo test_data/f1.dat test_data/m12.dat test_data/f2.dat test_data/m23.dat test_data/f3.dat | xargs -n1 | ./scripts/remapcm.awk  -v s="wm"
