@@ -14,6 +14,9 @@
 #
 # TEST: altransformio5
 # ./altransformio.sh test_data/transformio4.config a_1 > transformio.out.config
+#
+# TEST: altransformio6
+# ./altransformio.sh test_data/transformio5.config a_preved > transformio.out.config
 
 set -u
 config_file=$1

@@ -4,13 +4,24 @@ BEGIN {
     tab       = "    "
     parameters_line = ARGV[2]
     ARGV[2] = ""
+
+    # regexp to match numbers
+    number = "^[-+]?([0-9]+[.]?[0-9]*|[.][0-9]+)"	\
+	"([eE][-+]?[0-9]+)?$"
+}
+
+function norm_val(v) { # add `"' if v is not a number
+    if (v ~ number)
+	return v
+    else
+	return "\"" v "\""
 }
 
 function print_var_def(   nn, arr, i) {
     nn = split(parameters_line, arr, FIELD_SEP)
     for (i = 1; i<=nn; i+=2) {
 	key=arr[i]
-	val=arr[i+1]
+	val=norm_val(arr[i+1])
 	printf tab "%s = %s\n", key, val
     }
 }
