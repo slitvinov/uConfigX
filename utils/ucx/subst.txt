@@ -1,9 +1,79 @@
 atest.awk                   utils/atest/atest.awk
 processor.tmp.cpp           pre/tsdf/processor.tmp.cpp
 sdf2vtk.cpp                 pre/tsdf/sdf2vtk.cpp
+sdf2vtk                     pre/tsdf/sdf2vtk
 tsdf.awk                    pre/tsdf/tsdf.awk
+sdf2volume		    pre/tsdf/sdf2volume
+
+array.awk		    pre/tsdf-configs/array.awk
+cylinder.awk		    pre/tsdf-configs/cylinder.awk
+
+allineario.awk 		    DOE/alpatchio/allineario.awk
 alpachio.sh                 DOE/alpatchio/alpachio.sh
 alpachio.awk                DOE/alpatchio/alpachio.awk
+alcartesio.awk              DOE/alpatchio/alcartesio.awk
 altransformio.generator.awk DOE/alpatchio/altransformio.generator.awk
 altransformio.sh	    DOE/alpatchio/altransformio.sh
+altransformio-pipe.sh	    DOE/alpatchio/altransformio-pipe.sh
+aldriver2.sh      	    DOE/alpatchio/aldriver2.sh
+
 gcp                         deploy/gcp/gcp
+append.awk 		    utils/system/append.awk
+appendf.awk 		    utils/system/appendf.awk
+cutter.awk 		    utils/system/cutter.awk
+keyval.awk		    utils/system/keyval.awk
+
+refine.awk		    pre/trbc/refine.awk
+refine2.awk		    pre/trbc/refine2.awk
+refine3.awk		    pre/trbc/refine3.awk
+icosahedron.awk		    pre/trbc/icosahedron.awk
+tetrahedron.awk		    pre/trbc/tetrahedron.awk
+nv2stat.awk		    pre/trbc/nv2stat.awk
+clean.awk		    pre/trbc/clean.awk
+unref.awk		    pre/trbc/unref.awk
+unref2vba.awk		    pre/trbc/unref2vba.awk
+unref2vtk.awk		    pre/trbc/unref2vtk.awk
+unref2udevice.awk	    pre/trbc/unref2udevice.awk
+
+unref2bstats.awk	    pre/trbc/unref2bstats.awk
+unref2vstats.awk	    pre/trbc/unref2vstats.awk
+unref2stats.awk		    pre/trbc/unref2stats.awk
+unref2stats.awk		    pre/trbc/unref2stats.awk
+
+rbc2trbc.awk		    pre/trbc/rbc2trbc.awk
+sum.awk			    pre/trbc/sum.awk
+mean.awk		    pre/trbc/mean.awk
+var.awk			    pre/trbc/var.awk
+
+av_and_reduce.awk           post/hdf5/av_and_reduce.awk
+av_and_reduce.sh            post/hdf5/av_and_reduce.sh
+av_and_reduce.py            post/hdf5/av_and_reduce.py
+
+# Run
+# make -C post/ply
+# to compile ply utils
+ply2ascii		    post/ply/ply2ascii
+ply2binary		    post/ply/ply2binary
+platoply		    post/ply/platoply
+
+ply2ncell.awk		    post/ply/scripts/ply2ncell.awk
+ply2trbc.awk		    post/ply/scripts/ply2trbc.awk
+ply2volume.sh		    post/ply/scripts/ply2volume.sh
+ply2area.sh		    post/ply/scripts/ply2area.sh
+ply2cm.awk		    post/ply/scripts/ply2cm.awk
+nns.awk			    post/ply/scripts/nns.awk
+nns0.awk		    post/ply/scripts/nns0.awk
+nns0.sh			    post/ply/scripts/nns0.sh
+remap.awk		    post/ply/scripts/remap.awk
+cm2image.awk		    post/ply/scripts/cm2image.awk
+cm2unwrap0.awk		    post/ply/scripts/cm2unwrap0.awk
+image2unwrap.awk	    post/ply/scripts/image2unwrap.awk
+ply2unwrap.awk		    post/ply/scripts/ply2unwrap.awk
+ply2sort.sh		    post/ply/scripts/ply2sort.sh
+
+av.awk           	    post/hdf5/av.awk
+av.sh            	    post/hdf5/av.sh
+av.py            	    post/hdf5/av.py
+
+cell-placement0.awk	    pre/cell-distribution/cell-placement0.awk
+cell-placement1.awk	    pre/cell-distribution/cell-placement1.awk
