@@ -34,13 +34,13 @@ BEGIN {
 }
 
 function rep_all(s,    i, new, old) {
-#    print "(alpachio.awk) before " $0 > "/dev/stderr"    
+    print "(alpachio.awk) before " $0 > "/dev/stderr"
     for (i in rep) {
 	old = i
 	new = rep[i]
 	gsub(old, new, s)
     }
-#    print "(alpachio.awk) after " $0 > "/dev/stderr"
+    print "(alpachio.awk) after "  s > "/dev/stderr"
     return s
 }
 

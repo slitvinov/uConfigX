@@ -1,3 +1,11 @@
+BEGIN {
+    LITERATE_MARKER = "%%%"
+    FIELD_SEP = "_"
+    tab       = "    "
+    parameters_line = ARGV[2]
+    ARGV[2] = ""
+}
+
 function print_var_def(   nn, arr, i) {
     nn = split(parameters_line, arr, FIELD_SEP)
     for (i = 1; i<=nn; i+=2) {
@@ -7,11 +15,8 @@ function print_var_def(   nn, arr, i) {
     }
 }
 
-BEGIN {
-    FIELD_SEP = "_"
-    tab       = "    "
-    parameters_line = ARGV[2]
-    ARGV[2] = ""
+function is_literate() {
+    return substr($0, 1, 3)==LITERATE_MARKER
 }
 
 function is_parameter() {
@@ -29,6 +34,14 @@ function norm_name(s) {
 }
 
 !NF {                    # skip empty lines
+    next
+}
+
+is_literate() {
+    sub(LITERATE_MARKER, "")
+    if (substr($0, 1, 1)==" ")
+	sub(" ", "")
+    print
     next
 }
 

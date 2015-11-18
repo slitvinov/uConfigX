@@ -1,0 +1,88 @@
+########## DPD parameters ##########
+=nd
+4
+
+=kBT
+0.0945
+
+=gammadpd
+45
+
+=aij
+10
+
+####################
+=dt
+0.001
+
+=ha
+0.0
+
+########## RBC parameters ##########
+=mu0 # RBC shear modulus
+20
+30
+40
+50
+60
+200
+300
+400
+500
+
+=kb
+300
+400
+500
+600
+700
+800
+
+=ka
+2500
+
+=kv
+3500
+
+=gammaC # RBC dissipation
+50
+
+=cshape # cell shapes: (0: sphere, 1: rbc)
+1
+
+=seed # random seed
+111
+
+=Nv # number of vertices in RBC
+#42
+#92
+#162
+362
+#812
+1442
+#5762
+#498
+
+=lx # periodic ellement
+48
+
+=ar # aspect ration of an ellipse
+0.7
+
+=Nx
+1
+
+=Ny
+1
+
+=Nz
+1
+
+=rx # rank in X
+1
+
+=ry # rank in Y
+1
+
+=rz # rank in Z
+1
