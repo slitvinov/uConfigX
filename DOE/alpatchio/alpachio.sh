@@ -12,6 +12,11 @@
 # cp test_data/common2.cpp common.tmp.cpp
 # ./alpachio.sh test_data/alpatchi1.config common.tmp.cpp
 # cp common.tmp.cpp       common.out.cpp
+#
+# TEST: alpachio3
+# cp test_data/common3.cpp common.tmp.cpp
+# ./alpachio.sh test_data/alpatchi1.config common.tmp.cpp
+# cp common.tmp.cpp       common.out.cpp
 
 set -u
 config=$1
