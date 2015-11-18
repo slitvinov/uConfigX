@@ -25,7 +25,7 @@ cpy_args="-q -r -avz"
 
 # git command
 GIT=${GIT:-git}
-GITFLAGS="--depth 1 --recursive"
+GITFLAGS="--depth 1"
 
 # default git root directory name on a remote host
 default_dir=$1
@@ -51,7 +51,12 @@ revid=`"${GIT}" rev-parse HEAD`
 
 msg "Current branch: %s\n" "${branch}"
 "${GIT}" clone ${GITFLAGS} -b "${branch}" -- file://"${top}" "${local_target}"
-msg "Current id    : %s\n" "${revid}"
+(
+    cd "${local_target}"
+    # --depth 1
+    git submodule update
+)
+
 
 msg "Create a list of all staged files: %s\n" "${file_list}"
 
@@ -63,8 +68,10 @@ function create_file_list_submodule() {
     submod_list=`find . -name .gitmodules | xargs awk '/path = / {gsub("^[^=]*=[ ]*", ""); print}'`
     for sm in ${submod_list}; do
 	msg "Appending a list of all staged files in submodule %s\n" "$sm"
-	cd "$sm"
-	"${GIT}" ls-files --cached --full-name | awk '{print "'"$sm/"'"$0}' >> "${file_list}"
+	(
+	    cd "$sm"
+	    "${GIT}" ls-files --cached --full-name | awk '{print "'"$sm/"'"$0}' >> "${file_list}"
+	 )
     done
 }
 
@@ -80,8 +87,12 @@ function copy_directory_structure() {
 
 function copy_staged_files() {
     msg "Copy staged files to %s\n" "${local_target}"
-    while read fname; do
-	test -f "${fname}" && cp -- "${fname}" "${local_target}/${fname}"
+    while read fname
+    do
+	if test -f "${fname}"
+	then
+	    cp -- "${fname}" "${local_target}/${fname}"
+	fi
     done < "${file_list}"
 }
 
