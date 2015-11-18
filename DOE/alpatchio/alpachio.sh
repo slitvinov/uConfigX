@@ -13,13 +13,15 @@
 # ./alpachio.sh test_data/alpatchi1.config common.tmp.cpp
 # cp common.tmp.cpp       common.out.cpp
 
-set -x
-
+set -u
 config=$1
 shift
 
 t=`mktemp /tmp/al.XXXXX`
-for f ; do
+for f
+do
     ur alpachio.awk "$config" "$f" >  "$t"
     mv             "$t"              "$f"
 done
+
+rm -rf "${t?}"

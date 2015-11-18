@@ -15,11 +15,12 @@
 # TEST: altransformio5
 # ./altransformio.sh test_data/transformio4.config a_1 > transformio.out.config
 
+set -u
 config_file=$1
 parameters_line=$2
 
 slave=`mktemp /tmp/altransf.XXXXXX`
 awk -f `us altransformio.generator.awk` "$config_file" "$parameters_line" > "$slave"
 
-printf "(altransformio.sh) slave: $slave" > /dev/stderr
+echo "(altransformio.sh) slave: $slave" > /dev/stderr
 awk -f "$slave"
