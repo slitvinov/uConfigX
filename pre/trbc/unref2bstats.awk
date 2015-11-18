@@ -24,22 +24,18 @@ function decode(key,   sep, aux, nn, i) {
     nn = split(key, aux, SUBSEP)
     x1 = aux[++i]; y1 = aux[++i]; z1 = aux[++i];
     x2 = aux[++i]; y2 = aux[++i]; z2 = aux[++i];
-    x3 = aux[++i]; y3 = aux[++i]; z3 = aux[++i];
 }
 
-# calculate an area of a triangle
-function area(key,  r1, r2, r3, r31, r21, ksi) {
+# calculate a length of a bond
+function lbond(key,  r1, r2, r21) {
     decode(key)
 
     r1[1] = x1; r1[2] = y1; r1[3] = z1
     r2[1] = x2; r2[2] = y2; r2[3] = z2
-    r3[1] = x3; r3[2] = y3; r3[3] = z3
     
-    vminus(r3, r1, r31)
     vminus(r2, r1, r21)
     
-    cp(r21, r31, ksi)
-    return  1.0/2.0*vabs(ksi)
+    return  vabs(r21)
 }
 
 function s(key,   nn, aux) {
@@ -64,6 +60,6 @@ $1 == "del" && $2 == "key" {
 
 END {
     for (key in keys)
-	if (s(key)==9)
-	    print area(key)
+	if (s(key)==6)
+	    print lbond(key)
 }

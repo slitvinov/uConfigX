@@ -27,8 +27,9 @@ function decode(key,   sep, aux, nn, i) {
     x3 = aux[++i]; y3 = aux[++i]; z3 = aux[++i];
 }
 
+
 # calculate an area of a triangle
-function area(key,  r1, r2, r3, r31, r21, ksi) {
+function volume(key,  r1, r2, r3, r31, r21, ksi, tc) {
     decode(key)
 
     r1[1] = x1; r1[2] = y1; r1[3] = z1
@@ -39,7 +40,14 @@ function area(key,  r1, r2, r3, r31, r21, ksi) {
     vminus(r2, r1, r21)
     
     cp(r21, r31, ksi)
-    return  1.0/2.0*vabs(ksi)
+
+    vmean(r1, r2, r3, tc)
+    return  1.0/6.0*dot(ksi, tc)
+}
+
+function vmean(A, B, C, M,   j) {
+    for (j=1; j<=3; j++)
+	M[j] = 1.0/3.0*(A[j] + B[j] + C[j])
 }
 
 function s(key,   nn, aux) {
@@ -65,5 +73,5 @@ $1 == "del" && $2 == "key" {
 END {
     for (key in keys)
 	if (s(key)==9)
-	    print area(key)
+	    print volume(key)
 }

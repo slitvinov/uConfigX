@@ -1,0 +1,16 @@
+Scripts to create a single membrane triangulation
+
+#+BEGIN_EXAMPLE
+# Bonds
+#           n          sum          min            E          max  sqrt(var)/E  (max-min)/E
+         1488      832.275     0.454419     0.559324     0.671753    0.0650191     0.388565
+
+# Angles
+#           n          sum          min            E          max  sqrt(var)/E  (max-min)/E
+          992      132.831     0.119749     0.133902     0.149191    0.0424909     0.219877
+
+# Area  : 132.831
+# Volume: 92.4699
+# Bonds : 0.559324
+#+END_EXAMPLE
+

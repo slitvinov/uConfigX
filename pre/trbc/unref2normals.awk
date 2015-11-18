@@ -27,7 +27,7 @@ $1 == "del" && $2 == "key" {
     delete keys[key]
 }
 
-function nvert(      n) {
+function nvert(      n, key) {
     for (key in keys)
 	if (s(key)==3) n++
     return n
@@ -35,7 +35,7 @@ function nvert(      n) {
 
 END {
     printf "# vtk DataFile Version 2.0\n"
-    printf "Generated with unref2vtk.awk\n"
+    printf "Generated with unref2norm.awk\n"
     printf "ASCII\n"
     printf "DATASET POLYDATA\n"
     
