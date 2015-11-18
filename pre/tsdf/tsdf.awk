@@ -34,10 +34,18 @@
 #
 # TEST: tsdf11
 # ./tsdf.awk examples/block2.tsdf sdf.dat sdf.out.vti
+#
+# TEST: tsdf12
+# ./tsdf.awk examples/ellipse1.tsdf sdf.dat sdf.out.vti
+#
+# TEST: tsdf13
+# ./tsdf.awk examples/egg1.tsdf sdf.dat sdf.out.vti
 
 function randint(n) { return int(rand()*n)+1 }
 
 function init() {
+    srand()
+
     "us processor.tmp.cpp" | getline processor_file
     "us sdf2vtk.cpp"       | getline SDF2VTK
 
@@ -163,6 +171,118 @@ function expr_cylinder(     nx, ny, nz, xp, yp, zp, R,     m, e) {
     return format_expr(e)
 }
 
+function expr_ellipse(     ax, xp, yp, zp, rx, ry, ang) {
+    ax = $3 # XY, XZ, YZ
+    xp=$5;  yp=$6;  zp=$7
+    rx = $9; ry = $10
+    ang = $12
+    e[++m] = sprintf("xp = %s, yp = %s, zp = %s", xp, yp, zp)
+    e[++m] = sprintf("rx = %s, ry = %s", rx, ry)
+    e[++m] = sprintf("ang = %s", ang)
+    if (ax == "XY") {
+	e[++m] = "x0 = sin(ang)*(y-yp)+cos(ang)*(x-xp)"
+	e[++m] = "y0 = cos(ang)*(y-yp)-sin(ang)*(x-xp)"
+    } else if (ax == "XZ") {
+	e[++m] = "x0 = sin(ang)*(z-zp)+cos(ang)*(x-xp)"
+	e[++m] = "y0 = cos(ang)*(z-zp)-sin(ang)*(x-xp)"
+    } else if (ax == "YZ") {
+	e[++m] = "x0 = sin(ang)*(z-zp)+cos(ang)*(y-yp)"
+	e[++m] = "y0 = cos(ang)*(z-zp)-sin(ang)*(y-yp)"
+    } else {
+	printf "unknown ax in ellipse command (should be XY, XZ, YZ)\n" > "/dev/stderr"
+	exit
+    }
+    e[++m] = \
+	"-(1.0*(pow(y0,2.0)+pow(x0,2.0))"				\
+	"*(pow(pow(rx,2.0)*pow(y0,2.0)+pow(ry,2.0)*pow(x0,2.0),0.5)-1.0*rx*ry)" \
+	"*pow(pow(rx,6.0)*pow(y0,6.0)+3.0*pow(rx,4.0)*pow(ry,2.0)*pow(x0,2.0)" \
+        "                             *pow(y0,4.0)" \
+	"+3.0*pow(rx,2.0)*pow(ry,4.0)*pow(x0,4.0)" \
+	"*pow(y0,2.0)+pow(ry,6.0)*pow(x0,6.0)," \
+	"0.5))" \
+	"/(pow(pow(rx,2.0)*pow(y0,2.0)+pow(ry,2.0)*pow(x0,2.0),1.0)" \
+	"*pow(pow(rx,4.0)*pow(y0,6.0)+(pow(ry,4.0)+2.0*pow(rx,4.0))" \
+	"*pow(x0,2.0)*pow(y0,4.0)" \
+	"+(2.0*pow(ry,4.0)+pow(rx,4.0))" \
+	"*pow(x0,4.0)*pow(y0,2.0)" \
+	"+pow(ry,4.0)*pow(x0,6.0),0.5))"
+    return format_expr(e)
+}
+
+function expr_egg(     ax, xp, yp, zp, rx, ry, ang, eg) {
+    ax = $3 # XY, XZ, YZ
+    xp=$5;  yp=$6;  zp=$7
+    rx = $9; ry = $10
+    ang = $12
+    eg  = $14
+    e[++m] = sprintf("xp = %s, yp = %s, zp = %s", xp, yp, zp)
+    e[++m] = sprintf("rx = %s, ry = %s", rx, ry)
+    e[++m] = sprintf("ang = %s", ang)
+    e[++m] = sprintf("eg  = %s", eg)    
+    if (ax == "XY") {
+	e[++m] = "x0 = sin(ang)*(y-yp)+cos(ang)*(x-xp)"
+	e[++m] = "y0 = cos(ang)*(y-yp)-sin(ang)*(x-xp)"
+    } else if (ax == "XZ") {
+	e[++m] = "x0 = sin(ang)*(z-zp)+cos(ang)*(x-xp)"
+	e[++m] = "y0 = cos(ang)*(z-zp)-sin(ang)*(x-xp)"
+    } else if (ax == "YZ") {
+	e[++m] = "x0 = sin(ang)*(z-zp)+cos(ang)*(y-yp)"
+	e[++m] = "y0 = cos(ang)*(z-zp)-sin(ang)*(y-yp)"
+    } else {
+	printf "unknown ax in egg command (should be XY, XZ, YZ)\n" > "/dev/stderr"
+	exit
+    }
+    e[++m] =			   \
+"-(2.0*(pow(y0,2.0)+pow(x0,2.0)) " \
+"     *(pow(pow(rx,2.0)*pow(y0,2.0)+pow(2.718281828459045, " \
+"                                       (eg*rx*y0) " \
+"                                        /(pow(ry,1.0) " \
+"                                         *pow(pow(y0,2.0)+pow(x0,2.0),0.5))) " \
+"                                   *pow(ry,2.0)*pow(x0,2.0),0.5) " \
+"      -1.0*rx*ry) " \
+"     *pow(pow(rx,6.0)*pow(y0,6.0)+3.0*pow(2.718281828459045, " \
+"                                          (eg*rx*y0) " \
+"                                           /(pow(ry,1.0) " \
+"                                            *pow(pow(y0,2.0)+pow(x0,2.0), " \
+"                                                 0.5)))*pow(rx,4.0) " \
+"                                     *pow(ry,2.0)*pow(x0,2.0)*pow(y0,4.0) " \
+"                                 +3.0*pow(2.718281828459045, " \
+"                                          (2.0*eg*rx*y0) " \
+"                                           /(pow(ry,1.0) " \
+"                                            *pow(pow(y0,2.0)+pow(x0,2.0), " \
+"                                                 0.5)))*pow(rx,2.0) " \
+"                                     *pow(ry,4.0)*pow(x0,4.0)*pow(y0,2.0) " \
+"                                 +pow(2.718281828459045, " \
+"                                      (3.0*eg*rx*y0) " \
+"                                       /(pow(ry,1.0) " \
+"                                        *pow(pow(y0,2.0)+pow(x0,2.0),0.5))) " \
+"                                  *pow(ry,6.0)*pow(x0,6.0),0.5)) " \
+" /(pow(pow(rx,2.0)*pow(y0,2.0)+pow(2.718281828459045, " \
+"                                   (eg*rx*y0) " \
+"                                    /(pow(ry,1.0) " \
+"                                     *pow(pow(y0,2.0)+pow(x0,2.0),0.5))) " \
+"                               *pow(ry,2.0)*pow(x0,2.0),1.0) " \
+"  *pow((-1.0*(4.0*pow(2.718281828459045, " \
+"                      (2.0*eg*rx*y0)/(pow(ry,1.0) " \
+"                                     *pow(pow(y0,2.0)+pow(x0,2.0),0.5)))*eg*rx " \
+"                 *pow(ry,3.0)*pow(x0,4.0)*y0 " \
+"             -4.0*pow(2.718281828459045, " \
+"                      (eg*rx*y0)/(pow(ry,1.0) " \
+"                                 *pow(pow(y0,2.0)+pow(x0,2.0),0.5)))*eg " \
+"                 *pow(rx,3.0)*ry*pow(x0,4.0)*y0) " \
+"            *pow(pow(y0,2.0)+pow(x0,2.0),0.5)) " \
+"        +4.0*pow(rx,4.0)*pow(y0,6.0) " \
+"        -1.0*pow(2.718281828459045, " \
+"                 (2.0*eg*rx*y0)/(pow(ry,1.0) " \
+"                                *pow(pow(y0,2.0)+pow(x0,2.0),0.5))) " \
+"            *((-4.0*pow(ry,4.0)*pow(x0,2.0)*pow(y0,4.0)) " \
+"             -8.0*pow(ry,4.0)*pow(x0,4.0)*pow(y0,2.0) " \
+"             +((-4.0*pow(ry,4.0))-1.0*pow(eg,2.0)*pow(rx,2.0)*pow(ry,2.0)) " \
+"              *pow(x0,6.0))+8.0*pow(rx,4.0)*pow(x0,2.0)*pow(y0,4.0) " \
+"        +4.0*pow(rx,4.0)*pow(x0,4.0)*pow(y0,2.0),0.5)) "
+    return format_expr(e)
+}
+
 function expr_sphere(m, xc, yc, zc, R, e) {
     xc = $3; yc=$4; zc=$5; R=$7
     e[++m] = sprintf("r2 = (x-%s)*(x-%s) + (y-%s)*(y-%s) + (z-%s)*(z-%s)", xc, xc, yc, yc, zc, zc)
@@ -170,7 +290,6 @@ function expr_sphere(m, xc, yc, zc, R, e) {
     e[++m] = sprintf("%s - r0", R)
     return format_expr(e)    
 }
-
 
 
 function expr_block(     xlo, xhi, ylo, yhi, zlo, zhi,     m, e) {
@@ -238,6 +357,13 @@ $1 == "block" {
     expr2code(expr_block())
 }
 
+$1 == "ellipse" {
+    expr2code(expr_ellipse())
+}
+
+$1 == "egg" {
+    expr2code(expr_egg())
+}
 
 BEGIN {
     init()

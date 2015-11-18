@@ -36,6 +36,8 @@ const float Lx      = xextent;
 const float Ly      = yextent;
 const float Lz      = zextent;
 
+const float pi      = 3.141592653589793;
+
 const float OBJ_MARGIN = %OBJ_MARGIN%;
 
 /* minus infinity */
@@ -43,16 +45,17 @@ const float MINF = - std::numeric_limits<float>::max();
 
 using namespace std;
 
-float i2x(int i) {
-  return xextent/NX*i;
-}
+//int   wrap(int i, int n) {return i == n - 1 ? 0 : i;}
+float i2x (int i)  {return xextent/(float)(NX-1)*i;}
+float i2y (int i)  {return yextent/(float)(NY-1)*i;}
+float i2z (int i)  {return zextent/(float)(NZ-1)*i;}
 
-float i2y(int i) {
-  return yextent/NY*i;
-}
-
-float i2z(int i) {
-  return zextent/NZ*i;
+float in_interval(float d, float dlo, float dhi) {
+  return
+	d < dlo ? 0 :
+	d > dhi ? 0 :
+	          1
+      ;
 }
 
 float di(float d, float dlo, float dhi)  {
@@ -75,18 +78,13 @@ float sq(float x) {
   return x*x;
 }
 
-float in_interval(float d, float dlo, float dhi) {
-      return
-	d < dlo ? 0 :
-	d > dhi ? 0 :
-	1;
-}
 
 float in_range(float s) {
-  return \
+  return
     s >  OBJ_MARGIN ?  OBJ_MARGIN :
     s < -OBJ_MARGIN ? -OBJ_MARGIN :
-    s;
+                                s
+  ;
 }
 
 float in_box(float x, float y, float z,
@@ -162,7 +160,8 @@ int main(int /*argc */, char **argv) {
 	float nx, ny, nz, n_abs;
 	float ax, ay, az, a2;
 	float dX2, dY2, dZ2, dR2, dR;
-	float D;
+	float D, rx, ry, ang;
+	float eg;
 	float s = MINF; // assume we are very far from the walls (sdf = -inf)
 	//%update_sdf%
 
