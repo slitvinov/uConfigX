@@ -1,0 +1,29 @@
+/*
+
+Initial shape
+
+*/
+
+block([so, V_expr, R_expr],
+  so: solve(['V = 4/3*%pi*'R^3, 'A = 4*%pi*'R^2], ['R, 'V]),
+  so: second(so),
+  V_expr: assoc('V, so),
+  R_expr: assoc('R, so),
+  define(a2v(A), V_expr),  /* area to volume for a sphere */
+  define(a2r(A), R_expr)); /* area to radiious for a sphere */
+
+assume(nd>0);
+eq1: Nt = 2 * Nv - 4; /* number of triangles and vertices */
+eq2: totArea0 = Nt * sqrt(3)/4 * l0^2; /* area of equilateral triangle */
+eq3: totVolume0 = a2v(totArea0);
+eq4: R          = a2r(totArea0);
+eq5: l0 = 9/10*dx;   /* 9/10 is from uDevice */
+eq6: dx = 1/nd^(1/3); /* number density vs particle spacing */
+eq7: trpostfr = 2 * R / (Lx/4);
+
+radexpand: true;
+so: fullratsimp(solve([eq1, eq2, eq3, eq4, eq5, eq6, eq7],
+    [Nt, totArea0, totVolume0, l0, dx, R, trpostfr]));
+
+subst([Nv=1442, nd=3, Lx=60], so), numer;
+subst([Nv=812 , nd=3, Lx=34], so), numer;
