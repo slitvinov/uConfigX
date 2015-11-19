@@ -22,12 +22,5 @@ rt () {
     ssh "${rhost}" "cd ${rpath}/${default_dir} ; $@"
 }
 
-post() {
-    echo "mkdir -p ${rname} ; rsync -r -avz ${rhost}:${rpath}/${default_dir}/uDeviceX/mpi-dpd/* ${rname}"    >> ~/${n}_rsync.sh
-    echo "${rname}"                                                                                         >> ~/${n}_local.list
-    echo "${rhost}:${rpath}/${default_dir}"                                                                 >> ~/${n}_remote.list
-}
-
 #rt local/panda/setup_dbg.sh
 rt local/panda/setup.sh
-post

@@ -20,23 +20,10 @@
 
 ########## RBC parameters ##########
 =mu0 # RBC shear modulus
-20
-30
 40
-50
-60
-200
-300
-400
-500
 
 =kb
-300
-400
-500
-600
-700
-800
+100
 
 =ka
 2500
@@ -59,12 +46,12 @@
 #162
 362
 #812
-1442
+#1442
 #5762
 #498
 
 =lx # periodic ellement
-48
+24
 
 =ar # aspect ration of an ellipse
 0.7
