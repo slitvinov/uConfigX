@@ -6,7 +6,7 @@ cd uDeviceX/mpi-dpd
 
 printf "(run_dbg.sh) to run gdb\n"
 
-gdb=/usr/local/cuda-6.5/bin/cuda-gdb
+gdb=/usr/local/cuda-7.5/bin/cuda-gdb
 host=panda
 
 # print a command for remote debuging in emacs
