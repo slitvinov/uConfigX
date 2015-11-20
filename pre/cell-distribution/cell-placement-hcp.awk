@@ -21,7 +21,7 @@ function indomain(x, y, z) {
 
 BEGIN {
     r  = sqrt(A)/(2*sqrt(pi()))
-    r *= rf
+    r *= sc
     r *= reff
 
     nmax = 100

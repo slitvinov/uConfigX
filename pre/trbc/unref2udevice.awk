@@ -3,8 +3,6 @@
 
 BEGIN {
     pi = 3.141592653589793
-    # scale the geometry by this factor
-
     A_sph = 4*pi # surface area of sphere with R=1
     sc = totArea0 ? sqrt(totArea0/A_sph) : 1
 
