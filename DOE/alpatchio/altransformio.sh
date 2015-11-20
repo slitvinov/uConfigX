@@ -18,6 +18,9 @@
 #
 # TEST: altransformio6
 # ur altransformio.sh test_data/transformio5.config a_preved > transformio.out.config
+#
+# TEST: altransformio7
+# ur altransformio.sh test_data/transformio6.config a_preved_b_medved > transformio.out.config
 
 set -u
 config_file=$1

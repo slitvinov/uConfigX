@@ -1,5 +1,5 @@
 BEGIN {
-    LITERATE_MARKER = "%%%"
+    LITERATE_MARKER = "%%%" # copy a part starting with %%% literally
     FIELD_SEP = "_"
     tab       = "    "
     parameters_line = ARGV[2]
@@ -67,8 +67,10 @@ name {
     process_name()
 }
 
+function emptyp(x) { return x !~ /[^\t]/}
+
 function end_name(   return_line, end_line) {
-    return_line = sprintf(tab "return %s", last ? last : name )
+    return_line = sprintf(tab "return %s", emptyp(last) ? name : last )
     end_line    = sprintf("}\n")
     body = body RS return_line RS end_line
     body_arr[++iname] = body
@@ -81,7 +83,7 @@ function start_name() {
 }
 
 function process_name() {
-    if (last)
+    if (!emptyp(last))
 	body = body RS tab last
     last = $0
 }
