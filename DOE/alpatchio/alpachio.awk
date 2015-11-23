@@ -4,6 +4,13 @@ function n2k(s) {
     return "%" s "%"
 }
 
+function s2reg(s,    arr, nn, i, ans) { # string to regexp
+    nn = split(s, arr, "")
+    for (i=1; i<=nn; i++)
+	ans = ans "[" arr[i] "]"
+    return ans
+}
+
 function gen_dir_name(i, name, key, val, d) {
     for (i=1; i<=ipar; i++) {
 	name = namelist[i]
@@ -47,26 +54,30 @@ function rep_all(s,    i, new, old) {
     return s
 }
 
-function try_to_rep(sep,   fst, scd, ans, nn) {
-    nn = split($0, arr, sep)
+function try_to_rep(sepl, sepr,    fst, scd, ans, nn) {
+    nn = split($0, arr, sepl)
     if (nn<2)
 	return 0
 
     fst = arr[1]
     scd = arr[2]
-    ans = rep_all(scd) " " sep scd
+    sub(s2reg(sepr), "", scd)
+    ans = rep_all(scd) " " sepl scd sepr
     if (!NREP)
 	return 0
-    
+
     print ans
     return 1
 }
 
 {
-    if (try_to_rep("//="))
+    if (try_to_rep("//=",""))
 	next
 
-    if (try_to_rep("#="))
+    if (try_to_rep("#=",""))
+	next
+
+    if (try_to_rep("/*=", "*/"))
 	next
 }
 
