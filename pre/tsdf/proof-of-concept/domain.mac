@@ -6,7 +6,7 @@ load ("scifac");
 YSIZE_SUBDOMAIN: subdomain size [length]
 dims[Y]        : number of subdomains
 coords[Y]      : index of current subdomain
-x[Y]           : coordinate relative to the center [length]
+x[Y]           : coordinate relative to the center of the domain [length]
 y              : absolute coordinate [length]
 y0             : absolute coordinate of a subdomain center [length]
 
@@ -56,3 +56,7 @@ subst([dims[Y]=3, coords[Y]=2], ans);
 /*  output the answer ... */
 gcfac(float(ans));
 grind(%);
+
+gcfac(expand(fullratsimp(ans - YSIZE_SUBDOMAIN*dims[Y]/2)));
+grind(%);
+
