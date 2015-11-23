@@ -28,7 +28,7 @@ test -d "$source_directory" || \
 function run_case() {
     (
 	cd "$tmp_source_directory"
-	sh -x $DEPLOY_CMD
+	sh $DEPLOY_CMD
     )
 }
 
