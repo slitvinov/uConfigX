@@ -22,5 +22,5 @@ rt () {
     ssh "${rhost}" "cd ${rpath}/${default_dir} ; $@"
 }
 
-#rt local/panda/setup_dbg.sh
+#rt local/panda_dbg/setup.sh
 rt local/panda/setup.sh
