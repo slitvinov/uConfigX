@@ -6,6 +6,7 @@
 function init () {
     VERBOSE=1
     EXIT_ON_FAIL=1
+    EXIT_STATUS =0
 
     # where the reference data for the tests are stored
     REF_DIR="test_data"
@@ -43,11 +44,11 @@ function process_test_body() {
     if (!out_file)  {
 	msg(0, "(ERROR) cannot find output file in test: " tname)
 	msg(0, "        Script body:\n\n" body "\n\n")
-	if (EXIT_ON_FAIL)
+	if (EXIT_ON_FAIL) {
+	    EXIT_STATUS = 2
 	    exit
-
+	}
     }
-
 
     ref_file = out2ref(out_file, tname)
 }
@@ -99,7 +100,8 @@ $1 == "cTEST:" {
     rc = system(body)
     if (rc) {
 	msg(0, " fail to create test\n")
-	exit(-1)
+	EXIT_STATUS = 2
+	exit
     }
     # number of created scripts
     icreated++
@@ -114,8 +116,10 @@ $1 == "TEST:" {
 	ifail++
 	msg(0, " fail to run test")
 	msg(0, "        Test body:\n\n" body "\n")
-	if (EXIT_ON_FAIL)
+	if (EXIT_ON_FAIL) {
+	    EXIT_STATUS = 2
 	    exit
+	}
 	next
     }
 
@@ -133,8 +137,10 @@ $1 == "TEST:" {
 	msg(0, " Files : `" out_file "` and `" ref_file "` are different")
 	if (VERBOSE>=2)
 	    system("diff " out_file " " ref_file)
-	if (EXIT_ON_FAIL)
+	if (EXIT_ON_FAIL) {
+	    EXIT_STATUS = 2
 	    exit
+	}
     }
 }
 
@@ -143,4 +149,6 @@ END {
     msg(0, sprintf(" %d/%d test(s) passed", ipass, ipass+ifail))
     if (icreated)
 	msg(0, sprintf("   %d test(s) created", icreated))
+
+    exit EXIT_STATUS
 }
