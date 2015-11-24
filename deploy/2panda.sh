@@ -12,7 +12,7 @@ uname=lisergey
 rhost="${uname}"@localhost
 
 # remote path name
-n=gerris
+n=wall
 rpath=$HOME/SYNC/$n/$rname
 
 ur gcp "${default_dir}" "${rhost}":"${rpath}"
