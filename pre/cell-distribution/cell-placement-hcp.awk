@@ -6,6 +6,13 @@ function asin(x) { return atan2(x, sqrt(abs(1-x*x))) }
 function acos(x) { return atan2(sqrt(abs(1-x*x)), x)}
 function pi() { return 2*asin(1)}
 
+function req_var(v, n) {
+    if (length(v)!=0) return
+    printf "(cell-placement-hcp.awk) `%s' should be given as a parameter (-v %s=<value>)\n",
+	n, n
+    exit 2
+}
+
 function indomain(x, y, z) {
     if (x+r>Lx) return 0
     if (x-r<0 ) return 0
@@ -20,6 +27,9 @@ function indomain(x, y, z) {
 }
 
 BEGIN {
+    req_var(A, "A"); req_var(sc, "sc"); req_var(reff, "reff");
+    req_var(Lx, "Lx"); req_var(Lx, "Ly"); req_var(Lx, "Lz");
+
     r  = sqrt(A)/(2*sqrt(pi()))
     r *= sc
     r *= reff
@@ -36,9 +46,12 @@ BEGIN {
 		y*=r
 		z*=r
 
-		if (indomain(x, y, z))
+		if (indomain(x, y, z)) {
 		    print x, y, z
+		    ngen++
+		}
 	    }
 	}
     }
+    printf "(cell-placement-hcp.awk) generated: %d cells\n", ngen > "/dev/stderr"
 }
