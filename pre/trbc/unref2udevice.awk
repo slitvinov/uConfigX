@@ -32,7 +32,6 @@ function decode3(key,   sep, aux, nn, i) {
     k3 = aux[++i] SUBSEP aux[++i] SUBSEP aux[++i]
 }
 
-
 function s(key,   nn, aux) {
     nn = split(key, aux, SUBSEP)
     return nn
@@ -121,5 +120,4 @@ END {
 	    id3 = key2id[k3]	    
 	    print ++ia, 1, id1-1, id2-1, id3-1
 	}
-    
 }
