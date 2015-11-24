@@ -17,7 +17,7 @@
 # TEST: unref4
 # ./clean.awk test_data/quadr_del.trbc | ./unref.awk > unref.out.trbc
 
-function parse_def_id() {
+function parse_def_id(    id, x, y, z) {
     id = $3
     x = $5; y=$6; z=$7
     key = x SUBSEP y SUBSEP z
