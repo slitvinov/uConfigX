@@ -1,0 +1,1 @@
+Generate initial conditions file with cell distribution.
