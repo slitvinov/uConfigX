@@ -50,7 +50,9 @@ function print_cell(   i) {
 function update_xyz() {
     x = M[1,3]*z0+M[1,2]*y0+M[1,1]*x0+M[1,4]
     y = M[2,3]*z0+M[2,2]*y0+M[2,1]*x0+M[2,4]
-    z = M[3,3]*z0+M[3,2]*y0+M[3,1]*x0+M[3,4]    
+    z = M[3,3]*z0+M[3,2]*y0+M[3,1]*x0-M[3,4] # sic! TODO: why "-"? See
+					     # also
+					     # pre/cell-distribution/cell-placement0.awk
 }
 
 function process_line(line,    sep, arr, nn, i) {
