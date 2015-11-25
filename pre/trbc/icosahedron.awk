@@ -13,6 +13,30 @@ function tri(id1, id2, id3) {
     printf "ref [id %d]\n", id1
     printf "ref [id %d]\n", id2
     printf "ref [id %d]\n", id3
+
+    if (edg) {
+	edge(id1, id2)
+	edge(id1, id3)
+	edge(id2, id3)
+    }
+}
+
+function add_edge_hash(id1, id2) {
+    eh[id1,id2]=1
+    eh[id2,id1]=1
+}
+
+function in_edge_hash(id1, id2) {
+    return ( (id1, id2) in eh )
+}
+
+function edge(id1, id2) {
+    if (in_edge_hash(id1, id2)) return
+    printf "\n"
+    printf "plg [n 2]\n"
+    printf "ref [id %d]\n", id1
+    printf "ref [id %d]\n", id2
+    add_edge_hash(id1, id2)
 }
 
 function point(xs, ys, zs, id,    d) {
