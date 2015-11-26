@@ -1,14 +1,33 @@
 #!/usr/bin/awk -f
+#
+# Extend domain using periodic images of objects in ply file (see
+# tests for examples)
+#
+###
+###  -2   -1      4    5
+###   |    <      >    |
+###
+###   Lx = 7
+# TEST: ply2ext1
+#  box='-v   xl=-2   -v  yl=-2 -v  zl=-2 -v  xh=5 -v  yh=2 -v  zh=2'
+# ebox='-v  exl=-2.9 -v eyl=-2 -v ezl=-2 -v exh=5 -v eyh=2 -v ezh=2'
+# ur ply2ext.awk -v Nv=4 $box $ebox examples/2tetrahedron.ply > ply2ext.out.ply
+#
+# TEST: ply2ext2
+#  box='-v   xl=-2   -v  yl=-2 -v  zl=-2 -v  xh=5 -v  yh=2 -v  zh=2'
+# ebox='-v  exl=-3.1 -v eyl=-2 -v ezl=-2 -v exh=5 -v eyh=2 -v ezh=2'
+# ur ply2ext.awk -v Nv=4 $box $ebox examples/2tetrahedron.ply > ply2ext.out.ply
+#
+# TEST: ply2ext3
+#  box='-v   xl=-2   -v  yl=-2   -v  zl=-2 -v  xh=5 -v  yh=2 -v  zh=2'
+# ebox='-v  exl=-2   -v eyl=-3.1 -v ezl=-2 -v exh=5 -v eyh=2 -v ezh=2'
+# ur ply2ext.awk -v Nv=4 $box $ebox examples/2tetrahedron.ply > ply2ext.out.ply
+#
+# TEST: ply2ext4
+#  box='-v   xl=-2   -v  yl=-2   -v  zl=-2 -v  xh=5 -v  yh=2 -v  zh=2'
+# ebox='-v  exl=-10   -v eyl=-10 -v ezl=-10 -v exh=10 -v eyh=10 -v ezh=10'
+# ur ply2ext.awk -v Nv=4 $box $ebox examples/2tetrahedron.ply > ply2ext.out.ply
 
-# Extend domain using periodic images
-# Usage:
-#  box='-v   xl=0  -v  yl=0  -v  zl=0  -v  xh=72  -v  yh=48  -v  zh=24'
-# ebox='-v  exl=-4 -v eyl=-4 -v ezl=-4 -v exh=76  -v eyh=52  -v ezh=28'
-# ./ply2ext.awk $box $ext
-
-#  box='-v   xl=-1  -v  yl=-1  -v  zl=-1  -v  xh=1  -v  yh=1  -v  zh=1'
-# ebox='-v  exl=-1.5 -v eyl=-1.5 -v ezl=-1.5 -v exh=3.0  -v eyh=1.5  -v ezh=1.5'
-# ./ply2ext.awk -v Nv=12 $box $ebox ../test_data/icosahedron.ply
 
 function req_var(v, n) {
     if (length(v)) return
@@ -96,7 +115,7 @@ function build_ptbl(   lv, iv, is, iobj) { # build "periodic image table"
 	ptbl[iobj,1] = 1 # the original
 	for (is=2; is<=ns; is++) { # images
 	    create_image(is)
-	    ptbl[iobj, is] = in_ext(xi, yi, zi)
+	    ptbl[iobj, is] = ptbl[iobj, is] || in_ext(xi, yi, zi)
 	}
     }
 }
@@ -128,10 +147,10 @@ function print_vert(   iv, nobj0, iobj) { # sets `stbl': shift table
 	for (iobj=1; iobj<=nobj0; iobj++) {
 	    if (!ptbl[iobj, is]) continue
 	    nobj++
-	    print "nobj: ", nobj > "/dev/stderr"
 	    stbl[iobj, is] = (nobj - iobj)*Nv
 	    print_vert0(iobj, is)
 	}
+    printf "(ply2ext.awk) adding %d objects\n", nobj - nobj0 > "/dev/stderr"
 }
 
 function output_face(id1, id2, id3) {

@@ -61,6 +61,7 @@ ply2ncell.awk		    post/ply/scripts/ply2ncell.awk
 ply2trbc.awk		    post/ply/scripts/ply2trbc.awk
 ply2volume.sh		    post/ply/scripts/ply2volume.sh
 ply2area.sh		    post/ply/scripts/ply2area.sh
+ply2ext.awk		    post/ply/scripts/ply2ext.awk
 ply2cm.awk		    post/ply/scripts/ply2cm.awk
 nns.awk			    post/ply/scripts/nns.awk
 nns0.awk		    post/ply/scripts/nns0.awk
