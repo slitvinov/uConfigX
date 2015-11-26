@@ -71,6 +71,7 @@ cm2unwrap0.awk		    post/ply/scripts/cm2unwrap0.awk
 image2unwrap.awk	    post/ply/scripts/image2unwrap.awk
 ply2unwrap.awk		    post/ply/scripts/ply2unwrap.awk
 ply2sort.sh		    post/ply/scripts/ply2sort.sh
+ply2gts.awk		    post/ply/scripts/ply2gts.awk
 
 av.awk           	    post/hdf5/av.awk
 av.sh            	    post/hdf5/av.sh
