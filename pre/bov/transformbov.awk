@@ -56,7 +56,6 @@ function parse_bov(fi     ) {
 }
 
 function output_bov(fi, fo,    oline) {
-    print "preved", fo
     while (getline < fi > 0) {
 	oline = $0
 	strip_comments()
@@ -67,7 +66,7 @@ function output_bov(fi, fo,    oline) {
 	parse_line($0) # sets `lhs' and `rhs'
 	if      (lhs=="DATA_FILE")
 	    print lhs ":", odf > fo # ouptut data file
-	else if      (lhs=="BRICK ORIGIN")
+	else if (lhs=="BRICK ORIGIN")
 	    print lhs ":", xl, yl, zl > fo
 	else if (lhs=="BRICK SIZE")
 	    print lhs ":", Lx, Ly, Lz > fo
