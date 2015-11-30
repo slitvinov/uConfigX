@@ -1,7 +1,7 @@
 #!/usr/bin/awk -f
 
 # Calculate the center of mass (CM) and the velocity of CM of each
-# object in itrangulated ply file
+# object in trangulated ply file
 
 # Usage:
 # awk -v Nv=1442 -f scripts/ply2unwrap.awk  rbcs.txt.ply
