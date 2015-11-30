@@ -23,6 +23,9 @@ appendf.awk 		    utils/system/appendf.awk
 cutter.awk 		    utils/system/cutter.awk
 keyval.awk		    utils/system/keyval.awk
 
+bovnslice		    pre/bov/bovnslice
+bovnslice.awk		    pre/bov/bovnslice.awk
+
 refine.awk		    pre/trbc/refine.awk
 refine2.awk		    pre/trbc/refine2.awk
 refine3.awk		    pre/trbc/refine3.awk

@@ -7,8 +7,8 @@ Usage:
 
 <nx> <ny> <nz>: old sizes
 
-Keep only points (includeing both ends):
-[sxl:sxh][syl:syh][szl:szh]
+Output `data' is
+data[sxl:sxh)[syl:syh)[szl:szh)
 
 Note: assumes one component float data
 
@@ -22,18 +22,23 @@ typedef float btype; // type in BOV file
 
 enum DIM {X, Y, Z};
 
-int main(int /* argc */, char *argv[]) {
+int main(int argc, char *argv[]) {
+  if (argc != 12) {
+    fprintf(stderr, "(bovnslice.cpp)(ERROR) not enough argumetns\n");
+    exit(2);
+  }
+
   using namespace std;
   char* fn = argv[1];
   char* of = argv[2];
 
-  printf("fn, of: %s %s\n", fn , of);
+  printf("(bovnslice.cpp) fn, of: %s %s\n", fn , of);
 
   int n[3];
   n[X] = atoi(argv[3]);
   n[Y] = atoi(argv[4]);
   n[Z] = atoi(argv[5]);  
-  printf("nx ny nz: %d %d %d\n", n[X], n[Y], n[Z]);
+  printf("(bovnslice.cpp) nx ny nz: %d %d %d\n", n[X], n[Y], n[Z]);
 
   int sl[3];
   sl[X] = atoi(argv[6]);
@@ -44,25 +49,29 @@ int main(int /* argc */, char *argv[]) {
   sh[X] = atoi(argv[9]);
   sh[Y] = atoi(argv[10]);
   sh[Z] = atoi(argv[11]);
-  printf("sxl syl szl: %d %d %d\n", sl[X], sl[Y], sl[Z]);
-  printf("sxh syh szh: %d %d %d\n", sh[X], sh[Y], sh[Z]);
+  printf("(bovnslice.cpp) sxl syl szl: %d %d %d\n", sl[X], sl[Y], sl[Z]);
+  printf("(bovnslice.cpp) sxh syh szh: %d %d %d\n", sh[X], sh[Y], sh[Z]);
 
   int nsize = n[X] * n[Y] * n[Z];
   int nn[3];
   nn[X] = sh[X] - sl[X];
   nn[Y] = sh[Y] - sl[Y];
   nn[Z] = sh[Z] - sl[Z];
-  printf("nnx nny nnz: %d %d %d\n", nn[X], nn[Y], nn[Z]);
+  printf("(bovnslice.cpp) nnx nny nnz: %d %d %d\n", nn[X], nn[Y], nn[Z]);
   
   int osize = nn[X] * nn[Y] * nn[Z];
   
   FILE *fp = fopen(fn, "r");
+  if (fp == NULL ) {
+    perror("Error");
+    exit(EXIT_FAILURE);
+  }
 
   vector<btype> ndata(nsize);
   fread(&ndata[0], sizeof ndata[0], ndata.size(), fp);
   fclose(fp);
 
-  vector <btype> odata(osize, 42.0);
+  vector <btype> odata(osize);
 
   int ix, iy, iz; /* old index */
   int jx, jy, jz; /* new index */
@@ -82,9 +91,14 @@ int main(int /* argc */, char *argv[]) {
   }
 
   FILE *fo = fopen(of, "wb");
+  if (fo == NULL ) {
+    perror("Error");
+    exit(EXIT_FAILURE);
+  }
+
   fwrite(&odata[0], sizeof odata[0], odata.size(), fo);
   fclose(fo);
 
-  printf("odata[osize-1]: %g\n", odata[osize-1]);
-  printf("odata[      0]: %g\n", odata[0]);
+  printf("(bovnslice.cpp) odata[osize-1]: %g\n", odata[osize-1]);
+  printf("(bovnslice.cpp) odata[      0]: %g\n", odata[0]);
 }
