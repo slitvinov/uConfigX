@@ -8,7 +8,7 @@
 
 . utils/ucx/env.sh
 
-set -e
+set -ex
 
 (
     cd post/ply
@@ -20,12 +20,14 @@ set -e
     ur atest.awk *.sh *.awk README.org
 )
 
+
 (
-    cd pre/trbc
+    cd pre/tsdf
     ur atest.awk *.sh *.awk README.org
 )
 
 (
-    cd pre/tsdf
+    # expected to fail on OSX
+    cd pre/trbc
     ur atest.awk *.sh *.awk README.org
 )

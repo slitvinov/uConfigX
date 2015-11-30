@@ -3,6 +3,13 @@
 # Convert ply to gts format
 # Usage:
 # awk -f scripts/ply2gts.awk test_data/icosahedron.ply
+#
+# TEST: ply2gts1
+# ur ply2gts.awk test_data/icosahedron.ply > ply2gts.out.gts
+#
+# TEST: ply2gts2
+# make
+# ur ply2ascii < test_data/rbc.org.ply | ur ply2gts.awk  > ply2gts.out.gts
 
 function read_header() { # sets `nv' and `nf'
     while (getline < fn > 0 && $0 != "end_header" ) {
