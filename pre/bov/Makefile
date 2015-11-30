@@ -1,12 +1,12 @@
 CXX?=g++
 CXXFLAGS?=-O0 -g -Wall -Wextra
 
-all: nslicebov
+all: nslicebov transformbov
 
-bovnslice: bovnslice.cpp
-	$(CXX) nslicebov.cpp $(CXXFLAGS) -o nslicebov
+%: %.cpp
+	$(CXX) $< $(CXXFLAGS) -o $@
 
 .PHONY: clean
 
 clean:
-	-rm nslicebov
+	-rm nslicebov transformbov

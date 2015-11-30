@@ -25,6 +25,8 @@ keyval.awk		    utils/system/keyval.awk
 
 nslicebov		    pre/bov/nslicebov
 nslicebov.awk		    pre/bov/nslicebov.awk
+transformbov		    pre/bov/transformbov
+transformbov.awk	    pre/bov/transformbov.awk
 
 refine.awk		    pre/trbc/refine.awk
 refine2.awk		    pre/trbc/refine2.awk
