@@ -38,9 +38,9 @@ function map_edges(    ifa, id1, id2, id3) {
     for (ifa=1; ifa<=nf; ifa++) {
 	getline < fn
 	id1=$2; id2=$3; id3=$4
-	face[ifa] = edge_id(id3, id2) " " edge_id(id2, id1) " " edge_id(id1, id3) # sic!
-										  # I have to invert
-										  # the faces
+	# face[ifa] = edge_id(id3, id1) " " edge_id(id1, id2) " " edge_id(id2, id3)
+	# invert faces (looks better in meshlab)
+	face[ifa] = edge_id(id3, id2) " " edge_id(id2, id1) " " edge_id(id1, id3)
     }
 
     ne = ie # number of edges
