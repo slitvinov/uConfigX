@@ -43,7 +43,7 @@ function process_test_body() {
     out_file = ext_outfile(body)
     if (!out_file)  {
 	msg(0, "(ERROR) cannot find output file in test: " tname)
-	msg(0, "        Script body:\n\n" body "\n\n")
+	msg(0, "        Script body:\n\n" body "\n")
 	if (EXIT_ON_FAIL) {
 	    EXIT_STATUS = 2
 	    exit
@@ -96,7 +96,7 @@ $1 == "cTEST:" {
     process_test_body()
     sub(out_file, ref_file, body)
     msg(1, " CREATING: " tname)
-    msg(1, "        Script body:\n\n" body "\n\n")
+    msg(1, "        Script body:\n\n" body "\n")
     rc = system(body)
     if (rc) {
 	msg(0, " fail to create test\n")

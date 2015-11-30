@@ -1,0 +1,2 @@
+Two tetrahedrons with centers at [0, 0, 0] and [3, 3, 3] and edge
+length 1.
