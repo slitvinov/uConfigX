@@ -11,11 +11,11 @@
 # [1] https://wci.llnl.gov/codes/visit/2.0.0/GettingDataIntoVisIt2.0.0.pdf
 
 # Usage:
-# ./bovnslice.awk <input bov> <output bov> <sxl> <syl> <szl>    <sxh> <syh> <szh>
+# ./nslicebov.awk <input bov> <output bov> <sxl> <syl> <szl>    <sxh> <syh> <szh>
 
 function req_var(v, n) {
     if (length(v)!=0) return
-    printf "(bovnslice.awk) `%s' should be given as a parameter (-v %s=<value>)\n",
+    printf "(nslicebov.awk) `%s' should be given as a parameter (-v %s=<value>)\n",
 	n, n
     exit 2
 }
@@ -105,16 +105,16 @@ function splice_values(    odf_full, d, cmd) {
     odf_full = d "/" odf
 
     cmd = sprintf(\
-	"ur bovnslice %s %s      %d    %d   %d    %d    %d   %d      %d   %d  %d",
-	df_full, odf_full,             nLx, nLy, nLz,   sxl, syl, szl,    sxh, syh, szh)
+	"%s  %s %s      %d    %d   %d    %d    %d   %d      %d   %d  %d",
+	NSLICEBOX_EXE, df_full, odf_full,             nLx, nLy, nLz,   sxl, syl, szl,    sxh, syh, szh)
     lsystem(cmd)
 }
 
 function lsystem(cmd, rc) {
-    printf "(bovnslice.awk) executing:\n%s\n", cmd
+    printf "(nslicebov.awk) executing:\n%s\n", cmd
     rc = system(cmd)
     if (rc) {
-	printf "(bovnslice.awk)(ERROR)\n"
+	printf "(nslicebov.awk)(ERROR)\n"
 	exit rc
     }
 }
@@ -139,6 +139,8 @@ function basename(s,    cmd, b) {
 }
 
 BEGIN {
+    NSLICEBOX_EXE="ur nslicebov" # shell command to transform values
+    
     fi=ARGV[1] # input BOV
     fo=ARGV[2] # output BOV
 
