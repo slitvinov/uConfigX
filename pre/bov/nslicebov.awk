@@ -13,13 +13,6 @@
 # Usage:
 # ./nslicebov.awk <input bov> <output bov> <sxl> <syl> <szl>    <sxh> <syh> <szh>
 
-function req_var(v, n) {
-    if (length(v)!=0) return
-    printf "(nslicebov.awk) `%s' should be given as a parameter (-v %s=<value>)\n",
-	n, n
-    exit 2
-}
-
 function strip_comments() {sub(/#.*/, "")}
 function strip_tr_ws(s)   {  # strip trailing whitespaces
     sub(/^[ \t]*/, "", s)
