@@ -80,6 +80,7 @@ ply2unwrap.awk		    post/ply/scripts/ply2unwrap.awk
 ply2sort.sh		    post/ply/scripts/ply2sort.sh
 ply2gts.awk		    post/ply/scripts/ply2gts.awk
 gtstransform.awk	    post/ply/scripts/gtstransform.awk
+gts2bov.sh		    post/ply/scripts/gts2bov.sh
 
 av.awk           	    post/hdf5/av.awk
 av.sh            	    post/hdf5/av.sh
