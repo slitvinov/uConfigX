@@ -80,6 +80,7 @@ function abs(x) {return x>0 ? x : -x}
 
 function transform_bov(   dx, dy, dz, asc) {
     asc = abs(sc)
+    xl = asc*xl; yl = asc*yl; zl = asc*zl
     Lx = asc*Lx; Ly = asc*Ly; Lz = asc*Lz             # "BRICK SIZE"
 }
 
