@@ -1,0 +1,30 @@
+/* Calculate how to extend and cut domain
+
+[xl, xh]: original dimensions
+mrg     : margin
+nx      : original number of grid points
+
+gs      : grid scale number of grid points is gs*Lx
+
+|  |  I  |  |
+
+*/
+
+eq1: Lx    = xh - xl;
+eq2: Lx*gs = nx;
+eq3: dx    = Lx/(nx-1);
+eq3b: mrg  = gmrg*dx;
+
+eq4: exl   = xl - mrg;
+eq5: exh   = xh + mrg;
+
+eq6: enx   = nx + mrg/dx + mrg/dx;
+
+eq7: xlp   = exl + sxl*dx;
+eq8: xhp   = exl + (sxh-1)*dx;
+
+eq9 : xlp   = xl;
+eq10: xhp   = xh;
+
+so: solve([eq1, eq2, eq3, eq3b, eq4, eq5, eq6, eq7, eq8, eq9, eq10], [xh, enx, dx, exl, exh, gs, xlp, xhp, sxl, sxh, mrg])[1];
+scanmap('factor, so);
