@@ -27,13 +27,19 @@ set -ex
 )
 
 (
+    cd pre/bov
+    ur atest.awk *.awk README.org
+)
+
+
+(
+    cd pre/cell-distribution
+    ur atest.awk *.awk README.org
+)
+
+(
     # expected to fail on OSX
     cd pre/trbc
     ur atest.awk *.sh *.awk README.org
 )
 
-(
-    # expected to fail on OSX
-    cd pre/bov
-    ur atest.awk *.awk README.org
-)
