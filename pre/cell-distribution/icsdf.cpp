@@ -12,23 +12,27 @@ make
 
 */
 
-
 typedef float real;
-const real cell_wall_dist = 2.0;
+const real cell_wall_dist = 1.0; // how far from the wall we can place a cell
+
 bool is_banned(real wall, float x, float y, float z) {
-  return fabs(wall) > cell_wall_dist ? true : false;
+  return fabs(wall) > cell_wall_dist ? true : false; /* negative
+						     values of `wall'
+						     are inside "void"
+						     region */
 }
 
-int NX, NY, NZ; // grid size
+int NX, NY, NZ;                 // grid size
 real xextent, yextent, zextent; // domain
 real spx, spy, spz;             // grid spacing
 std::vector<real> sdf_data;
 std::vector<bool> ban_data;
 
-real xd, yd, zd; // dummy center of a cell
+real xd, yd, zd; // dummy center of a cell (it is in the file but is
+		 // not used by uDeviceX)
 real xc, yc, zc; // real  center of a cell
 
-real M[4][4];
+real M[4][4];    // 4x4 transformation matrix
 
 void usage() {
   printf("OVERVIEW: convert sdf file format to xml vtk (vti)\n");
@@ -73,9 +77,9 @@ void read_sdf(const char* fn) {
   fprintf(stderr, "(icsdf) Extent: [%g, %g, %g]. Grid size: [%d, %d, %d]\n",
 	 xextent, yextent, zextent, NX, NY, NZ);
 
-  spx = xextent/(float)(NX-1);
-  spy = yextent/(float)(NY-1);
-  spz = zextent/(float)(NZ-1);
+  spx = xextent/(NX-1);
+  spy = yextent/(NY-1);
+  spz = zextent/(NZ-1);
 
   sdf_data.resize(NX*NY*NZ);
   fread(&sdf_data[0], sizeof(real), NX*NY*NZ, f);
@@ -91,8 +95,8 @@ void fill_ban() {
       for (int k = 0; k < NZ; k++) {
 	float z = i2z(k);
 	int idx = d2lin(i, j, k);
-	float wall  = sdf_data[idx];
-	ban_data[idx] = is_banned(wall, x, y, z);
+	float wall  = sdf_data.at(idx);
+	ban_data.at(idx) = is_banned(wall, x, y, z);
       }
     }
   }
@@ -117,7 +121,7 @@ bool read_cell(FILE* f) {
 }
 
 void write_cell(FILE* v) {
-  fprintf(v, "%.6g %.6g %.6g\n", xd, yd, zd);
+  fprintf(v, "%.6g %.6g %.6g\n", xd, yd, zd); // print dummy
   for (int i=0; i<4; i++) {
     for (int j=0; j<4; j++)
       fprintf(v, "%.6g ", M[i][j]);
@@ -145,7 +149,6 @@ int main(int argc, char ** argv) {
     exit(EXIT_FAILURE);
   }
 
-  real e;
   while (read_cell(f)) {
     int ic = x2i(xc); int jc = y2i(yc); int kc = z2i(zc);
     int idx = d2lin(ic, jc, kc);
