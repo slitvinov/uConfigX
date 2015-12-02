@@ -1,0 +1,8 @@
+#BOV version: 1.0
+#file written by gts-cpt
+DATA_FILE: wall.values
+DATA SIZE: 360 240 120
+DATA FORMAT: FLOATS
+VARIABLE: "wall"
+BRICK ORIGIN: 0 0 0
+BRICK SIZE: 24 16 8

@@ -28,6 +28,7 @@ nslicebov.awk		    pre/bov/nslicebov.awk
 transformbov		    pre/bov/transformbov
 transformbov.awk	    pre/bov/transformbov.awk
 bov2sdf.awk		    pre/bov/bov2sdf.awk
+set_box_bov.awk		    pre/bov/set_box_bov.awk
 
 refine.awk		    pre/trbc/refine.awk
 refine2.awk		    pre/trbc/refine2.awk

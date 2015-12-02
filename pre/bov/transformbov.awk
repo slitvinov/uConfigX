@@ -114,7 +114,7 @@ function str2reg(s,   arr, nn, i, ans) { # abc -> [a][b][c]
     return ans
 }
 
-function repsufix(s, s1, s2,   r1) {
+function repsuffix(s, s1, s2,   r1) {
     r1 = "[.]" str2reg(s1) "$"
     sub(r1, "." s2, s)
     return s
@@ -135,7 +135,7 @@ BEGIN {
     sc=ARGV[3]
 
     parse_bov(fi)
-    odf = repsufix(basename(fo), "bov", "values")
+    odf = repsuffix(basename(fo), "bov", "values")
 
     transform_values()
     transform_bov()

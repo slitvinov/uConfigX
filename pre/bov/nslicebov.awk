@@ -2,7 +2,7 @@
 #
 # Splice BOV [1] file. Create a new BOV file with the following
 # content
-# data[sxl:shx)[syl:syh)[szl:szh)
+# data[sxl:shx][syl:syh][szl:szh]
 # DATA SIZE : <sxh-slx> <syh-syl> <szh-szl>
 # BRICK ORIGIN: <see the source code>
 # BRICK SIZE  : <see the source code>
@@ -12,6 +12,30 @@
 
 # Usage:
 # ./nslicebov.awk <input bov> <output bov> <sxl> <syl> <szl>    <sxh> <syh> <szh>
+#
+# TEST: nslicebov1
+# ur nslicebov.awk -v debug=1 test_data/ex1.bov slice.bov 0 0 0    1 1 1
+# mv slice.bov slice.out.bov
+#
+# TEST: nslicebov2
+# ur nslicebov.awk -v debug=1 test_data/ex1.bov slice.bov 1 1 1    2 2 2
+# mv slice.bov slice.out.bov
+#
+# TEST: nslicebov3
+# ur nslicebov.awk -v debug=1 test_data/ex1.bov slice.bov 3 3 3    4 4 4
+# mv slice.bov slice.out.bov
+#
+# TEST: nslicebov4
+# ur nslicebov.awk -v debug=1 test_data/ex2.bov slice.bov -10 -10 -10   10 10 10
+# mv slice.bov slice.out.bov
+#
+# TEST: nslicebov5
+# ur nslicebov.awk -v debug=1 test_data/ex2.bov slice.bov 0 0 0   1 1 1
+# mv slice.bov slice.out.bov
+#
+
+function min(a, b) {return a < b ? a : b}
+function max(a, b) {return a > b ? a : b}
 
 function strip_comments() {sub(/#.*/, "")}
 function strip_tr_ws(s)   {  # strip trailing whitespaces
@@ -83,24 +107,34 @@ function output_bov(fi, fo,    oline) {
 }
 
 function splice_bov(   dx, dy, dz) {
-    dx = Lx/nLx; dy = Ly/nLy; dz = Lz/nLz
+    dx = Lx/(nLx-1); dy = Ly/(nLy-1); dz = Lz/(nLz-1)
 
-    nLx = sxh - sxl; nLy = syh - syl; nLz = szh - szl # "DATA SIZE"
+    nLx = sxh - sxl + 1; nLy = syh - syl + 1; nLz = szh - szl  + 1
+                                                      # "DATA SIZE"
+                                                      # TODO: should
+                                                      # it be round?
+
     xl +=  sxl*dx; yl +=  syl*dy; zl +=  szl*dz       # "BRICK ORIGIN"
-    Lx = nLx*dx; Ly = nLy*dy; Lz = nLz*dz             # "BRICK SIZE"
+    Lx = (nLx-1)*dx; Ly = (nLy-1)*dy; Lz = (nLz-1)*dz # "BRICK SIZE"
 }
 
-function splice_values(    odf_full, d, cmd) {
-    cmd = sprintf("dirname \"%s\"", fi)
-    cmd | getline d
+function splice_values(    odf_full, d_in, d_out, cmd) { # slice value file
+    d_in  = dirname(fi)
+    d_out = dirname(fo)
 
-     df_full = d "/"  df
-    odf_full = d "/" odf
+     df_full = d_in  "/"  df
+    odf_full = d_out "/" odf
 
     cmd = sprintf(\
 	"%s  %s %s      %d    %d   %d    %d    %d   %d      %d   %d  %d",
-	NSLICEBOX_EXE, df_full, odf_full,             nLx, nLy, nLz,   sxl, syl, szl,    sxh, syh, szh)
-    lsystem(cmd)
+	NSLICEBOV_EXE, df_full, odf_full,             nLx, nLy, nLz,   sxl, syl, szl,    sxh, syh, szh)
+
+    if (!debug)
+	lsystem(cmd)
+    else {
+	printf "(nslicebov.awk)(DEBUG): \n"
+	printf "%s\n", cmd
+    }
 }
 
 function lsystem(cmd, rc) {
@@ -119,7 +153,7 @@ function str2reg(s,   arr, nn, i, ans) { # abc -> [a][b][c]
     return ans
 }
 
-function repsufix(s, s1, s2,   r1) {
+function repsuffix(s, s1, s2,   r1) {
     r1 = "[.]" str2reg(s1) "$"
     sub(r1, "." s2, s)
     return s
@@ -131,9 +165,20 @@ function basename(s,    cmd, b) {
     return b
 }
 
+function dirname(s,    cmd, d) {
+    cmd = sprintf("dirname \"%s\"", s)
+    cmd | getline d
+    return d
+}
+
+function bond_limits() { # bond for `s[xyz][lh]'
+    sxl = max(sxl, 0); syl = max(syl, 0); szl = max(szl, 0)
+    sxh = min(sxh, nLx-1); syh = min(syh, nLy-1); szh = min(szh, nLz-1);
+}
+
 BEGIN {
-    NSLICEBOX_EXE="ur nslicebov" # shell command to transform values
-    
+    NSLICEBOV_EXE="ur nslicebov" # shell command to transform values
+
     fi=ARGV[1] # input BOV
     fo=ARGV[2] # output BOV
 
@@ -141,7 +186,8 @@ BEGIN {
     sxh=ARGV[6]; syh=ARGV[7]; szh=ARGV[8]
 
     parse_bov(fi)
-    odf = repsufix(basename(fo), "bov", "values")
+    bond_limits()
+    odf = repsuffix(basename(fo), "bov", "values")
 
     splice_values()
     splice_bov()
