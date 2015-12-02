@@ -17,7 +17,7 @@ function gen_ext() { # generate an extended domain
     exl= xl - mrg; eyl= yl - mrg; ezl= zl - mrg
     exh= xh + mrg; eyh= yh + mrg; ezh= zh + mrg
 
-    enx = (exh - exl)*gs; eny = (eyh - eyl)*gs; enz = (ezh - ezl)*gs
+    enx = nx + 2*gmrg; eny = ny + 2*gmrg; enz = nz + 2*gmrg
 }
 
 function rint(x) {
@@ -77,6 +77,7 @@ BEGIN {
 
     gts = sprintf("%s/g.gts", d)
     sc = mrg > 0 ? 1/mrg : 1 # rescale geometry
+
     cmd = sprintf("ur ply2gts.awk %s | ur gtstransform.awk -v sc=%g > %s",
 		  eply, sc, gts)
     lsystem(cmd)
@@ -88,19 +89,25 @@ BEGIN {
 		  sc*exh, sc*eyh, sc*ezh,
 		  enx, eny, enz)
     lsystem(cmd)
+    printf "cat %s\n", bov0
+    print sc, (exh - exl)/(enx-1), enx
 
     bov1 = sprintf("%s/b1.bov", d)
-    cmd  = sprintf("ur transformbov.awk %s %s %g", bov0, bov1, 1/sc)
+    cmd  = sprintf("ur transformbov.awk %s %s %g", bov0, bov1, -1/sc)
     lsystem(cmd)
 
-     bov2 = sprintf("%s/b2.bov", d)
-     cmd = sprintf("ur nslicebov.awk %s %s  %s %s %s    %s %s %s",
+    bov2 = sprintf("%s/b2.bov", d)
+    cmd = sprintf("ur nslicebov.awk %s %s  %s %s %s    %s %s %s",
      		  bov1, bov2,
      		  gmrg, gmrg, gmrg,
-		  nx + gmrg, ny + gmrg, nz + gmrg)
-     lsystem(cmd)
+		  enx - gmrg - 1, eny - gmrg - 1, enz - gmrg - 1)
+    lsystem(cmd)
 
-    cmd = sprintf("ur bov2sdf.awk %s %s", bov1, sdf)
+    cmd = sprintf("ur set_box_bov.awk %s    %s %s %s    %s %s %s",
+		  bov2, xl, yl, zl,    xh, yh, zh)
+    lsystem(cmd)
+
+    cmd = sprintf("ur bov2sdf.awk %s %s", bov2, sdf)
     lsystem(cmd)
 
     exit
