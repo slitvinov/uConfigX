@@ -1,0 +1,9 @@
+#BOV version: 1.0
+#Created by sdf2bov.awk
+DATA FORMAT: FLOATS
+VARIABLE: "wall"
+DATA SIZE: 30 30 30
+BRICK ORIGIN: 0 0 0
+BRICK SIZE:   20 20 20
+DATA_FILE: egg.values
+6cd0a58bf5b34941cc5a5706bee14b2c  egg.values
