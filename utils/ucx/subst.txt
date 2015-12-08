@@ -4,6 +4,7 @@ sdf2vtk.cpp                 pre/tsdf/sdf2vtk.cpp
 sdf2vtk                     pre/tsdf/sdf2vtk
 tsdf.awk                    pre/tsdf/tsdf.awk
 sdf2volume		    pre/tsdf/sdf2volume
+mergesdf		    pre/tsdf/mergesdf
 
 array.awk		    pre/tsdf-configs/array.awk
 cylinder.awk		    pre/tsdf-configs/cylinder.awk

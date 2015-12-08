@@ -14,3 +14,11 @@ Usage:
 # ur tsdf.awk examples/ellipse1v.tsdf ellipse1v.dat box1.vtk
 # ur sdf2volume ellipse1v.dat         > sdf2volume.out.txt
 # rm -rf ellipse1v.dat
+
+# cTEST: mergesdf
+# make
+# ur tsdf.awk examples/ywall_bottom.tsdf b.sdf
+# ur tsdf.awk examples/ywall_top.tsdf    t.sdf
+# ur mergesdf b.sdf t.sdf                o.sdf
+# ur sdf2vtk                             o.sdf  o.out.vti
+# rm b.sdf t.sdf o.sdf
