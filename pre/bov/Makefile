@@ -1,5 +1,5 @@
 CXX?=g++
-CXXFLAGS?=-O0 -g -Wall -Wextra
+CXXFLAGS?=-O3 -g -Wall -Wextra
 
 all: nslicebov transformbov
 
