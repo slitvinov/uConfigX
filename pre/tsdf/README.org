@@ -15,10 +15,18 @@ Usage:
 # ur sdf2volume ellipse1v.dat         > sdf2volume.out.txt
 # rm -rf ellipse1v.dat
 
-# cTEST: mergesdf
+# TEST: mergesdf1
 # make
 # ur tsdf.awk examples/ywall_bottom.tsdf b.sdf
 # ur tsdf.awk examples/ywall_top.tsdf    t.sdf
+# ur mergesdf b.sdf t.sdf                o.sdf
+# ur sdf2vtk                             o.sdf  o.out.vti
+# rm b.sdf t.sdf o.sdf
+
+# TEST: mergesdf2
+# make
+# ur tsdf.awk examples/xwall_bottom.tsdf b.sdf
+# ur tsdf.awk examples/cylinder1.tsdf    t.sdf
 # ur mergesdf b.sdf t.sdf                o.sdf
 # ur sdf2vtk                             o.sdf  o.out.vti
 # rm b.sdf t.sdf o.sdf
