@@ -1,10 +1,12 @@
 CXX?=g++
 CXXFLAGS?=-O2 -g -Wall -Wextra
 
-all: sdf2volume sdf2vtk
+all: sdf2volume sdf2vtk mergesdf
 
-sdf2volume: sdf2volume.cpp
-	$(CXX) sdf2volume.cpp $(CXXFLAGS) -o sdf2volume
+%: %.cpp
+	$(CXX) $< $(CXXFLAGS) -o $@
 
-sdf2vtk: sdf2vtk.cpp
-	$(CXX) sdf2vtk.cpp $(CXXFLAGS) -o sdf2vtk
+
+.PHONY: clean
+clean:
+	-rm sdf2volume sdf2vtk mergesdf
