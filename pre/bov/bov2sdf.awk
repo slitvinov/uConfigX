@@ -7,6 +7,30 @@
 #
 # Usage:
 # ./bov2sdf.awk <bov file> <sdf file>
+function round(x,   ival, aval, fraction)
+{
+   ival = int(x)    # integer part, int() truncates
+
+   # see if fractional part
+   if (ival == x)   # no fraction
+      return ival   # ensure no decimals
+
+   if (x < 0) {
+      aval = -x     # absolute value
+      ival = int(aval)
+      fraction = aval - ival
+      if (fraction >= .5)
+         return int(x) - 1   # -2.5 --> -3
+      else
+         return int(x)       # -2.3 --> -2
+   } else {
+      fraction = x - ival
+      if (fraction >= .5)
+         return ival + 1
+      else
+         return ival
+   }
+}
 
 function strip_comments() {sub(/#.*/, "")}
 function strip_tr_ws(s)   {  # strip trailing whitespaces
@@ -55,8 +79,13 @@ function parse_bov(fi     ) {  # sets `df', `xl', `yl', `zl', ...
 }
 
 function print_sdf_header(fo,    xext, yext, zext) {
-    xext = Lx - xl; yext = Ly - yl; zext = Lz - zl
-    print xext, yext, zext > fo
+    xext = Lx; yext = Ly; zext = Lz
+
+    if (br) # box round, TODO
+	print round(xext/br)*br, round(yext/br)*br, round(zext/br)*br > fo
+    else
+	print xext, yext, zext                                        > fo
+
     print nLx, nLy, nLz    > fo
 }
 
