@@ -17,14 +17,15 @@ host=panda
 params="--verbose --begin-x $xl --begin-y $yl --begin-z $zl --end-x $xh --end-y $yh --end-z $zh --size-x $nx --size-y $ny --size-z $nz"
 
 d=`mktemp -d /tmp/gts2sdf.XXXXX`
-
+opwd=`pwd`
 (
     cd $d
     mkdir -p out
+    # ouput gdb command  for emacs
     echo '('gud-gdb '"'$gdb --fullname /ssh:$host:$GTS_EXE -ex '\"'start $params '<' $fi'\"")'
-    $GTS_EXE $params < "$fi"
+    $GTS_EXE $params < "$opwd/$fi"
 )
 
-mv $d/wall.bov    "$bov"
-mv $d/wall.values "$val"
-#rm -rf ${d}
+cat "$d/wall.bov"    |  sed "s/wall.values/$val/1" > "$bov"
+mv  "$d/wall.values"                                 "$val"
+rm -rf "${d}"
