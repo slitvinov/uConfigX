@@ -36,12 +36,28 @@ function req_var(v, n) {
     exit 2
 }
 
+function integerp(n)  { # integer predicate
+    return n == int(n)
+}
+
+function req_consistent(Nv, nv,   nelement) { # nv/Nv should a a whole integer
+    nelement = nv / Nv
+    if (!integerp(nelement)) {
+	printf "(ply2cm.awk)(ERROR) `nv/Nv is not integer' \n" > "/dev/stderr"
+	printf "(ply2cm.awk)(ERROR)  Nv = %g, nv = %g, nelement = %g\n",
+	    Nv, nv, nelement > "/dev/stderr"
+	exit 2
+    }
+}
+
 function read_header(    ih) { # sets `nv', `nf', and `nlh'
     while (getline < fn > 0 && $0 != "end_header" ) {
 	header[++ih] = $0
 	if ($1 == "element" && $2 == "vertex") nv = $3
 	if ($1 == "element" && $2 == "face"  ) nf = $3
     }
+
+    req_consistent(Nv, nv)
     header[++ih] = $0
     nlh = ih # number of lines in a header
 }
@@ -65,7 +81,7 @@ function iv2lv(iv, iobj) {return iv - (iobj-1)*Nv}
 function lv2iv(lv, iobj) {return lv + (iobj-1)*Nv}
 
 function read_vert(    iv, lv, iobj, x, y, z) { # uses `nv', sets `vert'
-    for (iv=1; iv<=nv; iv++) {
+    for (iv=1; iv<=nv; iv++) { # 1-based
 	iobj = iv2obj(iv)
 	lv   = iv2lv(iv, iobj)
 	getline < fn
@@ -139,18 +155,18 @@ function print_vert(   iv, nobj0, iobj) { # sets `stbl': shift table
 
     for (iobj=1; iobj<=nobj0; iobj++) {# print original
 	print_vert0(iobj, 1)
-	stbl[iobj, 1] = 0 # shift vertices ids relative to original
+	stbl[iobj, 1] = 0 # shift `ids' of the vertices by this number
     }
 
     nobj  = nobj0
-    for (is=2; is<=ns; is++)          # print images
-	for (iobj=1; iobj<=nobj0; iobj++) {
+    for (iobj=1; iobj<=nobj0; iobj++)
+	for (is=2; is<=ns; is++) {          # print images
 	    if (!ptbl[iobj, is]) continue
 	    nobj++
-	    stbl[iobj, is] = (nobj - iobj)*Nv
+	    stbl[iobj, is] = (nobj - iobj)
 	    print_vert0(iobj, is)
 	}
-    printf "(ply2ext.awk) adding %d objects\n", nobj - nobj0 > "/dev/stderr"
+    printf "(ply2ext.awk) adding %d object(s)\n", nobj - nobj0 > "/dev/stderr"
 }
 
 function output_face(id1, id2, id3) {
@@ -165,7 +181,7 @@ function print_face(    ifa, nobj0, iobj) { # updates `nf'
 	iobj = iv2obj(id1)
 	for (is=1; is<=ns; is++) { # images
 	    if (!ptbl[iobj, is]) continue
-	    shift = stbl[iobj,is]
+	    shift = stbl[iobj,is]*Nv
 	    nfi++
 	    output_face(id1+shift, id2+shift, id3+shift)
 	}

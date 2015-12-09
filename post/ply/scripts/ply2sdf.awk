@@ -17,23 +17,23 @@ function gen_ext() { # generate an extended domain
     exl= xl - mrg; eyl= yl - mrg; ezl= zl - mrg
     exh= xh + mrg; eyh= yh + mrg; ezh= zh + mrg
 
-    enx = nx + 2*gmrg; eny = ny + 2*gmrg; enz = nz + 2*gmrg
 }
 
 function rint(x) {
     return x > int(x) ? int(x)+1 : int(x)
 }
 
-function mktemp() {
-    "mktemp -d /tmp/ply2sdf.XXXXX" | getline n
-    return n
+function mktemp(   n) {
+    #"mktemp -d /tmp/ply2sdf.XXXXX" | getline n
+    #return n
+    return "/home/lisergey/tmp"
 }
 
 function lsystem(cmd, rc) {
-    printf "(nslicebov.awk) executing:\n%s\n", cmd
+    printf "(ply2sdf.awk) executing:\n%s\n", cmd
     rc = system(cmd)
     if (rc) {
-	printf "(nslicebov.awk)(ERROR)\n"
+	printf "(ply2sdf.awk)(ERROR)\n"
 	exit rc
     }
 }
@@ -47,13 +47,6 @@ BEGIN {
     ply=ARGV[1]
     sdf=ARGV[2]
     print "(ply2sdf.awk) " ply " to " sdf
-
-    gmrg = rint(mrg*gs) # margin in number of grid points
-
-    Lx = xh - xl
-    nx = Lx*gs
-    dx = Lx/(nx-1)
-    mrg  = gmrg*dx
 
     gen_ext()
 
@@ -85,29 +78,20 @@ BEGIN {
     bov0 = sprintf("%s/wall.bov", d)
     cmd  = sprintf("ur gts2bov.sh %s %s    %s %s %s    %s %s %s    %s %s %s\n",
 		  gts, bov0,
-		  sc*exl, sc*eyl, sc*ezl,
-		  sc*exh, sc*eyh, sc*ezh,
-		  enx, eny, enz)
+		  sc*xl, sc*yl, sc*zl,
+		  sc*xh, sc*yh, sc*zh,
+		  nx, ny, nz)
     lsystem(cmd)
-    printf "cat %s\n", bov0
-    print sc, (exh - exl)/(enx-1), enx
 
     bov1 = sprintf("%s/b1.bov", d)
     cmd  = sprintf("ur transformbov.awk %s %s %g", bov0, bov1, -1/sc)
     lsystem(cmd)
 
-    bov2 = sprintf("%s/b2.bov", d)
-    cmd = sprintf("ur nslicebov.awk %s %s  %s %s %s    %s %s %s",
-     		  bov1, bov2,
-     		  gmrg, gmrg, gmrg,
-		  enx - gmrg - 1, eny - gmrg - 1, enz - gmrg - 1)
-    lsystem(cmd)
-
     cmd = sprintf("ur set_box_bov.awk %s    %s %s %s    %s %s %s",
-		  bov2, xl, yl, zl,    xh, yh, zh)
+		  bov1, xl, yl, zl,    xh, yh, zh)
     lsystem(cmd)
 
-    cmd = sprintf("ur bov2sdf.awk %s %s", bov2, sdf)
+    cmd = sprintf("ur bov2sdf.awk %s %s", bov1, sdf)
     lsystem(cmd)
 
     exit
