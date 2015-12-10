@@ -1,8 +1,15 @@
 #!/bin/bash
 
-# Combine Pachinko files
+# Combine periodic images of Pachinko files
+#
+# Refs.
+# [1] GTS - The GNU Triangulated Surface Library
+# Note:
+# transform, gts2stl are commands from GTS
+
 set -eu
 
+# GTS [1] source code
 GTS_SRC=/home/lisergey/src/pkgsrc/wip/gts-snapshot/work/gts-snapshot-121130
 make -C $GTS_SRC/examples
 
@@ -10,7 +17,7 @@ test -f merge   || ln -s $GTS_SRC/examples/merge merge
 test -f cleanup || ln -s $GTS_SRC/examples/merge cleanup
 
 eps=1e-5
-Ly=2240
+Ly=2240 # size in y-direction
 
 clean_up () {
     rm -rf ${t?t si empty}

@@ -1,5 +1,7 @@
 Pachinko STL and gts files should be places here
 
+I removed faces in meshlab.
+
 - org_no_both.gts ::  Pachinko file without top and bottom faces
 - org_no_top.gts  ::  Pachinko file without top faces
 - org_no_btm.gts  ::  Pachinko file without bottom faces
