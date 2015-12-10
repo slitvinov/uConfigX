@@ -56,10 +56,10 @@ nbox () {
 }
 
 gen_gts () {
-    Ly=`e "($yh)-($yl)"`
+    Lx=`e "($xh)-($xl)"`
     stl2gts < "$1" | \
-    transform --rz=-90        | \
-    transform --ty=$Ly        | \
+    transform --rz=90        | \
+    transform --tx=$Lx        | \
     transform --ty=$m --tz=$m | \
     transform --scale=$rom      > "$2"
     
