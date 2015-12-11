@@ -3,3 +3,6 @@ Proprocessing scripts using GTS
 GTS - The GNU Triangulated Surface Library
 http://gts.sourceforge.net
 
+File format documentation
+http://gts.sourceforge.net/reference/gts-surfaces.html#GTS-SURFACE-WRITE
+
