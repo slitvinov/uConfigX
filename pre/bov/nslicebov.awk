@@ -33,6 +33,14 @@
 # ur nslicebov.awk -v debug=1 test_data/ex2.bov slice.bov 0 0 0   1 1 1
 # mv slice.bov slice.out.bov
 #
+<<<<<<< HEAD
+# TEST: nslicebov6
+# ur nslicebov.awk -v debug=1 test_data/b1.bov slice.bov 1 1 1   72 48 24
+# mv slice.bov slice.out.bov
+#
+
+=======
+>>>>>>> 881fa78db8ea1ffb69f318c7a69ec1ab1d17d372
 
 function min(a, b) {return a < b ? a : b}
 function max(a, b) {return a > b ? a : b}
@@ -187,7 +195,11 @@ BEGIN {
 
     parse_bov(fi)
     bond_limits()
+<<<<<<< HEAD
+    odf = repsufix(basename(fo), "bov", "values")
+=======
     odf = repsuffix(basename(fo), "bov", "values")
+>>>>>>> 881fa78db8ea1ffb69f318c7a69ec1ab1d17d372
 
     splice_values()
     splice_bov()

@@ -17,6 +17,7 @@ function gen_ext() { # generate an extended domain
     exl= xl - mrg; eyl= yl - mrg; ezl= zl - mrg
     exh= xh + mrg; eyh= yh + mrg; ezh= zh + mrg
 
+    enx = nx + 2*gmrg; eny = ny + 2*gmrg; enz = nz + 2*gmrg
 }
 
 function rint(x) {
@@ -82,16 +83,25 @@ BEGIN {
 		  sc*xh, sc*yh, sc*zh,
 		  nx, ny, nz)
     lsystem(cmd)
+    printf "cat %s\n", bov0
+    print sc, (exh - exl)/(enx-1), enx
 
     bov1 = sprintf("%s/b1.bov", d)
     cmd  = sprintf("ur transformbov.awk %s %s %g", bov0, bov1, -1/sc)
     lsystem(cmd)
 
-    cmd = sprintf("ur set_box_bov.awk %s    %s %s %s    %s %s %s",
-		  bov1, xl, yl, zl,    xh, yh, zh)
+    bov2 = sprintf("%s/b2.bov", d)
+    cmd = sprintf("ur nslicebov.awk %s %s  %s %s %s    %s %s %s",
+     		  bov1, bov2,
+     		  gmrg, gmrg, gmrg,
+		  enx - gmrg - 1, eny - gmrg - 1, enz - gmrg - 1)
     lsystem(cmd)
 
-    cmd = sprintf("ur bov2sdf.awk %s %s", bov1, sdf)
+    cmd = sprintf("ur set_box_bov.awk %s    %s %s %s    %s %s %s",
+		  bov2, xl, yl, zl,    xh, yh, zh)
+    lsystem(cmd)
+
+    cmd = sprintf("ur bov2sdf.awk %s %s", bov2, sdf)
     lsystem(cmd)
 
     exit

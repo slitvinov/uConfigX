@@ -1,7 +1,10 @@
 #!/bin/bash
 
+<<<<<<< HEAD
+=======
 set -eux
 
+>>>>>>> 881fa78db8ea1ffb69f318c7a69ec1ab1d17d372
 . ../../../utils/ucx/env.sh
 make -C ../../../pre/tsdf
 make -C ../../../post/ply
@@ -16,7 +19,11 @@ yh=48
 zh=24
 
 box="-v xl=$xl -v yl=$yl -v zl=$zl    -v xh=$xh -v yh=$yh -v zh=$zh"
+<<<<<<< HEAD
+gs=4  # grid scale
+=======
 gs=6  # grid scale
+>>>>>>> 881fa78db8ea1ffb69f318c7a69ec1ab1d17d372
 mrg=3  # margin
 Nv=362 # number of vertices
 
@@ -29,7 +36,10 @@ cp $ply rbc.ply
 ./ply2sdf.awk $box $rst $ply sdf.dat
 
 ur sdf2vtk sdf.dat sdf.vti
+<<<<<<< HEAD
+=======
 
 # TODO:
 cp rbc.ply sdf.dat sdf.vti $HOME/uConfigX/slave/pre/geoms/
 ur sdf2bov.awk  sdf.dat ~/sdf.bov
+>>>>>>> 881fa78db8ea1ffb69f318c7a69ec1ab1d17d372
