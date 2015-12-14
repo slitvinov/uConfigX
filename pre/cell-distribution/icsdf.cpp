@@ -16,10 +16,15 @@ typedef float real;
 const real cell_wall_dist = 1.0; // how far from the wall we can place a cell
 
 bool is_banned(real wall, float x, float y, float z) {
+<<<<<<< HEAD
+  return (wall > 0) || fabs(wall) < cell_wall_dist; // negative values of `wall' are
+				// inside void
+=======
   return fabs(wall) > cell_wall_dist ? true : false; /* negative
 						     values of `wall'
 						     are inside "void"
 						     region */
+>>>>>>> 881fa78db8ea1ffb69f318c7a69ec1ab1d17d372
 }
 
 int NX, NY, NZ;                 // grid size
@@ -77,9 +82,16 @@ void read_sdf(const char* fn) {
   fprintf(stderr, "(icsdf) Extent: [%g, %g, %g]. Grid size: [%d, %d, %d]\n",
 	 xextent, yextent, zextent, NX, NY, NZ);
 
+<<<<<<< HEAD
+  float sc = 1.0;
+  spx = sc*xextent/(NX-1);
+  spy = sc*yextent/(NY-1);
+  spz = sc*zextent/(NZ-1);
+=======
   spx = xextent/(NX-1);
   spy = yextent/(NY-1);
   spz = zextent/(NZ-1);
+>>>>>>> 881fa78db8ea1ffb69f318c7a69ec1ab1d17d372
 
   sdf_data.resize(NX*NY*NZ);
   fread(&sdf_data[0], sizeof(real), NX*NY*NZ, f);
