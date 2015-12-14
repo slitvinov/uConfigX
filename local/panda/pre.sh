@@ -16,7 +16,6 @@ local/panda/gen$Nv.sh  | ur scaleudevice.awk -v sc=$sc > uDeviceX/cuda-rbc/rbc.d
 # place a lot of RBCs
 box="-v Lx=$Lx -v Ly=$Ly -v Lz=$Lz"
 ur cell-placement-hcp.awk $box -v A=$totArea0 -v reff=$reff -v sc=$sc | \
-    ur cell-placement0.awk > uDeviceX/mpi-dpd/rbcs-ic0.txt
+    ur cell-placement0.awk > uDeviceX/mpi-dpd/rbcs-ic.txt
 
-make -C pre/cell-distribution/
-pre/cell-distribution/icsdf pre/geoms/ych.dat uDeviceX/mpi-dpd/rbcs-ic0.txt uDeviceX/mpi-dpd/rbcs-ic.txt
+cp $HOME/sdf.dat $HOME/sdf.bov $HOME/sdf.values uDeviceX/mpi-dpd/

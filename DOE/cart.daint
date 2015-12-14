@@ -1,14 +1,16 @@
+=level
+1
+
 =reff
-1.25
+3.00
+#2.00
+#1.50
 
 =sc
 0.7
 
 ########## DPD parameters ##########
 =nd # number density for RBCs
-4
-
-=nd0 # number density for solvent
 4
 
 =kBT
@@ -25,14 +27,14 @@
 0.001
 
 =ha
-100.0
+0.05
 
 ########## RBC parameters ##########
 =mu0 # RBC shear modulus
 40
 
 =kb
-2000
+100
 
 =ka
 2500
@@ -41,7 +43,7 @@
 3500
 
 =gammaC # RBC dissipation
-0
+35
 
 =cshape # cell shapes: (0: sphere, 1: rbc)
 0
@@ -52,27 +54,9 @@
 =Nv # number of vertices in RBC
 #42
 #92
-#162
-362
+162
+#362
 #812
 #1442
 #5762
 #498
-
-=XS # subdomain size
-72
-
-=YS
-48
-
-=ZS
-24
-
-=rx # rank in X
-1
-
-=ry # rank in Y
-1
-
-=rz # rank in Z
-1

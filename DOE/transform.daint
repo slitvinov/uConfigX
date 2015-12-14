@@ -49,45 +49,72 @@
 %%%    cq = (3^(3/2)*l0^4*lunit^4* \
 %%%	       (4*l0^2*lunit^2-9*l0*lmax*lrbc*lunit+6*lmax^2*lrbc^2)) \
 %%%           /(32*lmax*lrbc^4*(l0*lunit-lmax*lrbc)^2*p) # parameters.CTC/RBC/3d/rbc-udevice.mac,
-							 # similar to
-							 # (3.4) in
-							 # Fedosov2010
-%%%
-%%%
-%%%
+%%%							 # similar to
+%%%							 # (3.4) in
+%%%							 # Fedosov2010
 %%% }
-
+%%%
+%%% function box_l0() {
+%%%     # not implimented
+%%%     exit 2
+%%% }
+%%% 
+%%% function box_l1() {
+%%%     rx=14; ry=5; rz=1
+%%%     XS=80; YS=52; ZS=28
+%%% }
+%%% 
+%%% function box_l2() {
+%%%     rx=5; ry=1; rz=1
+%%%     XS=56; YS=64; ZS=8
+%%% }
+%%%
 %%% function box() {
+%%%    if      (level==0) box_l0()    
+%%%    else if (level==1) box_l1()
+%%%    else if (level==2) box_l2()
 %%%    Lx = XS*rx
 %%%    Ly = YS*ry
 %%%    Lz = ZS*rz
 %%% }
 
-# cell placement parameters
+# ranks in X, Z and Z
+=level
+
+=rx
+box()
+rx
+
+=ry
+box()
+ry
+
+=rz
+box()
+rz
+
+=Lx
+box()
+Lx
+
+=Ly
+box()
+Ly
+
+=Lz
+box()
+Lz
+
+########### cell placement parameters ##########
 =reff
 =sc
 
-####################
-=kb
-=ka
-=kv
-=mu0
+=ha # body force
 
-=ha
-
-=Nv
-
-=cshape
-
-=phirbc # spontaneous angle; (3.21) in Fedosov2010
-todeg(acos((sqrt(3)*(Nv-2)-5*pi()) / (sqrt(3)*(Nv-2)-3*pi())))
-
-=np
-rx*ry*rz
+=Nv # number of pariticles in the membrain
 
 ########## DPD parameters ##########
 =nd
-=nd0
 
 =kBT
 
@@ -97,6 +124,9 @@ rx*ry*rz
 
 =dt
 
+=np
+rx*ry*rz
+
 =totArea0
 init()
 totArea0
@@ -105,6 +135,16 @@ totArea0
 totVolume0
 
 ########## RBC parameters ##########
+=kb
+=ka
+=kv
+=mu0
+
+=cshape
+
+=phirbc # spontaneous angle; (3.21) in Fedosov2010
+todeg(acos((sqrt(3)*(Nv-2)-5*pi()) / (sqrt(3)*(Nv-2)-3*pi())))
+
 =lmax
 init()
 lmax
@@ -127,18 +167,3 @@ cq
 
 =ZS
 
-=Lx
-box()
-Lx
-
-=Ly
-box()
-Ly
-
-=Lz
-box()
-Lz
-
-=rx
-=ry
-=rz

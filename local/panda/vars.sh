@@ -18,7 +18,7 @@ Lz=24 #= Lz=%Lz%
 xranks=1 #=xranks=%rx%
 yranks=1 #=yranks=%ry%
 zranks=1 #=zranks=%rz%
-tend=300
+tend=3000
 wall_creation_stepid=1000
 
 totArea0=10.0 #= totArea0=%totArea0%
@@ -28,11 +28,12 @@ reff=1.2 #=reff=%reff%
 sc=0.8 #=sc=%sc%
 
 Nv=1442 #=Nv=%Nv%
-dump=500
+dump=5000
 
-#walls="-walls -wall_creation_stepid=$wall_creation_stepid"
-walls=
-rbcs=-rbcs
+walls="-walls -wall_creation_stepid=$wall_creation_stepid"
+#walls=
 
-args="$xranks $yranks $zranks -tend=$tend -pushtheflow -contactforces $walls $rbcs \
+rbcs="-rbcs -contactforces"
+
+args="$xranks $yranks $zranks -tend=$tend -pushtheflow $walls $rbcs \
       -steps_per_dump=$dump -dump_scalarfield -hdf5field_dumps"

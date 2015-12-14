@@ -2,6 +2,8 @@
 
 . local/panda/vars.sh
 
+set -xue
+
 export HEX_COMM_FACTOR=2
 export XVELAVG=10
 export YVELAVG=3
