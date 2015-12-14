@@ -1,0 +1,28 @@
+Simulation with gerris flow solver
+
+* gerris topology
+
+http://gfs.sourceforge.net/tutorial/tutorial/tutorial1.html
+#+BEGIN_EXAMPLE
+2.2  Topology description of the simulation domain
+
+Ok, so what are all these “objects” for? The first line of
+the simulation file defines a graph representing the
+general layout of the simulation domain and follows this
+syntax:
+
+1st field
+    number of nodes in the graph (1)
+2nd field
+    number of edges connecting the nodes (2)
+3rd field
+    object type for the graph (GfsSimulation)
+4th field
+    default object type for the nodes (GfsBox)
+5th field
+    object type for the edges (GfsGEdge)
+6th field
+    1st optional parameters (braced block)
+7th field
+    2nd optional parameters (braced block)
+#+END_EXAMPLE

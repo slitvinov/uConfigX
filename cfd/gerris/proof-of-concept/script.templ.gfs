@@ -1,0 +1,21 @@
+#%head% 560 129 13 {
+%bc%    pbc open open
+%shift% 0      0     0
+%head%  1    1     1 {
+    # GfsSolid post2d.gts
+    GfsSolid gerris2d.gts
+    
+    Source U  1e6
+    GfsTime { iend = 1000 }
+    SourceViscosity 1.0 { beta = 1 }
+#    AdvectionParams { gc = 1 }
+    GfsRefine 11
+    RefineSolid 14
+
+    OutputSimulation { istep = 2 } vtk4/p%.3d-t%.8ld.vtk {
+	format = VTK
+    }
+}
+
+%box%
+%connect%
