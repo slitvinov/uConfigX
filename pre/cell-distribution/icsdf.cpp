@@ -16,15 +16,8 @@ typedef float real;
 const real cell_wall_dist = 1.0; // how far from the wall we can place a cell
 
 bool is_banned(real wall, float x, float y, float z) {
-<<<<<<< HEAD
   return (wall > 0) || fabs(wall) < cell_wall_dist; // negative values of `wall' are
-				// inside void
-=======
-  return fabs(wall) > cell_wall_dist ? true : false; /* negative
-						     values of `wall'
-						     are inside "void"
-						     region */
->>>>>>> 881fa78db8ea1ffb69f318c7a69ec1ab1d17d372
+                                                    // inside void
 }
 
 int NX, NY, NZ;                 // grid size

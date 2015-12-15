@@ -29,10 +29,7 @@ nslicebov.awk		    pre/bov/nslicebov.awk
 transformbov		    pre/bov/transformbov
 transformbov.awk	    pre/bov/transformbov.awk
 bov2sdf.awk		    pre/bov/bov2sdf.awk
-<<<<<<< HEAD
-=======
 sdf2bov.awk		    pre/bov/sdf2bov.awk
->>>>>>> 881fa78db8ea1ffb69f318c7a69ec1ab1d17d372
 set_box_bov.awk		    pre/bov/set_box_bov.awk
 
 refine.awk		    pre/trbc/refine.awk

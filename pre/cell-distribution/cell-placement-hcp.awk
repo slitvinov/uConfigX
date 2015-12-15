@@ -35,11 +35,7 @@ BEGIN {
     r *= sc
     r *= reff
 
-<<<<<<< HEAD
-    nmax = 300
-=======
-    nmax = 100 # should be a big number, TODO:
->>>>>>> 881fa78db8ea1ffb69f318c7a69ec1ab1d17d372
+    nmax = 300  # should be a big number, TODO:
     for (i=0; i<nmax; i++) {
 	for (j=0; j<nmax; j++) {
 	    for (k=0; k<nmax; k++) {
