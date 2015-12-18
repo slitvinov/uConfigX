@@ -1,10 +1,8 @@
 =level
-1
+0
 
 =reff
-3.00
-#2.00
-#1.50
+2.5
 
 =sc
 0.7
@@ -27,14 +25,14 @@
 0.001
 
 =ha
-0.05
+0.06
 
 ########## RBC parameters ##########
 =mu0 # RBC shear modulus
 40
 
 =kb
-100
+30
 
 =ka
 2500
@@ -46,7 +44,7 @@
 35
 
 =cshape # cell shapes: (0: sphere, 1: rbc)
-0
+1
 
 =seed # random seed
 111
@@ -54,8 +52,9 @@
 =Nv # number of vertices in RBC
 #42
 #92
-162
+#162
 #362
+498
 #812
 #1442
 #5762

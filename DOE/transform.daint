@@ -55,8 +55,8 @@
 %%% }
 %%%
 %%% function box_l0() {
-%%%     # not implimented
-%%%     exit 2
+%%%     rx=1; ry=10; rz=1
+%%%     XS=56; YS=52; ZS=56
 %%% }
 %%% 
 %%% function box_l1() {
@@ -78,7 +78,6 @@
 %%%    Lz = ZS*rz
 %%% }
 
-# ranks in X, Z and Z
 =level
 
 =rx

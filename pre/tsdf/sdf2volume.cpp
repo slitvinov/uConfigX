@@ -5,10 +5,6 @@
 
 typedef float real;
 
-/* name of scalar field variable in vtk file */
-const char* VTK_SC_NAME = "wall";
-const char* VTK_TYPE    = "Float64";
-
 /* origin in vtk file */
 const real orgx = 0.0;
 const real orgy = 0.0;
@@ -47,10 +43,6 @@ int main(int argc, char ** argv) {
   int n_wall = 0;
   int n_void = 0;
   for (int i=0; i<n_total; i++) {
-    if (sdf_data[i] != sdf_data[i]) {
-      fprintf(stderr, "(sdf2volume) see nan in position %d\n", i);
-      exit(EXIT_FAILURE);
-    }
     if (sdf_data[i]<=0)
       n_void++;
     else
@@ -58,6 +50,6 @@ int main(int argc, char ** argv) {
   }
 
   real Vtotal = xextent*yextent*zextent;
-  fprintf(stdout, "%g\n%g\n", (Vtotal*n_void)/n_total, (Vtotal*n_wall)/n_total);
+  printf("%g\n%g\n", (Vtotal*n_void)/n_total, (Vtotal*n_wall)/n_total);
 }
 

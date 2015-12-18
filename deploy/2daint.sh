@@ -2,7 +2,7 @@
 
 . utils/ucx/env.sh
 
-set -x
+set -xeu
 
 default_dir=uConfigX
 iname=test #=iname=%my_dir_name%
@@ -13,7 +13,7 @@ rname=`ur cutter.awk $iname $Nkeep`
 uname=lisergey
 rhost="${uname}"@daint
 
-name=toner
+name=toner.testing
 # remote path name
 rpath=/scratch/daint/"${uname}"/$name/"${rname}"
 
@@ -24,11 +24,5 @@ rt () {
     ssh "${rhost}" "cd ${rpath}/${default_dir} ; $@"
 }
 
-post() {
-    echo "mkdir -p ${rname} ; rsync -r -avz ${rhost}:${rpath}/${default_dir}/uDeviceX/mpi-dpd/* ${rname}"    >> ~/${name}_rsync.sh
-    echo "${rname}"                                                                                         >> ~/${name}_local.list
-    echo "${rhost}:${rpath}/${default_dir}"                                                                 >> ~/${name}_remote.list
-}
-
 rt local/daint/setup.sh
-post
+#post

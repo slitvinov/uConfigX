@@ -4,18 +4,32 @@
 
 set -xue
 
+safe_ln() {
+    test "$2" && ln -s "$1" "$2"
+}
+
+# create symbolic links
 (
     cd ../
-    ln -s uConfigX/uDeviceX/mpi-dpd/ply ply
-    ln -s uConfigX/uDeviceX/mpi-dpd/h5  h5
+    safe_ln uConfigX/uDeviceX/mpi-dpd/ply ply
+    safe_ln uConfigX/uDeviceX/mpi-dpd/h5  h5
 )
 
-# generate cell template
-local/panda/gen$Nv.sh  | ur scaleudevice.awk -v sc=$sc > uDeviceX/cuda-rbc/rbc.dat
+orgNv=498
+if test $Nv -ne $orgNv
+then
+    # generate cell template
+    local/panda/gen$Nv.sh  | ur scaleudevice.awk -v sc=$sc > uDeviceX/cuda-rbc/rbc.dat
+else
+    cp pre/cell-template/rbc.org.dat                         uDeviceX/cuda-rbc/rbc.dat
+fi
 
 # place a lot of RBCs
 box="-v Lx=$Lx -v Ly=$Ly -v Lz=$Lz"
 ur cell-placement-hcp.awk $box -v A=$totArea0 -v reff=$reff -v sc=$sc | \
     ur cell-placement0.awk > uDeviceX/mpi-dpd/rbcs-ic.txt
 
-cp $HOME/sdf.dat $HOME/sdf.bov $HOME/sdf.values uDeviceX/mpi-dpd/
+#cp $HOME/sdf.dat $HOME/sdf.bov $HOME/sdf.values uDeviceX/mpi-dpd/
+
+ghome=/scratch/daint/lisergey/geoms/pachinko/vslice
+cp  $ghome/sdf.dat $ghome/sdf.bov $ghome/sdf.values uDeviceX/mpi-dpd/

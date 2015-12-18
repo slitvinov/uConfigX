@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eux
+
 . local/panda/vars.sh
 
 local/daint/compile.sh
