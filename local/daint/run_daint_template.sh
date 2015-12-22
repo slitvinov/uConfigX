@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-#SBATCH --job-name=bigcyl_MORErbcs
-#SBATCH --time=01:00:00
+#SBATCH --job-name=s0
+#SBATCH --time=08:00:00
 #SBATCH --nodes=1 #=#SBATCH --nodes=%np%
 #SBATCH --ntasks-per-node=1
 #SBATCH --output=time_average.%j.o

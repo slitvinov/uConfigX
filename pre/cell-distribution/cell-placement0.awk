@@ -14,7 +14,6 @@ function cell0(xc, yc, zc, phix) {
 BEGIN {
     phix = length(phix) ? phix : 0.0
 }
-    
 
 {
     xc = $1; yc = $2; zc = $3

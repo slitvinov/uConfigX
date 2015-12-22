@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -uex
+
 . local/panda/vars.sh
 
 local/panda/compile.sh

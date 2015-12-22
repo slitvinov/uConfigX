@@ -8,7 +8,7 @@
 %%% function a2v_sphere(A,  V0, A0) {
 %%%       V0 = 4/3*pi()
 %%%       A0 = 4*pi()
-%%%       return (A^(3/2)*V0)/A0^(3/2)              * 1.3
+%%%       return (A^(3/2)*V0)/A0^(3/2)  * volfrac
 %%%    }
 %%% function a2v_rbc(A,  V0, A0) {
 %%%       V0 = 91
@@ -55,18 +55,18 @@
 %%% }
 %%%
 %%% function box_l0() {
-%%%     rx=1; ry=10; rz=1
-%%%     XS=56; YS=52; ZS=56
+%%%     rx=1; ry=1; rz=1
+%%%     XS=32; YS=56; ZS=28
 %%% }
 %%% 
 %%% function box_l1() {
-%%%     rx=14; ry=5; rz=1
-%%%     XS=80; YS=52; ZS=28
+%%%     rx=2; ry=2; rz=2
+%%%     XS=32; YS=56; ZS=28
 %%% }
 %%% 
 %%% function box_l2() {
-%%%     rx=5; ry=1; rz=1
-%%%     XS=56; YS=64; ZS=8
+%%%     rx=4; ry=4; rz=4
+%%%     XS=32; YS=56; ZS=28
 %%% }
 %%%
 %%% function box() {
@@ -77,38 +77,19 @@
 %%%    Ly = YS*ry
 %%%    Lz = ZS*rz
 %%% }
+=geom
 
 =level
 
-=rx
-box()
-rx
+=ha # body force
+=pshift
 
-=ry
-box()
-ry
-
-=rz
-box()
-rz
-
-=Lx
-box()
-Lx
-
-=Ly
-box()
-Ly
-
-=Lz
-box()
-Lz
+=phi                # body force inclination angle with OX
+atan2(-1/pshift, 1)
 
 ########### cell placement parameters ##########
 =reff
 =sc
-
-=ha # body force
 
 =Nv # number of pariticles in the membrain
 
@@ -124,6 +105,7 @@ Lz
 =dt
 
 =np
+box()
 rx*ry*rz
 
 =totArea0
@@ -157,12 +139,40 @@ init()
 cq
 
 =gammaC
-=seed
 
 #### box ####
-=XS
+=rx # processor number
+box()
+rx
+
+=ry
+box()
+ry
+
+=rz
+box()
+rz
+
+=Lx # global domain size
+box()
+Lx
+
+=Ly
+box()
+Ly
+
+=Lz
+box()
+Lz
+
+=XS # subdomain size
+box()
+XS
 
 =YS
+box()
+YS
 
 =ZS
-
+box()
+ZS

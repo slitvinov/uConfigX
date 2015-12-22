@@ -7,5 +7,4 @@ cp local/panda/Makefile uDeviceX/cuda-ctc/.cache.Makefile
 cp local/panda/Makefile uDeviceX/cuda-dpd/.cache.Makefile
 
 cd uDeviceX/mpi-dpd
-make clean && make -j slevel="-2"
-
+make clean && make -j slevel=$slevel

@@ -3,15 +3,17 @@
 # How many processes to use?
 
 BEGIN {
-    sc=1/2
+    sc=1
     Lx=2240*sc
     Ly=520*sc
     Lz=56*sc
 
     nden=4 # DPD particles number density
 
-    Npmax=5e6
-    Npmin=1e5
+    Npmax=0.5e6
+    Npmin=0.25e5
+
+    Nproc_max=736
 
     lmin=5
 
@@ -32,8 +34,9 @@ BEGIN {
 	exit 2
     }
 
-    print "r:", opt["rx"], opt["ry"], opt["rz"]
-    print "l:", opt["lx"], opt["ly"], opt["lz"]
+    print "r:",  opt["rx"], opt["ry"], opt["rz"]
+    print "l:",  opt["lx"], opt["ly"], opt["lz"]
+    print "np:", opt["rx"]*opt["ry"]*opt["rz"]
 }
 
 function divp(A, B) {return A % B == 0} # is `A' divisible by `B'?
@@ -58,6 +61,10 @@ function req_np() {                     # limit the number of DPD particles in s
     return 1
 }
 
+function req_proc() {
+    return rx*ry*rz<Nproc_max
+}
+
 function good() {
     if (!req_div()) return 0
     lx = Lx/rx; ly = Ly/ry; lz = Lz/rz
@@ -67,6 +74,8 @@ function good() {
     V  = lx*ly*lz
     Np = V*nden
     if (!req_np()) return 0
+
+    if (!req_proc()) return 0
     
     return 1
 }

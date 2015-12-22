@@ -14,11 +14,12 @@ ZSIZE_SUBDOMAIN=48 #=ZSIZE_SUBDOMAIN=%ZS%
 Lx=24 #= Lx=%Lx%
 Ly=24 #= Ly=%Ly%
 Lz=24 #= Lz=%Lz%
+geom=cir #= geom=%geom%
 
 xranks=1 #=xranks=%rx%
 yranks=1 #=yranks=%ry%
 zranks=1 #=zranks=%rz%
-tend=3000
+tend=300000
 wall_creation_stepid=1000
 
 totArea0=10.0 #= totArea0=%totArea0%
@@ -29,6 +30,7 @@ sc=0.8 #=sc=%sc%
 
 Nv=1442 #=Nv=%Nv%
 dump=5000
+slevel=0
 
 walls="-walls -wall_creation_stepid=$wall_creation_stepid"
 #walls=

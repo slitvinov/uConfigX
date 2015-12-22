@@ -12,8 +12,8 @@ uname=lisergey
 rhost="${uname}"@localhost
 
 # remote path name
-n=toner
-rpath=$HOME/SYNC/$n/$rname
+name=toner.cylinder
+rpath=$HOME/SYNC/$name/$rname
 
 ur gcp "${default_dir}" "${rhost}":"${rpath}"
 
