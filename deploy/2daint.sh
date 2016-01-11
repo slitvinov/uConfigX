@@ -13,7 +13,7 @@ rname=`ur cutter.awk $iname $Nkeep`
 uname=lisergey
 rhost="${uname}"@daint
 
-name=toner.cylinder
+name=toner.soft.kb
 # remote path name
 rpath=/scratch/daint/"${uname}"/$name/"${rname}"
 

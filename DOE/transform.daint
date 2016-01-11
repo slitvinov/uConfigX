@@ -56,12 +56,12 @@
 %%%
 %%% function box_l0() {
 %%%     rx=1; ry=1; rz=1
-%%%     XS=32; YS=56; ZS=28
+%%%     XS=32; YS=56; ZS=56
 %%% }
 %%% 
 %%% function box_l1() {
 %%%     rx=2; ry=2; rz=2
-%%%     XS=32; YS=56; ZS=28
+%%%     XS=32; YS=56; ZS=56
 %%% }
 %%% 
 %%% function box_l2() {
@@ -77,6 +77,36 @@
 %%%    Ly = YS*ry
 %%%    Lz = ZS*rz
 %%% }
+########## RBC parameters ##########
+=kb
+
+=ka
+gsc*2500
+
+=kv
+gsc*2500
+
+
+=mu0
+=cshape
+
+=phirbc # spontaneous angle; (3.21) in Fedosov2010
+todeg(acos((sqrt(3)*(Nv-2)-5*pi()) / (sqrt(3)*(Nv-2)-3*pi())))
+
+=lmax
+init()
+lmax
+
+=p
+init()
+p
+
+=cq
+init()
+cq
+
+=gammaC
+
 =geom
 
 =level
@@ -115,30 +145,6 @@ totArea0
 =totVolume0
 totVolume0
 
-########## RBC parameters ##########
-=kb
-=ka
-=kv
-=mu0
-
-=cshape
-
-=phirbc # spontaneous angle; (3.21) in Fedosov2010
-todeg(acos((sqrt(3)*(Nv-2)-5*pi()) / (sqrt(3)*(Nv-2)-3*pi())))
-
-=lmax
-init()
-lmax
-
-=p
-init()
-p
-
-=cq
-init()
-cq
-
-=gammaC
 
 #### box ####
 =rx # processor number
