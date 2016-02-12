@@ -3,7 +3,7 @@
 BEGIN {
     # reduce dimension `d'
     # X: 0, Y: 1, Z: 2
-    d = length(d) ? d : 0
+    d = length(d) ? d : 1
     
     n = ARGV[1]
     gsub(/\.[^\.]+$/, "", n)

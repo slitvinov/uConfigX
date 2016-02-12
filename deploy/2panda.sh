@@ -2,6 +2,8 @@
 
 . utils/ucx/env.sh
 
+set -eux
+
 default_dir=uConfigX
 iname=test #=iname=%my_dir_name%
 Nkeep=10 # number of parameter in dir name
@@ -12,7 +14,8 @@ uname=lisergey
 rhost="${uname}"@localhost
 
 # remote path name
-name=toner.cylinder
+name=pow-fsi0-pp
+
 rpath=$HOME/SYNC/$name/$rname
 
 ur gcp "${default_dir}" "${rhost}":"${rpath}"

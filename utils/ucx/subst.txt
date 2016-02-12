@@ -69,6 +69,7 @@ platoply		    post/ply/platoply
 ply2ncell.awk		    post/ply/scripts/ply2ncell.awk
 ply2trbc.awk		    post/ply/scripts/ply2trbc.awk
 ply2volume.sh		    post/ply/scripts/ply2volume.sh
+ply2vert.awk		    post/ply/scripts/ply2vert.awk
 ply2area.sh		    post/ply/scripts/ply2area.sh
 ply2ext.awk		    post/ply/scripts/ply2ext.awk
 ply2cm.awk		    post/ply/scripts/ply2cm.awk
@@ -93,3 +94,6 @@ cell-placement0.awk	    pre/cell-distribution/cell-placement0.awk
 cell-placement1.awk	    pre/cell-distribution/cell-placement1.awk
 cell-placement-hcp.awk	    pre/cell-distribution/cell-placement-hcp.awk
 ic2ply.awk		    pre/cell-distribution/ic2ply.awk
+
+extract   		    pkgsrc/mk/extract/extract
+fetch			    pkgsrc/mk/fetch/fetch

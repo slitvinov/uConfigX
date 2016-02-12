@@ -20,20 +20,34 @@ orgNv=498
 if test $Nv -ne $orgNv
 then
     # generate cell template
-    local/panda/gen$Nv.sh  | ur scaleudevice.awk -v sc=$sc > uDeviceX/cuda-rbc/rbc.dat
+    local/panda/gen$Nv.sh  | ur scaleudevice.awk -v sc=1 > uDeviceX/cuda-rbc/rbc.dat
 else
-    cp pre/cell-template/rbc.org.dat                         uDeviceX/cuda-rbc/rbc.dat
+    ur scaleudevice.awk -v sc=1.00 pre/cell-template/rbc.org.dat > uDeviceX/cuda-rbc/rbc.dat
 fi
 
 pi_over2=1.570796326794897
 box="-v Lx=$Lx -v Ly=$Ly -v Lz=$Lz"
+
 # place one RBC
-awk $box 'BEGIN {print Lx/2, 0, Lz/2}' | \
+#awk $box 'BEGIN {print Lx/10, Ly/2, Lz/2}' | \
+#awk $box 'BEGIN {print Lx/2, 0.80*Ly, Lz/2}' | \
+#    ur cell-placement0.awk -v phix=0 > uDeviceX/mpi-dpd/rbcs-ic.txt
+
+# place multiple RBCs
+awk $box 'BEGIN {print 0.25*Lx, 0.90*Ly, Lz/2; print 0.25*Lx, 0.85*Ly, Lz/2; print 0.25*Lx, 0.95*Ly, Lz/2
+                 print 0.75*Lx, 0.90*Ly, Lz/2; print 0.75*Lx, 0.85*Ly, Lz/2; print 0.75*Lx, 0.95*Ly, Lz/2 }' | \
     ur cell-placement0.awk -v phix=$pi_over2 > uDeviceX/mpi-dpd/rbcs-ic.txt
+
+# place A LOT of RBCs - fill the space!
+#awk $box -v A=$totArea0 -v reff=$reff -v rf=$rf -f pre/cell-distribution/cell-placement-hcp.awk | \
+#    awk -f pre/cell-distribution/cell-placement0.awk > uDeviceX/mpi-dpd/rbcs-ic.txt
 
 case $geom in
     cir) # cylinder in rectangle
 	ur tsdf.awk pre/tsdf/examples/cylinder_in_rect.tsdf uDeviceX/mpi-dpd/sdf.dat uDeviceX/mpi-dpd/sdf.vti
+	;;
+    eir) # egg in rectangle
+	ur tsdf.awk pre/tsdf/examples/egg_in_rect.tsdf      uDeviceX/mpi-dpd/sdf.dat uDeviceX/mpi-dpd/sdf.vti
 	;;
     *)
 	ghome=$SCRATCH/geoms/pachinko/post

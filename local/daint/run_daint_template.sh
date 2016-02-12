@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name=s0
+#SBATCH --job-name=1p1c
 #SBATCH --time=08:00:00
 #SBATCH --nodes=1 #=#SBATCH --nodes=%np%
 #SBATCH --ntasks-per-node=1

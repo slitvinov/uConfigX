@@ -3,7 +3,10 @@
 # setup PATH and UCX_PREFIX
 . utils/ucx/env.sh
 
-# parameters of the simulations
+# third party libraries
+# this path should be used in local/panda/Makefile
+LIBS_PREFIX=$HOME/uDevice/prefix
+LIBS_WORK=$HOME/uDevice/work
 
 # this is linked to mpi-dpd/common.h
 # and should be changed simultaneously
@@ -19,15 +22,12 @@ geom=cir #= geom=%geom%
 xranks=1 #=xranks=%rx%
 yranks=1 #=yranks=%ry%
 zranks=1 #=zranks=%rz%
-tend=300000
+tend=6000
 wall_creation_stepid=1000
 
 totArea0=10.0 #= totArea0=%totArea0%
 
-# cell placement parameters
-reff=1.2 #=reff=%reff%
-sc=0.8 #=sc=%sc%
-
+phix=1.570796326794897
 Nv=1442 #=Nv=%Nv%
 dump=5000
 slevel=0
@@ -36,6 +36,5 @@ walls="-walls -wall_creation_stepid=$wall_creation_stepid"
 #walls=
 
 rbcs="-rbcs -contactforces"
-
-args="$xranks $yranks $zranks -tend=$tend -pushtheflow $walls $rbcs \
-      -steps_per_dump=$dump -dump_scalarfield -hdf5field_dumps"
+dumps="-steps_per_dump=$dump -dump_scalarfield -hdf5field_dumps" # -hdf5part_dumps"
+args="$xranks $yranks $zranks -tend=$tend -pushtheflow $walls $rbcs $dumps"

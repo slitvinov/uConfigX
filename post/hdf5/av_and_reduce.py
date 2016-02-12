@@ -8,7 +8,7 @@ av = h5py.File(sys.argv[1], 'w')
 keys = ['v', 'u', 'w', 'density']
 
 (Z, Y, X) = (0, 1, 2) # reverse order
-d = Z # dimensions to average
+d = Y # dimensions to average
 
 # cut d'th  element from a tuple
 def reduce_shape(s, d):
