@@ -4,8 +4,6 @@
 # Usage:
 # awk -f scripts/ply2trbc.awk test_data/icosahedron.ply
 #
-# TEST: ply2vert1
-# ur ply2vert.awk examples/tetrahedron.ply > vert.out.vtk
 
 function read_header() {
     while (getline < infile > 0 && $0 != "end_header" ) {
