@@ -22,7 +22,7 @@ geom=cir #= geom=%geom%
 xranks=1 #=xranks=%rx%
 yranks=1 #=yranks=%ry%
 zranks=1 #=zranks=%rz%
-tend=6000
+tend=999000
 wall_creation_stepid=1000
 
 totArea0=10.0 #= totArea0=%totArea0%

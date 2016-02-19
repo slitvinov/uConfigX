@@ -75,5 +75,3 @@ BEGIN {
     write_vertices()    
     write_rest()
 }
-
-

@@ -70,6 +70,7 @@ ply2ncell.awk		    post/ply/scripts/ply2ncell.awk
 ply2trbc.awk		    post/ply/scripts/ply2trbc.awk
 ply2volume.sh		    post/ply/scripts/ply2volume.sh
 ply2vert.awk		    post/ply/scripts/ply2vert.awk
+ply2grid.awk		    post/ply/scripts/ply2grid.awk
 ply2area.sh		    post/ply/scripts/ply2area.sh
 ply2ext.awk		    post/ply/scripts/ply2ext.awk
 ply2cm.awk		    post/ply/scripts/ply2cm.awk

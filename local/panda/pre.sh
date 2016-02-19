@@ -34,8 +34,8 @@ box="-v Lx=$Lx -v Ly=$Ly -v Lz=$Lz"
 #    ur cell-placement0.awk -v phix=0 > uDeviceX/mpi-dpd/rbcs-ic.txt
 
 # place multiple RBCs
-awk $box 'BEGIN {print 0.25*Lx, 0.90*Ly, Lz/2; print 0.25*Lx, 0.85*Ly, Lz/2; print 0.25*Lx, 0.95*Ly, Lz/2
-                 print 0.75*Lx, 0.90*Ly, Lz/2; print 0.75*Lx, 0.85*Ly, Lz/2; print 0.75*Lx, 0.95*Ly, Lz/2 }' | \
+awk $box 'BEGIN {print 0.25*Lx, 0.75*Ly, Lz/2; print 0.25*Lx, 0.85*Ly, Lz/2; print 0.25*Lx, 0.950*Ly, Lz/2
+                 print 0.75*Lx, 0.75*Ly, Lz/2; print 0.75*Lx, 0.85*Ly, Lz/2; print 0.75*Lx, 0.950*Ly, Lz/2 }' | \
     ur cell-placement0.awk -v phix=$pi_over2 > uDeviceX/mpi-dpd/rbcs-ic.txt
 
 # place A LOT of RBCs - fill the space!
