@@ -1,0 +1,17 @@
+A wrapper for python to use with visit
+
+* Installation
+- customize =PYTHON= and =VISIT_LIB_PATH= in =vpython.sh=
+- put =vpython.sh= in the PATH
+- copy to 
+  =usercustomize.py= and =vcustom.py= to =$HOME/.vpython=
+- add
+#+BEGIN_SRC python
+from vcustom import *
+from visit   import *
+#+END_SRC
+to your script
+
+* Usage
+
+=vpython.sh -i examples/simple.py=
