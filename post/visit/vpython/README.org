@@ -15,3 +15,5 @@ to your script
 * Usage
 
 =vpython.sh -i examples/simple.py=
+
+Run =v()= in python shell to get gui (see [[vcustom.py]])

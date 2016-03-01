@@ -11,9 +11,10 @@ def v():
     OpenGUI("-nosplash", "-noconfig")
 
 def sw(fn = "visit"):
+    ''' save png file '''
     import os
     fn = os.path.splitext(fn)[0] # get rid of the suffix
-    ''' save png image '''
+    # save png image
     atts = GetSaveWindowAttributes()
     atts.family = 0
     atts.outputToCurrentDirectory = 1
