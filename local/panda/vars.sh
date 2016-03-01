@@ -7,6 +7,8 @@
 # this path should be used in local/panda/Makefile
 LIBS_PREFIX=$HOME/uDevice/prefix
 LIBS_WORK=$HOME/uDevice/work
+CXX=/opt/mpich/bin/mpic++
+CC=/opt/mpich/bin/mpicc
 
 # this is linked to mpi-dpd/common.h
 # and should be changed simultaneously
@@ -29,12 +31,11 @@ totArea0=10.0 #= totArea0=%totArea0%
 
 phix=1.570796326794897
 Nv=1442 #=Nv=%Nv%
-dump=5000
+dump=20000
 slevel=0
 
 walls="-walls -wall_creation_stepid=$wall_creation_stepid"
-#walls=
-
 rbcs="-rbcs -contactforces"
+
 dumps="-steps_per_dump=$dump -dump_scalarfield -hdf5field_dumps" # -hdf5part_dumps"
 args="$xranks $yranks $zranks -tend=$tend -pushtheflow $walls $rbcs $dumps"

@@ -34,13 +34,13 @@ box="-v Lx=$Lx -v Ly=$Ly -v Lz=$Lz"
 #    ur cell-placement0.awk -v phix=0 > uDeviceX/mpi-dpd/rbcs-ic.txt
 
 # place multiple RBCs
-awk $box 'BEGIN {print 0.25*Lx, 0.75*Ly, Lz/2; print 0.25*Lx, 0.85*Ly, Lz/2; print 0.25*Lx, 0.950*Ly, Lz/2
-                 print 0.75*Lx, 0.75*Ly, Lz/2; print 0.75*Lx, 0.85*Ly, Lz/2; print 0.75*Lx, 0.950*Ly, Lz/2 }' | \
-    ur cell-placement0.awk -v phix=$pi_over2 > uDeviceX/mpi-dpd/rbcs-ic.txt
+#awk $box 'BEGIN {print 0.25*Lx, 0.75*Ly, Lz/2; print 0.25*Lx, 0.85*Ly, Lz/2; print 0.25*Lx, 0.950*Ly, Lz/2
+#                 print 0.75*Lx, 0.75*Ly, Lz/2; print 0.75*Lx, 0.85*Ly, Lz/2; print 0.75*Lx, 0.950*Ly, Lz/2 }' | \
+#    ur cell-placement0.awk -v phix=$pi_over2 > uDeviceX/mpi-dpd/rbcs-ic.txt
 
 # place A LOT of RBCs - fill the space!
-#awk $box -v A=$totArea0 -v reff=$reff -v rf=$rf -f pre/cell-distribution/cell-placement-hcp.awk | \
-#    awk -f pre/cell-distribution/cell-placement0.awk > uDeviceX/mpi-dpd/rbcs-ic.txt
+awk $box -v A=$totArea0 -v reff=1 -v sc=1.20 -f pre/cell-distribution/cell-placement-hcp.awk | \
+    ur cell-placement0.awk -v phix=$pi_over2 > uDeviceX/mpi-dpd/rbcs-ic.txt
 
 case $geom in
     cir) # cylinder in rectangle

@@ -32,7 +32,7 @@ ur extract -d "$LIBS_WORK" "$LIBS_WORK/$DISTFILE"
     cd "$WRKSRC"
     ./configure --enable-parallel --with-hdf5=/opt/hdf5_mpich \
 		--prefix="$LIBS_PREFIX" \
-		CXX=/opt/mpich/bin/mpic++ CC=/opt/mpich/bin/mpicc
+		CXX=$CXX CC=$CC
 )
 
 ( # build
