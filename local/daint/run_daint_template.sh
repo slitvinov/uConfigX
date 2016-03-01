@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #SBATCH --job-name=1p1c
-#SBATCH --time=16:00:00
+#SBATCH --time=00:30:00
 #SBATCH --nodes=1 #=#SBATCH --nodes=%np%
 #SBATCH --ntasks-per-node=1
 #SBATCH --output=time_average.%j.o
