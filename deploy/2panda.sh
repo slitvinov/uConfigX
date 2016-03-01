@@ -14,7 +14,7 @@ uname=lisergey
 rhost="${uname}"@localhost
 
 # remote path name
-name=pow-fsi0-egg-pshift10-lowha-fast
+name=slow
 
 rpath=$HOME/SYNC/$name/$rname
 

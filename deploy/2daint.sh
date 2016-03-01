@@ -13,7 +13,8 @@ rname=`ur cutter.awk $iname $Nkeep`
 uname=lisergey
 rhost="${uname}"@daint
 
-name=pow-fsi0-egg-pshift10-lowha-log
+# remote path name
+name=slow
 
 # remote path name
 rpath=/scratch/daint/"${uname}"/$name/"${rname}"
