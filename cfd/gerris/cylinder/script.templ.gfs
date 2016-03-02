@@ -1,0 +1,20 @@
+%bc%    pbc pbc pbc
+%shift%  0      0     0
+%head%   4      7     1  {
+    Source U   0.1
+    Source V  -0.1
+    
+    GfsTime { iend = 1000 }
+    SourceViscosity 1.0 { beta = 1 }
+    GfsRefine 3
+    RefineSolid 4
+
+    OutputSimulation { istep = 100 } p%.3d-t%.8ld.vtk {
+	format = VTK
+    }
+
+    Solid ((x-%xc%)*(x-%xc%) + (y-%yc%)*(y-%yc%) - 1.25*1.25)
+}
+
+%box%
+%connect%
