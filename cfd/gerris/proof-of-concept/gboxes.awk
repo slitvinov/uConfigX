@@ -108,7 +108,7 @@ function print_shift2d(sx, sy) {
 }
 
 function print_head(        sx, sy, sz) {
-    sx += get_shift(BCZ, nx)
+    sx += get_shift(BCX, nx)
     sy += get_shift(BCY, ny)
     sz += get_shift(BCZ, nz)
     if (d2)

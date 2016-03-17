@@ -1,0 +1,40 @@
+%bc%    pbc noslip pbc
+%shift%    0  0  0
+%head%    32 32  1  {
+    Source U   %Fu%
+    Source V   %Fv%
+    
+    Global {
+       static double sq(double x) {
+	   return x*x;
+       }
+	
+       static double tracer_init1(double x, double y) {
+           double xd =  0.50 * %Lx%;
+	   double yd =  %yd%;
+	   double Rd =  %Rd%;
+
+	   double dx = x - xd;
+	   double dy = y - yd;
+	   double R2 = sq(dx) + sq(dy);
+           return R2 < sq(Rd) ? 1 : -1;
+       }
+    }
+    
+    GfsVariableTracerVOF {} T1
+    InitFraction T1 (tracer_init1(x, y))
+    VariableCurvature K1 T1
+    SourceTension T1 %st% K1
+
+    SourceViscosity 1.0 { beta = 1 } # Why beta=1?
+                                     # https://sourceforge.net/p/gfs/mailman/message/3773827
+    
+    Refine         %Refine%
+
+    OutputSimulation { step = 2.0 } profile.%8.4e.vtk {
+	format = VTK
+    }
+}
+
+%box%
+%connect%

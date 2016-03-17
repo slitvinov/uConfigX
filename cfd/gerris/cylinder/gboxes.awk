@@ -1,10 +1,10 @@
 #!/usr/bin/awk -f
 
-# Generate boxes for gerris
+# Generate boxes for gerris simulations
 # Substitute %head%, %box%, %connect%
 
 function init(    xs_string, ys_string, zs_string, d_string) { # sets `xs', `ys', `zs', `d', and `ds'
-    PBC = 1; OPEN = 2; NONE = -1
+    NONE = -1
 
     if (d2) {
 	xs_string = "1 0"
@@ -21,6 +21,25 @@ function init(    xs_string, ys_string, zs_string, d_string) { # sets `xs', `ys'
     ns=split(ys_string, ys)
     ns=split(zs_string, zs)
     ns=split(d_string ,  d)
+
+    RefineSolid = Refine + 1
+    set_var("Refine",      Refine)
+    set_var("RefineSolid", RefineSolid)
+
+    phi = pshift == "inf" ? 0 :  atan2(-1/pshift, 1)
+    Fu = Fabs*cos(phi)
+    Fv = Fabs*sin(phi)
+    set_var("Fu",      Fu) # body force components
+    set_var("Fv",      Fv) # 
+    
+    set_var("R",        R) 
+    set_var("Rd",      Rd) # droplet radius
+
+    set_var("yd",      yd) # position of a droplet
+    
+    set_var("st",      st) # surface tension coefficient
+    set_var("ed",      ed) # droplet viscosity
+    
 }
 
 BEGIN {
@@ -47,9 +66,9 @@ function wx_open(r) {nr=nx; return wr_open(r)}
 function wy_open(r) {nr=ny; return wr_open(r)}
 function wz_open(r) {nr=nz; return wr_open(r)}
 
-function wx(r) {return BCX==PBC ? wx_pbc(r) : wx_open(r)}
-function wy(r) {return BCY==PBC ? wy_pbc(r) : wy_open(r)}
-function wz(r) {return BCZ==PBC ? wz_pbc(r) : wz_open(r)}
+function wx(r) {return BCX=="pbc" ? wx_pbc(r) : wx_open(r)}
+function wy(r) {return BCY=="pbc" ? wy_pbc(r) : wy_open(r)}
+function wz(r) {return BCZ=="pbc" ? wz_pbc(r) : wz_open(r)}
 
 function set_nn(ix, iy, iz, i) { # set neighbor coordinates `jx', `jy', `jz', `dir'
     jx = ix + xs[i]
@@ -66,7 +85,9 @@ function openp(x, y, z) {
 
 function reg_box(ix, iy, iz) { # updates `nbox'
     if ((ix, iy, iz) in box) return
-    box[ix,iy,iz]=++nbox
+    ++nbox
+    box[ix,iy,iz]=nbox
+    posx[nbox] = ix; posy[nbox] = iy; posz[nbox] = iz
 }
 
 function reg_all_boxes(   ix, jy, iz) {
@@ -101,7 +122,7 @@ function reg_connect(ix, iy, iz, jx, jy, jz, dir,   id1, id2) {
 }
 
 function get_shift(bc, n) { # shift the origin
-    return (bc == PBC && n>1) ? 3/2 : 1/2
+    return (bc == "pbc" && n>1) ? 3/2 : 1/2
 }
 
 function print_shift3d(sx, sy, sz) {
@@ -138,8 +159,39 @@ function get_pid(i, n, np,    npo, ans) {
 function print_box(   pid, ibox) {
     for (ibox=1; ibox<=nbox; ibox++) {
 	pid = get_pid(ibox, nbox, nproc)
-	printf "GfsBox { pid = %d }\n", pid
+	if (d2) {
+	    set_domain_bc2d(ibox)
+	    printf "GfsBox { pid = %d\n" \
+		"%s%s%s%s}\n", \
+		pid, bc_top, bc_bottom, bc_left, bc_right
+	} else {
+	    set_domain_bc3d(ibox)
+	    printf "GfsBox { pid = %d\n" \
+		"%s%s%s%s}\n", \
+		pid, bc_top, bc_bottom, bc_left, bc_right, bc_front, bc_back
+	}
     }
+}
+
+function set_domain_bc2d(ibox,    ix, iy) {
+    ix = posx[ibox]; iy = posy[ibox]
+    bc_right  = (ix==nx && BCX=="noslip") ? "  right = Boundary { BcDirichlet V 0 }\n" : ""
+    bc_left   = (ix== 1 && BCX=="noslip") ? "  left  = Boundary { BcDirichlet V 0 }\n" : ""
+    
+    bc_top    = (iy==ny && BCY=="noslip") ? "    top = Boundary { BcDirichlet U 0 }\n" : ""
+    bc_bottom = (iy== 1 && BCY=="noslip") ? " bottom = Boundary { BcDirichlet U 0 }\n" : ""
+}
+
+function set_domain_bc3d(ibox,    ix, iy, iz) {
+    ix = posx[ibox]; iy = posy[nbox]; iz = posy[nbox]
+    bc_right  = (ix==nx && BCX=="noslip") ? "  right = Boundary {BcDirichlet V 0\nBcDirichlet W 0}\n" : ""
+    bc_left   = (ix== 1 && BCX=="noslip") ? "  left  = Boundary {BcDirichlet V 0\nBcDirichlet W 0}\n" : ""
+
+    bc_top    = (iy==ny && BCY=="noslip") ? "    top = Boundary {BcDirichlet U 0\nBcDirichlet W 0}\n" : ""
+    bc_bottom = (iy== 1 && BCY=="noslip") ? " bottom = Boundary {BcDirichlet U 0\nBcDirichlet W 0}\n" : ""
+    
+    bc_right  = (iz==nz && BCZ=="noslip") ? "  front = Boundary {BcDirichlet U 0\nBcDirichlet V 0}\n" : ""
+    bc_left   = (iz== 1 && BCZ=="noslip") ? "  back  = Boundary {BcDirichlet U 0\nBcDirichlet V 0}\n" : ""
 }
 
 function print_connect(   iconnect) {
@@ -200,10 +252,10 @@ $1 == "%shift%" {
 }
 
 $1 == "%bc%" {
-    BCX = $2 == "pbc" ? PBC : OPEN
-    BCY = $3 == "pbc" ? PBC : OPEN
+    BCX = $2
+    BCY = $3
     if (!d2)
-	BCZ = $4 == "pbc" ? PBC : OPEN
+	BCZ = $4
     next
 }
 

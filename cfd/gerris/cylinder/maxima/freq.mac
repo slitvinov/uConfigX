@@ -1,0 +1,21 @@
+d: read_nested_list("../sim1/prof.xl.MODEL");
+d: rest(d);
+
+y : map('third  , d);
+load (descriptive)$
+vx: map('seventh, d);
+vx: vx - mean(vx);
+
+Ly: 64;
+
+load("interpol") $
+Fe: cspline( map("[", y, vx)) $
+
+define(F(x), Fe) $
+
+kl: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+ml: map(lambda([k], quad_qags(F(x)*cos(2*%pi/Ly*k*x), x, 0, Ly, 'epsrel=1e-8)[1]), kl);
+
+draw2d( explicit(F(x), x, 0, Ly), 0.3*explicit(cos(2*%pi/Ly*x), x, 0, Ly));
+
+draw2d ('logy=true, points_joined=true, points(kl, abs(ml)));
