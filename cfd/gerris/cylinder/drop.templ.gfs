@@ -1,0 +1,51 @@
+%bc%    pbc pbc pbc
+%shift%   0      0     0
+%head%   32     32     1  {
+    Source U   %Fu%
+    Source V   %Fv%
+    
+    Global {
+       static double sq(double x) {
+	   return x*x;
+       }
+	
+       static double tracer_init1(double x, double y) {
+           double xc =  0.1250 * %Lx%;
+	   double yc =  0.5800 * %Lx%;
+	   double Rc =  0.0625 * %Lx%;
+
+	   double dx = x - xc;
+	   double dy = y - yc;
+	   double R2 = sq(dx) + sq(dy);
+           return R2 < sq(Rc) ? 1 : -1;
+       }
+
+       static double visc(double al) {
+	   double etas =   1;
+	   double etad =   %ed%;
+	   
+	   double be = 1 - al;
+	   return etas*etad / (al*etas + be*etad);
+       }
+    }
+    
+    GfsVariableTracerVOF {} T1
+    InitFraction T1 (tracer_init1(x, y))
+    VariableCurvature K1 T1
+    SourceTension T1 %st% K1
+
+    SourceViscosity {} {return visc(T1);} { beta = 1 } # Why beta=1?
+                                     # https://sourceforge.net/p/gfs/mailman/message/3773827
+    
+    Refine         %Refine%
+    RefineSolid    %RefineSolid%
+
+    Solid ((x-%xc%)*(x-%xc%) + (y-%yc%)*(y-%yc%) - %R%*%R%)
+
+    OutputSimulation { istep = 100 } profile.%08ld.vtk {
+	format = VTK
+    }
+}
+
+%box%
+%connect%

@@ -1,19 +1,31 @@
 %bc%    pbc pbc pbc
-%shift%  0      0     0
-%head%   4      7     1  {
-    Source U   0.1
-    Source V  -0.1
+%shift%   0      0     0
+%head%   64     64     1  {
+    Source U   %Fu%
+    Source V   %Fv%
+    SourceViscosity 1.0 { beta = 1 } # Why beta=1?
+                                     # https://sourceforge.net/p/gfs/mailman/message/3773827
     
-    GfsTime { iend = 1000 }
-    SourceViscosity 1.0 { beta = 1 }
-    GfsRefine 3
-    RefineSolid 4
+    Refine         %Refine%
+    RefineSolid    %RefineSolid%
 
-    OutputSimulation { istep = 100 } p%.3d-t%.8ld.vtk {
+    OutputSimulation { start = end } profile.vtk {
 	format = VTK
     }
 
-    Solid ((x-%xc%)*(x-%xc%) + (y-%yc%)*(y-%yc%) - 1.25*1.25)
+    Solid ((x-%xc%)*(x-%xc%) + (y-%yc%)*(y-%yc%) - %R%*%R%)
+    
+    EventStop { istep = 1 } U 1e-4 DU
+    OutputScalarNorm   { istep = 1 } du.MODEL { v = DU }
+
+    OutputScalarStats  { istep = 1 } u.MODEL { v =  U }
+    OutputScalarStats  { istep = 1 } v.MODEL { v =  V }
+    
+    OutputLocation { start =  end }  prof.xl.MODEL prof.xl
+    OutputLocation { start =  end }  prof.xc.MODEL prof.xc
+
+    OutputLocation { start =  end }  prof.yl.MODEL prof.yl
+    OutputLocation { start =  end }  prof.yc.MODEL prof.yc
 }
 
 %box%
