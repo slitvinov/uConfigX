@@ -41,7 +41,7 @@ BEGIN {
 }
 
 function rep_all(s,    i, new, old) {
-    NREP = 0 # number of variable replaces
+    NREP = 0 # number of variable replaced
     for (i in rep) {
 	old = i
 	new = rep[i]
@@ -62,7 +62,8 @@ function try_to_rep(sepl, sepr,    fst, scd, ans, nn) {
     fst = arr[1]
     scd = arr[2]
     sub(s2reg(sepr), "", scd)
-    ans = rep_all(scd) " " sepl scd sepr
+#    ans = rep_all(scd) " " sepl scd sepr
+    ans = rep_all(scd)
     if (!NREP)
 	return 0
 

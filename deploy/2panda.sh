@@ -14,7 +14,7 @@ uname=lisergey
 rhost="${uname}"@localhost
 
 # remote path name
-name=slow
+name=ring.egg
 
 rpath=$HOME/SYNC/$name/$rname
 

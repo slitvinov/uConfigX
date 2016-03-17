@@ -89,6 +89,7 @@ function create_file_list_submodule() {
 	(
 	    cd "$sm"
 	    "${GIT}" ls-files --cached --full-name | awk '{print "'"$sm/"'"$0}' >> "${file_list}"
+	    find .git -type f  | xargs -n1 printf  "${sm}/%s\n"                 >> "${file_list}"
 	 )
     done
 }

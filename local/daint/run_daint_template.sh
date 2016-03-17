@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-#SBATCH --job-name=1p1c
-#SBATCH --time=00:30:00
+#SBATCH --job-name=eir_gamma
+#SBATCH --time=00:30:00 #=#SBATCH --time=%time%
 #SBATCH --nodes=1 #=#SBATCH --nodes=%np%
 #SBATCH --ntasks-per-node=1
 #SBATCH --output=time_average.%j.o

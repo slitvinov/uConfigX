@@ -14,7 +14,7 @@ uname=lisergey
 rhost="${uname}"@daint
 
 # remote path name
-name=slow
+name=ring.egg
 
 # remote path name
 rpath=/scratch/daint/"${uname}"/$name/"${rname}"

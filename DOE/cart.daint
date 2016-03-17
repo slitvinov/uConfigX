@@ -8,7 +8,7 @@
 
 ########## DPD parameters ##########
 =nd # number density for RBCs
-3
+10
 
 =kBT
 #0.05
@@ -16,24 +16,26 @@
 
 =gammadpd
 #160
-80
+15
 #40
 
 =aij
-#0
-#1
 2
-#3
 
 ####################
 =dt
-0.005
+#0.0005
+#2.5e-4
+6.25e-5
+#1.5625e-5
 
-=pshift #N.lanes
-12
+=pshift
+8
 
 =ha
-3.125e-4
+#3.75e-2
+#1.88e-2
+9.38e-3
 
 ########## RBC parameters ##########
 =fsi
@@ -42,21 +44,21 @@
 =mu0 # RBC shear modulus
 # 0.01
 # 0.1
-#0.1
-1.0
+0.1
+#1.0
 #5.0
 # 100.0
 
 =ka
-4900
+490
 
 =kv
-5000
+500
 
 =kb
 #0.1
 #1.0
-1.0
+20.0
 
 =kd
 100
@@ -65,14 +67,12 @@
 1.3
 
 =gammaC # RBC dissipation
-0
-#1
-#10
+5000
 
-=cshape # cell shapes: (0: sphere, 1: rbc)
-1
+=cshape # cell shapes: ("sphere", "rbc", "ellipsoid")
+"rbc"
 
-=Nv # number of vertices in RBC
+=Nv # number of vertices in cell
 #42
 #92
 #162
@@ -81,3 +81,6 @@
 #812
 #1442
 #5762
+
+=time
+"10:00:00"

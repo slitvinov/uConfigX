@@ -15,14 +15,20 @@
 %%%       A0 = 135 # page 54 Fedosov2010
 %%%       return (A^(3/2)*V0)/A0^(3/2)
 %%%    }
+%%% function a2v_ellipsoid(A,  V0, A0) {
+%%%       V0 = 1.213
+%%%       A0 = 7.372 # see maxima/ellipsoid.mac
+%%%       return (A^(3/2)*V0)/A0^(3/2)
+%%%    }
 %%% function a2v(A) {
-%%%       if (cshape == SPHERE)
+%%%       if (cshape == "sphere")
 %%%          return a2v_sphere(A)
-%%%       elseif (cshape == RBC)
+%%%       elseif (cshape == "rbc")
 %%%          return a2v_rbc(A)
+%%%       elseif (cshape == "ellipsoid")
+%%%          return a2v_ellipsoid(A)
 %%% }
 %%% function init() {
-%%%    SPHERE = 0; RBC = 1   # shapes
 %%%    lunit = 1e-6          # definitions from the code
 %%%    lrbc  = 1e-6
 %%%    dx     = 1/nd^(1/3)   # DPD particles spacing
@@ -40,29 +46,23 @@
 %%%  /(16*lmax*lrbc^2*mu0*(lunit*x0-lrbc)^3)   # solve (B.5) in
 					       # Fedosov2010 for `p'
 %%%
-# %%%    cq = (3^(3/2)*l0^4*lunit^4* \
-# %%%	       (4*l0^2*lunit^2-9*l0*lmax*lrbc*lunit+6*lmax^2*lrbc^2)) \
-# %%%           /(32*lmax*lrbc^4*(l0*lunit-lmax*lrbc)^2*p) # parameters.CTC/RBC/3d/rbc-udevice.mac,
-# %%%							 # similar to
-# %%%							 # (3.4) in
-# %%%							 # Fedosov2010
 %%%    mpow = 2
 %%%    kp = (kBT*x0*(lmax*x0)^mpow*(4*x0^2-9*x0+6))/(4*p*(x0-1)^2)
 %%% }
 %%%
 %%% function box_l0() {
-%%%     rx=1; ry=1; rz=1
-%%%     XS=32; YS=56; ZS=56
+%%%     rx=1; ry=1;   rz=1
+%%%     XS=24; YS=42; ZS=42
 %%% }
 %%% 
 %%% function box_l1() {
 %%%     rx=2; ry=2; rz=1
-%%%     XS=32; YS=56; ZS=56
+%%%     XS=24; YS=42; ZS=42    
 %%% }
 %%% 
 %%% function box_l2() {
 %%%     rx=4; ry=4; rz=1
-%%%     XS=32; YS=56; ZS=56
+%%%     XS=24; YS=42; ZS=42    
 %%% }
 %%%
 %%% function box() {
@@ -73,19 +73,22 @@
 %%%    Ly = YS*ry
 %%%    Lz = ZS*rz
 %%% }
+=mu0
+=ha # body force
+=gammadpd
+=pshift
+=gammaC
+=aij
+=Nv # number of pariticles in the membrain
+=cshape
+=nd
+
 ########## RBC parameters ##########
 =level
 =kb
-=gammaC
-=mu0
 =kBT
-=gammadpd
-=ha # body force
-
-=aij
 
 =geom
-=pshift
 =kd
 
 =p
@@ -109,14 +112,6 @@ l0
 init()
 lmax
 
-#---- up to here appear in file name
-=nd
-
-=cshape
-
-# =cq
-# init()
-# cq
 
 =mpow
 init()
@@ -125,9 +120,6 @@ mpow
 =kp # a constant in WLC-POW
 init()
 kp
-
-
-=Nv # number of pariticles in the membrain
 
 =phirbc # spontaneous angle; (3.21) in Fedosov2010
 todeg(acos((sqrt(3)*(Nv-2)-5*pi()) / (sqrt(3)*(Nv-2)-3*pi())))
@@ -187,3 +179,5 @@ YS
 =ZS
 box()
 ZS
+
+=time

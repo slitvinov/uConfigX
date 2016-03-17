@@ -35,7 +35,7 @@ BEGIN {
     r *= sc
     r *= reff
 
-    nmax = 300  # should be a big number, TODO:
+    nmax = 100  # should be a big number, TODO:
     for (i=0; i<nmax; i++) {
 	for (j=0; j<nmax; j++) {
 	    for (k=0; k<nmax; k++) {

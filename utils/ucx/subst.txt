@@ -66,6 +66,7 @@ ply2ascii		    post/ply/ply2ascii
 ply2binary		    post/ply/ply2binary
 platoply		    post/ply/platoply
 
+plysplit.awk		    post/ply/scripts/plysplit.awk
 ply2ncell.awk		    post/ply/scripts/ply2ncell.awk
 ply2trbc.awk		    post/ply/scripts/ply2trbc.awk
 ply2volume.sh		    post/ply/scripts/ply2volume.sh

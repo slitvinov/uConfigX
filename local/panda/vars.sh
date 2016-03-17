@@ -31,7 +31,7 @@ totArea0=10.0 #= totArea0=%totArea0%
 
 phix=1.570796326794897
 Nv=1442 #=Nv=%Nv%
-dump=20000
+dump=50000
 slevel=0
 
 walls="-walls -wall_creation_stepid=$wall_creation_stepid"
